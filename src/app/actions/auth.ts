@@ -8,11 +8,16 @@ export async function authenticate(formData: FormData) {
   const usernameInput = (formData.get('username') as string)?.trim();
   const passwordInput = (formData.get('password') as string)?.trim();
 
-  // Retrieve credentials from environment variables and trim them
-  const ADMIN_USERNAME = process.env.ADMIN_USERNAME?.trim();
-  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD?.trim();
+  // Retrieve credentials from environment variables
+  const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-  if (usernameInput && passwordInput && usernameInput === ADMIN_USERNAME && passwordInput === ADMIN_PASSWORD) {
+  if (
+    usernameInput && 
+    passwordInput && 
+    usernameInput === ADMIN_USERNAME && 
+    passwordInput === ADMIN_PASSWORD
+  ) {
     const token = await signJWT({ user: usernameInput });
     const cookieStore = await cookies();
     

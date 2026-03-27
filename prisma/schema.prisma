@@ -3,12 +3,12 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "/app/generated/prisma-client"
+  output   = "../app/generated/prisma-client"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  url      = env("POSTGRES_PRISMA_URL")
 }
 
 model Question {
@@ -27,10 +27,10 @@ model Question {
 model Profile {
   id         String     @id @default(uuid())
   name       String?
-  profession String
+  profession String     @db.VarChar(50)
   institute  String
   email      String?
-  phone      String?
+  phone      String?    @db.VarChar(20)
   createdAt  DateTime   @default(now()) @map("created_at")
   responses  Response[]
 
@@ -39,12 +39,13 @@ model Profile {
 
 model Response {
   id         String   @id @default(uuid())
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId String   @map("question_id")
-  profile    Profile? @relation(fields: [profileId], references: [id], onDelete: SetNull)
   profileId  String?  @map("profile_id")
-  choice     String
+  choice     String   @db.VarChar(20) // e.g., 'A_1', 'A_2', 'B_1', 'B_2'
   createdAt  DateTime @default(now()) @map("created_at")
+
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  profile  Profile? @relation(fields: [profileId], references: [id], onDelete: SetNull)
 
   @@map("responses")
 }

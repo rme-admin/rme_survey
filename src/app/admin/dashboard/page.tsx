@@ -1,4 +1,3 @@
-
 import { getStats, addQuestion, toggleQuestionStatus, deleteQuestion } from '@/app/actions/admin';
 import { logout } from '@/app/actions/auth';
 import { Button } from '@/components/ui/button';
@@ -23,7 +22,7 @@ export default async function AdminDashboard() {
   const stats = await getStats();
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background flex font-sans">
       {/* Sidebar */}
       <aside className="w-64 border-r border-border bg-card hidden md:flex flex-col">
         <div className="p-6 border-b border-border flex items-center gap-3">
@@ -58,7 +57,7 @@ export default async function AdminDashboard() {
           </div>
         </header>
 
-        <div className="p-8 space-y-12">
+        <div className="p-8 space-y-12 overflow-y-auto max-h-[calc(100vh-80px)]">
           {/* Add Question Form */}
           <section className="bg-card border border-border p-8 rounded-2xl shadow-sm">
             <div className="flex items-center gap-2 mb-8">
@@ -112,7 +111,7 @@ export default async function AdminDashboard() {
               </div>
 
               <div className="md:col-span-2 flex justify-end">
-                <Button className="bg-accent hover:bg-orange-700 text-white uppercase font-bold tracking-widest h-12 px-12 rounded-xl">
+                <Button type="submit" className="bg-accent hover:bg-orange-700 text-white uppercase font-bold tracking-widest h-12 px-12 rounded-xl">
                   Deploy Question
                 </Button>
               </div>
@@ -120,7 +119,7 @@ export default async function AdminDashboard() {
           </section>
 
           {/* Questions Table */}
-          <section className="space-y-4">
+          <section className="space-y-4 pb-12">
             <h2 className="text-xl font-bold uppercase flex items-center gap-2 text-primary">
               <BarChart3 className="h-5 w-5 text-accent" /> Active Experiments & Results
             </h2>
@@ -128,7 +127,7 @@ export default async function AdminDashboard() {
             <div className="bg-card border border-border overflow-hidden rounded-2xl shadow-sm">
               <Table>
                 <TableHeader className="bg-muted/50">
-                  <TableRow className="hover:bg-transparent">
+                  <TableRow className="hover:bg-transparent font-bold">
                     <TableHead className="w-[100px]">Status</TableHead>
                     <TableHead>Comparison Statements & Labels</TableHead>
                     <TableHead className="text-right">Choice A</TableHead>

@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
               <Input 
                 id="username" 
                 name="username" 
-                placeholder="rme.platform@gmail.com" 
+                placeholder="Email Comes Here" 
                 className="pl-12 h-14 bg-background border-border rounded-xl focus:ring-accent"
                 required
               />

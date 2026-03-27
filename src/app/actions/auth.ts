@@ -1,4 +1,3 @@
-
 'use server';
 
 import { signJWT } from '@/lib/auth';
@@ -8,9 +7,9 @@ export async function authenticate(formData: FormData) {
   const usernameInput = (formData.get('username') as string)?.trim();
   const passwordInput = (formData.get('password') as string)?.trim();
 
-  // Retrieve credentials from environment variables
-  const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
-  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+  // Retrieve credentials from environment variables and ensure they are trimmed
+  const ADMIN_USERNAME = process.env.ADMIN_USERNAME?.trim();
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD?.trim();
 
   if (
     usernameInput && 

@@ -1,4 +1,3 @@
-
 'use server';
 
 import { db } from '@/lib/db';
@@ -7,7 +6,7 @@ import { cookies } from 'next/headers';
 
 const responseSchema = z.object({
   questionId: z.string(),
-  choice: z.string(), // Allowing 'A_1', 'A_2', etc.
+  choice: z.string(),
 });
 
 const profileSchema = z.object({

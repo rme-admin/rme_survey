@@ -1,11 +1,13 @@
-
-generator client {
-  provider = "prisma-client-js"
-}
-
+// Define database connection via the `DATABASE_URL` env var
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_URL")
+}
+
+// Define custom output path for generated Prisma Client
+generator client {
+  provider = "prisma-client-js"
+  output   = "/app/generated/prisma-client"
 }
 
 model Question {
@@ -38,9 +40,9 @@ model Response {
   id         String   @id @default(uuid())
   questionId String   @map("question_id")
   profileId  String?  @map("profile_id")
-  choice     String   // e.g., 'A_1', 'A_2', 'B_1', 'B_2'
+  choice     String
   createdAt  DateTime @default(now()) @map("created_at")
-
+  
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   profile    Profile? @relation(fields: [profileId], references: [id], onDelete: SetNull)
 

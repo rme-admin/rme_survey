@@ -1,9 +1,6 @@
 
-import { db } from '@/lib/db';
-import { questions } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import questionsData from '@/lib/data/questions.json';
 import SurveyClient from '@/components/SurveyClient';
-import { redirect } from 'next/navigation';
 
 export default async function SurveyPage({
   searchParams,
@@ -13,10 +10,8 @@ export default async function SurveyPage({
   const params = await searchParams;
   const step = parseInt(params.question || '0');
 
-  const activeQuestions = await db.query.questions.findMany({
-    where: eq(questions.isActive, true),
-    orderBy: (questions, { asc }) => [asc(questions.createdAt)],
-  });
+  // Using JSON data instead of DB to avoid connection errors
+  const activeQuestions = questionsData.filter(q => q.isActive);
 
   if (activeQuestions.length === 0) {
     return (

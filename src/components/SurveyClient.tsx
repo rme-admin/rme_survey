@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { submitResponse } from '@/app/actions/survey';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface SurveyClientProps {
   question: {
@@ -20,9 +19,9 @@ interface SurveyClientProps {
 export default function SurveyClient({ question, nextStep }: SurveyClientProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selected, setSelected] = useState<'A' | 'B' | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
-  const handleChoice = async (choice: 'A' | 'B') => {
+  const handleChoice = async (choice: string) => {
     setSelected(choice);
     setIsSubmitting(true);
     
@@ -38,52 +37,76 @@ export default function SurveyClient({ question, nextStep }: SurveyClientProps) 
   };
 
   return (
-    <div className="w-full max-w-7xl flex flex-col md:flex-row gap-0 items-stretch min-h-[50vh]">
-      {/* Statement A */}
-      <button
-        disabled={isSubmitting}
-        onClick={() => handleChoice('A')}
-        className={cn(
-          "flex-1 p-12 text-left group transition-all duration-300 flex flex-col justify-center",
-          "border-4 border-transparent hover:border-accent bg-card",
-          selected === 'A' && "bg-primary border-accent"
-        )}
-      >
-        <span className="text-accent font-black text-6xl mb-6 opacity-20 group-hover:opacity-100 transition-opacity">A</span>
-        <p className="text-2xl md:text-3xl font-body leading-relaxed">
+    <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-4 md:gap-0">
+      {/* Column A */}
+      <div className="flex-1 flex flex-col items-center gap-8 p-6 text-center">
+        <p className="text-lg md:text-2xl font-medium leading-relaxed min-h-[100px] flex items-center">
           {question.statementA}
         </p>
-        <div className="mt-8 flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-opacity uppercase font-bold tracking-widest">
-          Select Statement A <ArrowRight className="h-4 w-4" />
-        </div>
-      </button>
-
-      {/* Central OR Badge */}
-      <div className="relative flex items-center justify-center py-4 md:py-0 md:px-4 z-10 pointer-events-none">
-        <div className="h-px w-full md:w-px md:h-full bg-border absolute" />
-        <div className="bg-accent text-white w-16 h-16 flex items-center justify-center font-black text-xl shadow-2xl relative">
-          OR
+        <div className="flex gap-4 w-full justify-center">
+          <Button
+            disabled={isSubmitting}
+            onClick={() => handleChoice('A_AGREE')}
+            className={cn(
+              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
+              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
+              selected === 'A_AGREE' && "ring-4 ring-white"
+            )}
+          >
+            Completely Agree
+          </Button>
+          <Button
+            disabled={isSubmitting}
+            onClick={() => handleChoice('A_SOMETIMES')}
+            className={cn(
+              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
+              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
+              selected === 'A_SOMETIMES' && "ring-4 ring-white"
+            )}
+          >
+            Sometimes
+          </Button>
         </div>
       </div>
 
-      {/* Statement B */}
-      <button
-        disabled={isSubmitting}
-        onClick={() => handleChoice('B')}
-        className={cn(
-          "flex-1 p-12 text-left md:text-right group transition-all duration-300 flex flex-col justify-center",
-          "border-4 border-transparent hover:border-accent bg-card",
-          selected === 'B' && "bg-primary border-accent"
-        )}
-      >
-        <span className="text-accent font-black text-6xl mb-6 opacity-20 group-hover:opacity-100 transition-opacity">B</span>
-        <p className="text-2xl md:text-3xl font-body leading-relaxed">
+      {/* Central OR Circle */}
+      <div className="relative flex items-center justify-center p-4">
+        <div className="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-xl z-10">
+          OR
+        </div>
+        <div className="hidden md:block absolute w-[2px] h-[300px] bg-border -z-0" />
+      </div>
+
+      {/* Column B */}
+      <div className="flex-1 flex flex-col items-center gap-8 p-6 text-center">
+        <p className="text-lg md:text-2xl font-medium leading-relaxed min-h-[100px] flex items-center">
           {question.statementB}
         </p>
-        <div className="mt-8 flex items-center md:justify-end gap-2 text-accent opacity-0 group-hover:opacity-100 transition-opacity uppercase font-bold tracking-widest">
-          <ArrowLeft className="h-4 w-4" /> Select Statement B
+        <div className="flex gap-4 w-full justify-center">
+          <Button
+            disabled={isSubmitting}
+            onClick={() => handleChoice('B_AGREE')}
+            className={cn(
+              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
+              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
+              selected === 'B_AGREE' && "ring-4 ring-white"
+            )}
+          >
+            Completely Agree
+          </Button>
+          <Button
+            disabled={isSubmitting}
+            onClick={() => handleChoice('B_SOMETIMES')}
+            className={cn(
+              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
+              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
+              selected === 'B_SOMETIMES' && "ring-4 ring-white"
+            )}
+          >
+            Sometimes
+          </Button>
         </div>
-      </button>
+      </div>
     </div>
   );
 }

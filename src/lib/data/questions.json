@@ -1,0 +1,15 @@
+
+[
+  {
+    "id": "1",
+    "statementA": "Finding and receiving specialized chemicals and equipment is a smooth, predictable process.",
+    "statementB": "I often face long delays and high costs because I have very limited options for where to buy supplies.",
+    "isActive": true
+  },
+  {
+    "id": "2",
+    "statementA": "Our procurement system is fully integrated and provides real-time tracking of all orders.",
+    "statementB": "We rely on manual spreadsheets and emails to track orders, which leads to frequent errors.",
+    "isActive": true
+  }
+]

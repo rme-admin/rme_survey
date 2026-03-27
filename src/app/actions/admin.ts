@@ -1,53 +1,39 @@
 
 'use server';
 
-import { db } from '@/lib/db';
-import { questions, responses } from '@/lib/db/schema';
-import { eq, count } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
+import questionsData from '@/lib/data/questions.json';
 
+// Mocking actions to avoid Postgres errors until credentials are provided
 export async function addQuestion(formData: FormData) {
   const statementA = formData.get('statementA') as string;
   const statementB = formData.get('statementB') as string;
 
   if (!statementA || !statementB) return { error: 'Both statements are required' };
 
-  await db.insert(questions).values({
-    statementA,
-    statementB,
-  });
-
+  console.log('Admin: Add question requested', { statementA, statementB });
   revalidatePath('/admin/dashboard');
   return { success: true };
 }
 
 export async function toggleQuestionStatus(id: string, currentStatus: boolean) {
-  await db.update(questions)
-    .set({ isActive: !currentStatus })
-    .where(eq(questions.id, id));
+  console.log('Admin: Toggle status', id, !currentStatus);
   revalidatePath('/admin/dashboard');
 }
 
 export async function deleteQuestion(id: string) {
-  await db.delete(questions).where(eq(questions.id, id));
+  console.log('Admin: Delete question', id);
   revalidatePath('/admin/dashboard');
 }
 
 export async function getStats() {
-  const allQuestions = await db.query.questions.findMany();
-  const stats = await Promise.all(allQuestions.map(async (q) => {
-    const [countA] = await db.select({ value: count() }).from(responses).where(eq(responses.questionId, q.id) && eq(responses.choice, 'A'));
-    const [countB] = await db.select({ value: count() }).from(responses).where(eq(responses.questionId, q.id) && eq(responses.choice, 'B'));
-    
-    return {
-      id: q.id,
-      statementA: q.statementA,
-      statementB: q.statementB,
-      countA: Number(countA?.value || 0),
-      countB: Number(countB?.value || 0),
-      isActive: q.isActive
-    };
+  // Return mock stats based on JSON file
+  return questionsData.map((q) => ({
+    id: q.id,
+    statementA: q.statementA,
+    statementB: q.statementB,
+    countA: 0,
+    countB: 0,
+    isActive: q.isActive
   }));
-
-  return stats;
 }

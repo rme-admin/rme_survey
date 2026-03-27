@@ -1,8 +1,8 @@
-
 import { getStats, addQuestion, toggleQuestionStatus, deleteQuestion } from '@/app/actions/admin';
 import { logout } from '@/app/actions/auth';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
 import {
   Table,
   TableBody,
@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { LogOut, Plus, Trash2, Power, BarChart3, Settings, ShieldCheck } from 'lucide-react';
+import { LogOut, Plus, Trash2, Power, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import siteContent from '@/lib/data/site-content.json';
@@ -24,7 +24,14 @@ export default async function AdminDashboard() {
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
       <aside className="w-64 border-r border-border bg-card hidden md:flex flex-col">
-        <div className="p-6 border-b border-border">
+        <div className="p-6 border-b border-border flex items-center gap-3">
+          <Image 
+            src={siteContent.logoUrl} 
+            alt={siteContent.siteName} 
+            width={24} 
+            height={24} 
+            className="rounded-sm"
+          />
           <h2 className="font-black text-xl tracking-tighter text-primary">{siteContent.shortName}<span className="text-accent">DASH</span></h2>
         </div>
         <nav className="flex-1 p-4 space-y-2">

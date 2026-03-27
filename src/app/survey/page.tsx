@@ -1,9 +1,9 @@
-
 import questionsData from '@/lib/data/questions.json';
 import siteContent from '@/lib/data/site-content.json';
 import SurveyClient from '@/components/SurveyClient';
 import SurveyProfileForm from '@/components/SurveyProfileForm';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default async function SurveyPage({
   searchParams,
@@ -59,11 +59,20 @@ export default async function SurveyPage({
       <div className="min-h-screen bg-background flex flex-col">
         <header className="p-6 border-b border-border bg-card shadow-sm">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="space-y-1">
-              <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
-                {siteContent.surveyTitle}
-              </h1>
-              <p className="text-xs text-primary font-bold uppercase italic">Final Step: Research Identity</p>
+            <div className="flex items-center gap-4">
+              <Image 
+                src={siteContent.logoUrl} 
+                alt={siteContent.siteName} 
+                width={32} 
+                height={32} 
+                className="rounded-md"
+              />
+              <div className="space-y-1">
+                <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
+                  {siteContent.surveyTitle}
+                </h1>
+                <p className="text-xs text-primary font-bold uppercase italic">Final Step: Research Identity</p>
+              </div>
             </div>
             <div className="w-48 h-2 bg-secondary rounded-full overflow-hidden">
               <div 
@@ -87,11 +96,20 @@ export default async function SurveyPage({
     <div className="min-h-screen bg-background flex flex-col">
       <header className="p-6 border-b border-border bg-card shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="space-y-1">
-            <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
-              {siteContent.surveyTitle}
-            </h1>
-            <p className="text-xs text-primary font-bold uppercase">Question {step + 1} of {activeQuestions.length}</p>
+          <div className="flex items-center gap-4">
+            <Image 
+              src={siteContent.logoUrl} 
+              alt={siteContent.siteName} 
+              width={32} 
+              height={32} 
+              className="rounded-md"
+            />
+            <div className="space-y-1">
+              <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
+                {siteContent.surveyTitle}
+              </h1>
+              <p className="text-xs text-primary font-bold uppercase">Question {step + 1} of {activeQuestions.length}</p>
+            </div>
           </div>
           <div className="w-48 h-2 bg-secondary rounded-full overflow-hidden">
             <div 

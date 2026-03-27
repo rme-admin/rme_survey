@@ -1,5 +1,5 @@
-
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Mail, MapPin } from 'lucide-react';
 import siteContent from '@/lib/data/site-content.json';
@@ -9,6 +9,16 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <main className="flex-1 flex flex-col items-center justify-center p-6 text-center">
         <div className="max-w-4xl space-y-8">
+          <div className="flex justify-center mb-4">
+            <Image 
+              src={siteContent.logoUrl} 
+              alt={siteContent.siteName} 
+              width={64} 
+              height={64} 
+              className="rounded-xl shadow-sm border border-border"
+              data-ai-hint="research logo"
+            />
+          </div>
           <div className="space-y-4">
             <h2 className="text-5xl md:text-7xl font-black uppercase leading-tight text-primary">
               {siteContent.heroTitle.split('&')[0]}<br />

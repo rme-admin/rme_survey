@@ -1,3 +1,4 @@
+
 'use server';
 
 import { db } from '@/lib/db';
@@ -6,7 +7,7 @@ import { cookies } from 'next/headers';
 
 const responseSchema = z.object({
   questionId: z.string(),
-  choice: z.enum(['A_AGREE', 'A_SOMETIMES', 'B_AGREE', 'B_SOMETIMES']),
+  choice: z.string(), // Allowing 'A_1', 'A_2', etc.
 });
 
 const profileSchema = z.object({
@@ -56,6 +57,7 @@ export async function submitProfile(data: any) {
     cookieStore.set('survey_profile_id', newProfile.id, {
       maxAge: 60 * 60 * 24, // 1 day
       httpOnly: true,
+      path: '/',
     });
 
     return { success: true };

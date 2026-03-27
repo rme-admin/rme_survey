@@ -1,7 +1,9 @@
+
 import { getStats, addQuestion, toggleQuestionStatus, deleteQuestion } from '@/app/actions/admin';
 import { logout } from '@/app/actions/auth';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import {
   Table,
@@ -12,7 +14,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { LogOut, Plus, Trash2, Power, BarChart3 } from 'lucide-react';
+import { LogOut, Plus, Trash2, Power, BarChart3, Settings2 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import siteContent from '@/lib/data/site-content.json';
@@ -70,7 +72,7 @@ export default async function AdminDashboard() {
                 <Textarea 
                   name="statementA" 
                   placeholder="e.g. Research resources are easily accessible in our institution." 
-                  className="min-h-[120px] bg-background border-border resize-none rounded-xl"
+                  className="min-h-[100px] bg-background border-border resize-none rounded-xl"
                   required
                 />
               </div>
@@ -79,10 +81,36 @@ export default async function AdminDashboard() {
                 <Textarea 
                   name="statementB" 
                   placeholder="e.g. We face significant challenges in procuring research equipment." 
-                  className="min-h-[120px] bg-background border-border resize-none rounded-xl"
+                  className="min-h-[100px] bg-background border-border resize-none rounded-xl"
                   required
                 />
               </div>
+
+              <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-border">
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground flex items-center gap-2">
+                    <Settings2 className="h-3 w-3" /> Primary Option Label
+                  </label>
+                  <Input 
+                    name="optionA" 
+                    placeholder="e.g. Completely Agree" 
+                    defaultValue="Completely Agree"
+                    className="h-12 bg-background border-border rounded-xl"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground flex items-center gap-2">
+                    <Settings2 className="h-3 w-3" /> Secondary Option Label
+                  </label>
+                  <Input 
+                    name="optionB" 
+                    placeholder="e.g. Sometimes" 
+                    defaultValue="Sometimes"
+                    className="h-12 bg-background border-border rounded-xl"
+                  />
+                </div>
+              </div>
+
               <div className="md:col-span-2 flex justify-end">
                 <Button className="bg-accent hover:bg-orange-700 text-white uppercase font-bold tracking-widest h-12 px-12 rounded-xl">
                   Deploy Question
@@ -102,7 +130,7 @@ export default async function AdminDashboard() {
                 <TableHeader className="bg-muted/50">
                   <TableRow className="hover:bg-transparent">
                     <TableHead className="w-[100px]">Status</TableHead>
-                    <TableHead>Comparison Statements</TableHead>
+                    <TableHead>Comparison Statements & Labels</TableHead>
                     <TableHead className="text-right">Choice A</TableHead>
                     <TableHead className="text-right">Choice B</TableHead>
                     <TableHead className="text-right">Ratio</TableHead>
@@ -128,9 +156,15 @@ export default async function AdminDashboard() {
                           </Badge>
                         </TableCell>
                         <TableCell className="max-w-md">
-                          <div className="space-y-1">
-                            <p className="text-sm font-medium line-clamp-1 italic text-muted-foreground">A: {q.statementA}</p>
-                            <p className="text-sm font-medium line-clamp-1 italic text-muted-foreground">B: {q.statementB}</p>
+                          <div className="space-y-2">
+                            <div className="space-y-1">
+                              <p className="text-sm font-medium line-clamp-1 italic text-muted-foreground">A: {q.statementA}</p>
+                              <p className="text-sm font-medium line-clamp-1 italic text-muted-foreground">B: {q.statementB}</p>
+                            </div>
+                            <div className="flex gap-2">
+                              <Badge variant="outline" className="text-[9px] uppercase font-bold bg-muted/50 border-border">Option 1: {q.optionA}</Badge>
+                              <Badge variant="outline" className="text-[9px] uppercase font-bold bg-muted/50 border-border">Option 2: {q.optionB}</Badge>
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell className="text-right font-mono font-bold text-accent">{q.countA}</TableCell>

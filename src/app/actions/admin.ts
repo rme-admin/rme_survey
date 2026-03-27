@@ -1,3 +1,4 @@
+
 'use server';
 
 import { db } from '@/lib/db';
@@ -6,6 +7,8 @@ import { revalidatePath } from 'next/cache';
 export async function addQuestion(formData: FormData) {
   const statementA = formData.get('statementA') as string;
   const statementB = formData.get('statementB') as string;
+  const optionA = formData.get('optionA') as string || "Completely Agree";
+  const optionB = formData.get('optionB') as string || "Sometimes";
 
   if (!statementA || !statementB) return { error: 'Both statements are required' };
 
@@ -14,6 +17,8 @@ export async function addQuestion(formData: FormData) {
       data: {
         statementA,
         statementB,
+        optionA,
+        optionB,
         isActive: true,
       },
     });
@@ -54,6 +59,9 @@ export async function getStats() {
       include: {
         responses: true,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     
     const stats = allQuestions.map((q) => {
@@ -64,6 +72,8 @@ export async function getStats() {
         id: q.id,
         statementA: q.statementA,
         statementB: q.statementB,
+        optionA: q.optionA,
+        optionB: q.optionB,
         countA,
         countB,
         isActive: q.isActive,

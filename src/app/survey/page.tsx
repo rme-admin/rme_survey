@@ -1,3 +1,4 @@
+
 import { db } from '@/lib/db';
 import siteContent from '@/lib/data/site-content.json';
 import SurveyClient from '@/components/SurveyClient';
@@ -13,7 +14,7 @@ export default async function SurveyPage({
   const params = await searchParams;
   const step = parseInt(params.question || '0');
 
-  // Fetch active questions from DB using Prisma
+  // Fetch active questions from DB
   const activeQuestions = await db.question.findMany({
     where: { isActive: true },
     orderBy: { createdAt: 'asc' }
@@ -130,7 +131,9 @@ export default async function SurveyPage({
           question={{
             id: currentQuestion.id,
             statementA: currentQuestion.statementA,
-            statementB: currentQuestion.statementB
+            statementB: currentQuestion.statementB,
+            optionA: currentQuestion.optionA,
+            optionB: currentQuestion.optionB
           }} 
           nextStep={step + 1} 
         />

@@ -1,19 +1,19 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Question {
   id         String     @id @default(uuid())
   statementA String     @map("statement_a")
   statementB String     @map("statement_b")
+  optionA    String     @default("Completely Agree") @map("option_a")
+  optionB    String     @default("Sometimes") @map("option_b")
   isActive   Boolean    @default(true) @map("is_active")
   createdAt  DateTime   @default(now()) @map("created_at")
   responses  Response[]
@@ -24,10 +24,10 @@ model Question {
 model Profile {
   id         String     @id @default(uuid())
   name       String?
-  profession String     @db.VarChar(50)
+  profession String
   institute  String
   email      String?
-  phone      String?    @db.VarChar(20)
+  phone      String?
   createdAt  DateTime   @default(now()) @map("created_at")
   responses  Response[]
 
@@ -38,9 +38,9 @@ model Response {
   id         String   @id @default(uuid())
   questionId String   @map("question_id")
   profileId  String?  @map("profile_id")
-  choice     String   @db.VarChar(20)
+  choice     String   // e.g., 'A_1', 'A_2', 'B_1', 'B_2'
   createdAt  DateTime @default(now()) @map("created_at")
-  
+
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   profile    Profile? @relation(fields: [profileId], references: [id], onDelete: SetNull)
 

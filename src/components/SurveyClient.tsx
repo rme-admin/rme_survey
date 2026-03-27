@@ -12,6 +12,8 @@ interface SurveyClientProps {
     id: string;
     statementA: string;
     statementB: string;
+    optionA: string;
+    optionB: string;
   };
   nextStep: number;
 }
@@ -46,25 +48,25 @@ export default function SurveyClient({ question, nextStep }: SurveyClientProps) 
         <div className="flex gap-4 w-full justify-center">
           <Button
             disabled={isSubmitting}
-            onClick={() => handleChoice('A_AGREE')}
+            onClick={() => handleChoice('A_1')}
             className={cn(
               "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
               "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'A_AGREE' && "ring-4 ring-white"
+              selected === 'A_1' && "ring-4 ring-white"
             )}
           >
-            Completely Agree
+            {question.optionA}
           </Button>
           <Button
             disabled={isSubmitting}
-            onClick={() => handleChoice('A_SOMETIMES')}
+            onClick={() => handleChoice('A_2')}
             className={cn(
               "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
               "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'A_SOMETIMES' && "ring-4 ring-white"
+              selected === 'A_2' && "ring-4 ring-white"
             )}
           >
-            Sometimes
+            {question.optionB}
           </Button>
         </div>
       </div>
@@ -85,25 +87,25 @@ export default function SurveyClient({ question, nextStep }: SurveyClientProps) 
         <div className="flex gap-4 w-full justify-center">
           <Button
             disabled={isSubmitting}
-            onClick={() => handleChoice('B_AGREE')}
+            onClick={() => handleChoice('B_1')}
             className={cn(
               "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
               "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'B_AGREE' && "ring-4 ring-white"
+              selected === 'B_1' && "ring-4 ring-white"
             )}
           >
-            Completely Agree
+            {question.optionA}
           </Button>
           <Button
             disabled={isSubmitting}
-            onClick={() => handleChoice('B_SOMETIMES')}
+            onClick={() => handleChoice('B_2')}
             className={cn(
               "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
               "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'B_SOMETIMES' && "ring-4 ring-white"
+              selected === 'B_2' && "ring-4 ring-white"
             )}
           >
-            Sometimes
+            {question.optionB}
           </Button>
         </div>
       </div>

@@ -1,4 +1,7 @@
-import questionsData from '@/lib/data/questions.json';
+
+import { db } from '@/lib/db';
+import { questions } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
 import siteContent from '@/lib/data/site-content.json';
 import SurveyClient from '@/components/SurveyClient';
 import SurveyProfileForm from '@/components/SurveyProfileForm';
@@ -13,7 +16,8 @@ export default async function SurveyPage({
   const params = await searchParams;
   const step = parseInt(params.question || '0');
 
-  const activeQuestions = questionsData.filter(q => q.isActive);
+  // Fetch active questions from DB
+  const activeQuestions = await db.select().from(questions).where(eq(questions.isActive, true));
   const totalSteps = activeQuestions.length + 1; // Questions + Profile Step
 
   if (activeQuestions.length === 0) {
@@ -35,7 +39,7 @@ export default async function SurveyPage({
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
-          <h2 className="text-3xl font-black mb-4 uppercase text-primary text-balance">Survey Complete</h2>
+          <h2 className="text-3xl font-black mb-4 uppercase text-primary text-balance text-center">Survey Complete</h2>
           <div className="w-20 h-1 bg-accent mx-auto mb-8" />
           <p className="text-muted-foreground mb-12 leading-relaxed">
             Thank you for participating in the <span className="font-bold text-primary">{siteContent.surveyTitle}</span>. Your valuable insights help us build a more effective research ecosystem in India.
@@ -122,7 +126,11 @@ export default async function SurveyPage({
 
       <main className="flex-1 flex items-center justify-center p-6">
         <SurveyClient 
-          question={currentQuestion} 
+          question={{
+            id: currentQuestion.id,
+            statementA: currentQuestion.statementA,
+            statementB: currentQuestion.statementB
+          }} 
           nextStep={step + 1} 
         />
       </main>

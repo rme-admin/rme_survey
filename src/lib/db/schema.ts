@@ -9,10 +9,20 @@ export const questions = pgTable('questions', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
+export const profiles = pgTable('profiles', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: text('name'),
+  profession: varchar('profession', { length: 50 }).notNull(),
+  institute: text('institute').notNull(),
+  email: text('email'),
+  phone: varchar('phone', { length: 20 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 export const responses = pgTable('responses', {
   id: uuid('id').defaultRandom().primaryKey(),
   questionId: uuid('question_id').references(() => questions.id, { onDelete: 'cascade' }).notNull(),
-  choice: varchar('choice', { length: 1 }).notNull(), // 'A' or 'B'
-  metadata: text('metadata'), // JSON string for timestamps/device info
+  profileId: uuid('profile_id').references(() => profiles.id, { onDelete: 'set null' }),
+  choice: varchar('choice', { length: 20 }).notNull(), // 'A_AGREE', 'A_SOMETIMES', etc.
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

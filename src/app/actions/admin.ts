@@ -1,9 +1,6 @@
-
 'use server';
 
 import { db } from '@/lib/db';
-import { questions, responses } from '@/lib/db/schema';
-import { eq, sql, count } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
 export async function addQuestion(formData: FormData) {
@@ -13,10 +10,12 @@ export async function addQuestion(formData: FormData) {
   if (!statementA || !statementB) return { error: 'Both statements are required' };
 
   try {
-    await db.insert(questions).values({
-      statementA,
-      statementB,
-      isActive: true,
+    await db.question.create({
+      data: {
+        statementA,
+        statementB,
+        isActive: true,
+      },
     });
     revalidatePath('/admin/dashboard');
     return { success: true };
@@ -28,9 +27,10 @@ export async function addQuestion(formData: FormData) {
 
 export async function toggleQuestionStatus(id: string, currentStatus: boolean) {
   try {
-    await db.update(questions)
-      .set({ isActive: !currentStatus })
-      .where(eq(questions.id, id));
+    await db.question.update({
+      where: { id },
+      data: { isActive: !currentStatus },
+    });
     revalidatePath('/admin/dashboard');
   } catch (error) {
     console.error('Failed to toggle status:', error);
@@ -39,7 +39,9 @@ export async function toggleQuestionStatus(id: string, currentStatus: boolean) {
 
 export async function deleteQuestion(id: string) {
   try {
-    await db.delete(questions).where(eq(questions.id, id));
+    await db.question.delete({
+      where: { id },
+    });
     revalidatePath('/admin/dashboard');
   } catch (error) {
     console.error('Failed to delete question:', error);
@@ -48,27 +50,25 @@ export async function deleteQuestion(id: string) {
 
 export async function getStats() {
   try {
-    const allQuestions = await db.select().from(questions);
+    const allQuestions = await db.question.findMany({
+      include: {
+        responses: true,
+      },
+    });
     
-    // Fetch counts for each choice per question
-    const stats = await Promise.all(allQuestions.map(async (q) => {
-      const countsA = await db.select({ count: count() })
-        .from(responses)
-        .where(sql`${responses.questionId} = ${q.id} AND ${responses.choice} LIKE 'A_%'`);
-      
-      const countsB = await db.select({ count: count() })
-        .from(responses)
-        .where(sql`${responses.questionId} = ${q.id} AND ${responses.choice} LIKE 'B_%'`);
+    const stats = allQuestions.map((q) => {
+      const countA = q.responses.filter(r => r.choice.startsWith('A_')).length;
+      const countB = q.responses.filter(r => r.choice.startsWith('B_')).length;
 
       return {
         id: q.id,
         statementA: q.statementA,
         statementB: q.statementB,
-        countA: Number(countsA[0]?.count || 0),
-        countB: Number(countsB[0]?.count || 0),
+        countA,
+        countB,
         isActive: q.isActive,
       };
-    }));
+    });
 
     return stats;
   } catch (error) {

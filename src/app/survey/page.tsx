@@ -1,7 +1,4 @@
-
 import { db } from '@/lib/db';
-import { questions } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
 import siteContent from '@/lib/data/site-content.json';
 import SurveyClient from '@/components/SurveyClient';
 import SurveyProfileForm from '@/components/SurveyProfileForm';
@@ -16,8 +13,12 @@ export default async function SurveyPage({
   const params = await searchParams;
   const step = parseInt(params.question || '0');
 
-  // Fetch active questions from DB
-  const activeQuestions = await db.select().from(questions).where(eq(questions.isActive, true));
+  // Fetch active questions from DB using Prisma
+  const activeQuestions = await db.question.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: 'asc' }
+  });
+  
   const totalSteps = activeQuestions.length + 1; // Questions + Profile Step
 
   if (activeQuestions.length === 0) {

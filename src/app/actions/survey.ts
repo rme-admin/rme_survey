@@ -1,8 +1,6 @@
-
 'use server';
 
 import { db } from '@/lib/db';
-import { responses, profiles } from '@/lib/db/schema';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
 
@@ -25,10 +23,12 @@ export async function submitResponse(data: { questionId: string; choice: string 
     const cookieStore = await cookies();
     const profileId = cookieStore.get('survey_profile_id')?.value;
 
-    await db.insert(responses).values({
-      questionId: validated.questionId,
-      choice: validated.choice,
-      profileId: profileId || null,
+    await db.response.create({
+      data: {
+        questionId: validated.questionId,
+        choice: validated.choice,
+        profileId: profileId || null,
+      },
     });
     
     return { success: true };
@@ -42,13 +42,15 @@ export async function submitProfile(data: any) {
   try {
     const validated = profileSchema.parse(data);
     
-    const [newProfile] = await db.insert(profiles).values({
-      name: validated.name,
-      profession: validated.profession,
-      institute: validated.institute,
-      email: validated.email,
-      phone: validated.phone,
-    }).returning({ id: profiles.id });
+    const newProfile = await db.profile.create({
+      data: {
+        name: validated.name,
+        profession: validated.profession,
+        institute: validated.institute,
+        email: validated.email,
+        phone: validated.phone,
+      },
+    });
 
     const cookieStore = await cookies();
     cookieStore.set('survey_profile_id', newProfile.id, {

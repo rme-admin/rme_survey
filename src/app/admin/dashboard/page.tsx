@@ -39,6 +39,9 @@ export default async function AdminDashboard() {
           <Link href="/admin/dashboard" className="flex items-center gap-3 p-3 bg-primary text-white font-bold uppercase text-xs tracking-widest rounded-lg">
             <BarChart3 className="h-4 w-4" /> Results Overview
           </Link>
+          <Link href="/admin/responses" className="flex items-center gap-3 p-3 bg-secondary text-primary font-bold uppercase text-xs tracking-widest rounded-lg">
+            <BarChart3 className="h-4 w-4 text-accent" /> Responses
+          </Link>
           <div className="px-3 py-2 text-[10px] uppercase font-bold text-muted-foreground tracking-[0.2em] mt-8">System</div>
           <form action={logout}>
             <button className="flex items-center gap-3 p-3 text-muted-foreground hover:text-primary transition-colors w-full text-left font-bold uppercase text-xs tracking-widest">

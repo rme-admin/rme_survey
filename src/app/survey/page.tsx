@@ -1,25 +1,35 @@
-
-
+import Image from 'next/image';
 import siteContent from '@/lib/data/site-content.json';
-import questionsData from '@/lib/data/questions.json';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Globe, Mail, MapPin } from 'lucide-react';
+import Link from 'next/link';
 import SurveyClient from '@/components/SurveyClient';
 import SurveyProfileForm from '@/components/SurveyProfileForm';
-import Link from 'next/link';
-import Image from 'next/image';
+import { db } from '@/lib/db';
 
-console.log('SurveyPage loaded');
-export default function SurveyPage({ searchParams }: { searchParams: { question?: string } }) {
-  // Use static questions data
-  console.log('questionsData:', questionsData);
-  const activeQuestions = questionsData.filter((q: any) => q.isActive !== false);
-  console.log('activeQuestions:', activeQuestions);
-  const step = parseInt(searchParams?.question || '0');
-  console.log('step:', step);
+// 1. Update the type to be a Promise
+export default async function SurveyPage({ 
+  searchParams 
+}: { 
+  searchParams: Promise<{ question?: string }> 
+}) {
+  
+  // 2. Await the searchParams
+  const resolvedSearchParams = await searchParams;
+
+  // Fetch questions from the database
+  const questions = await db.question.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: 'asc' }
+  });
+  
+  const activeQuestions = questions;
+  
+  // 3. Use the awaited search params variable here
+  const step = parseInt(resolvedSearchParams?.question || '0');
   const totalSteps = activeQuestions.length + 1;
-  console.log('totalSteps:', totalSteps);
 
   if (activeQuestions.length === 0) {
-    console.log('No active questions');
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
@@ -35,7 +45,6 @@ export default function SurveyPage({ searchParams }: { searchParams: { question?
 
   // Final Completion Screen
   if (step >= totalSteps) {
-    console.log('Survey complete screen');
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
@@ -59,19 +68,20 @@ export default function SurveyPage({ searchParams }: { searchParams: { question?
 
   // Profile Form Step
   if (step === activeQuestions.length) {
-    console.log('Profile form step');
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <header className="p-6 border-b border-border bg-card shadow-sm">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <Image 
-                src={siteContent.logoUrl} 
-                alt={siteContent.siteName} 
-                width={32} 
-                height={32} 
-                className="rounded-md"
-              />
+              <Link href="/">
+                <Image 
+                  src={siteContent.logoUrl} 
+                  alt={siteContent.siteName} 
+                  width={32}
+                  height={32} 
+                  className="rounded-md"
+                />
+              </Link>
               <div className="space-y-1">
                 <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
                   {siteContent.surveyTitle}
@@ -96,20 +106,21 @@ export default function SurveyPage({ searchParams }: { searchParams: { question?
 
   // Question Step
   const currentQuestion = activeQuestions[step];
-  console.log('Current question:', currentQuestion);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="p-6 border-b border-border bg-card shadow-sm">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <Image 
-              src={siteContent.logoUrl} 
-              alt={siteContent.siteName} 
-              width={32} 
-              height={32} 
-              className="rounded-md"
-            />
+              <Link href="/">
+                <Image 
+                  src={siteContent.logoUrl} 
+                  alt={siteContent.siteName} 
+                  width={32}
+                  height={32} 
+                  className="rounded-md"
+                />
+              </Link>
             <div className="space-y-1">
               <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
                 {siteContent.surveyTitle}

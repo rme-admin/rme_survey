@@ -4,10 +4,10 @@ import { db } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 
 export async function addQuestion(formData: FormData) {
-  const statementA = formData.get('statementA') as string;
-  const statementB = formData.get('statementB') as string;
-  const optionA = formData.get('optionA') as string || "Completely Agree";
-  const optionB = formData.get('optionB') as string || "Sometimes";
+  const statementA = (formData.get('statementA') as string)?.trim();
+  const statementB = (formData.get('statementB') as string)?.trim();
+  const optionA = (formData.get('optionA') as string)?.trim() || "Completely Agree";
+  const optionB = (formData.get('optionB') as string)?.trim() || "Sometimes";
 
   if (!statementA || !statementB) return { error: 'Both statements are required' };
 
@@ -83,5 +83,35 @@ export async function getStats() {
   } catch (error) {
     console.error('Failed to fetch stats:', error);
     return [];
+  }
+}
+
+export async function deleteResponseAndProfile(responseId: string, profileId: string) {
+  try {
+    // Delete the response first (to avoid foreign key constraint)
+    await db.response.delete({ where: { id: responseId } });
+    // Then delete the profile
+    await db.profile.delete({ where: { id: profileId } });
+    // Optionally, revalidate the admin responses page
+    // revalidatePath('/admin/responses');
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to delete response and profile:', error);
+    return { error: 'Delete failed' };
+  }
+}
+
+export async function deleteAllResponsesAndProfiles() {
+  try {
+    // Delete all responses first
+    await db.response.deleteMany({});
+    // Then delete all profiles
+    await db.profile.deleteMany({});
+    // Optionally, revalidate the admin responses page
+    // revalidatePath('/admin/responses');
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to delete all responses and profiles:', error);
+    return { error: 'Delete all failed' };
   }
 }

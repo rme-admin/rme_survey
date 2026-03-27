@@ -40,7 +40,7 @@ export default function SurveyProfileForm({ nextStep }: SurveyProfileFormProps) 
 
     try {
       await submitProfile(data);
-      router.push(`/survey?question=${nextStep}`);
+      window.location.href = `/survey?question=${nextStep}`;
     } catch (error: any) {
       console.error('Failed to submit profile', error);
       // Basic error handling for the mock

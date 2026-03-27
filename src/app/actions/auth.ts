@@ -1,8 +1,8 @@
+
 'use server';
 
 import { signJWT } from '@/lib/auth';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 export async function authenticate(formData: FormData) {
   const username = formData.get('username') as string;
@@ -15,6 +15,7 @@ export async function authenticate(formData: FormData) {
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     const token = await signJWT({ user: username });
     const cookieStore = await cookies();
+    
     cookieStore.set('admin_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -22,6 +23,7 @@ export async function authenticate(formData: FormData) {
       path: '/',
       maxAge: 60 * 60 * 2, // 2 hours
     });
+    
     return { success: true };
   }
 
@@ -31,5 +33,4 @@ export async function authenticate(formData: FormData) {
 export async function logout() {
   const cookieStore = await cookies();
   cookieStore.delete('admin_token');
-  redirect('/admin/login');
 }

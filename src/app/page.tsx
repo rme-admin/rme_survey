@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, Mail, MapPin, Globe } from 'lucide-react';
 import siteContent from '@/lib/data/site-content.json';
 
 export default function Home() {
@@ -31,11 +31,17 @@ export default function Home() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/survey">
-              <Button size="lg" className="bg-accent hover:bg-orange-700 text-white px-12 py-8 text-xl font-bold uppercase tracking-widest h-auto rounded-none">
+              <Button size="lg" className="bg-accent hover:bg-orange-700 text-white px-12 py-8 text-xl font-bold uppercase tracking-widest h-auto rounded-none w-full sm:w-auto">
                 Start Survey
                 <ArrowRight className="ml-2 h-6 w-6" />
               </Button>
             </Link>
+            <a href={siteContent.officialWebsiteUrl} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/5 px-12 py-8 text-xl font-bold uppercase tracking-widest h-auto rounded-none w-full sm:w-auto">
+                Official Website
+                <Globe className="ml-2 h-6 w-6" />
+              </Button>
+            </a>
           </div>
         </div>
       </main>

@@ -14,7 +14,6 @@ export default function Home() {
           </div>
           <h1 className="text-xl font-bold tracking-tighter uppercase text-primary">{siteContent.siteName}</h1>
         </div>
-        {/* Admin Login button removed as per request. Use direct URL /admin/login */}
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 text-center">

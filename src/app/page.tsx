@@ -1,21 +1,12 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BarChart3, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, Mail, MapPin } from 'lucide-react';
 import siteContent from '@/lib/data/site-content.json';
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <header className="border-b border-border bg-card p-6 flex justify-between items-center shadow-sm">
-        <div className="flex items-center gap-2">
-          <div className="bg-accent p-2 rounded-md">
-            <BarChart3 className="text-white h-6 w-6" />
-          </div>
-          <h1 className="text-xl font-bold tracking-tighter uppercase text-primary">{siteContent.siteName}</h1>
-        </div>
-      </header>
-
       <main className="flex-1 flex flex-col items-center justify-center p-6 text-center">
         <div className="max-w-4xl space-y-8">
           <div className="space-y-4">

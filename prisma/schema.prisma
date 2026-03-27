@@ -1,14 +1,15 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "../app/generated/prisma-client"
-}
+// prisma/schema.prisma
 
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma-client"
 }
 
 model Question {
@@ -41,7 +42,7 @@ model Response {
   id         String   @id @default(uuid())
   questionId String   @map("question_id")
   profileId  String?  @map("profile_id")
-  choice     String   @db.VarChar(20) // e.g., 'A_1', 'A_2', 'B_1', 'B_2'
+  choice     String   @db.VarChar(20)
   createdAt  DateTime @default(now()) @map("created_at")
 
   question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)

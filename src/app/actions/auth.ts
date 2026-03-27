@@ -5,15 +5,15 @@ import { signJWT } from '@/lib/auth';
 import { cookies } from 'next/headers';
 
 export async function authenticate(formData: FormData) {
-  const username = formData.get('username') as string;
-  const password = formData.get('password') as string;
+  const usernameInput = (formData.get('username') as string)?.trim();
+  const passwordInput = (formData.get('password') as string)?.trim();
 
-  // Retrieve credentials from environment variables
-  const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
-  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+  // Retrieve credentials from environment variables and trim them
+  const ADMIN_USERNAME = process.env.ADMIN_USERNAME?.trim();
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD?.trim();
 
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    const token = await signJWT({ user: username });
+  if (usernameInput && passwordInput && usernameInput === ADMIN_USERNAME && passwordInput === ADMIN_PASSWORD) {
+    const token = await signJWT({ user: usernameInput });
     const cookieStore = await cookies();
     
     cookieStore.set('admin_token', token, {
@@ -27,10 +27,10 @@ export async function authenticate(formData: FormData) {
     return { success: true };
   }
 
-  return { error: 'Invalid credentials' };
+  return { error: 'Invalid credentials. Please check your username and password.' };
 }
 
 export async function logout() {
   const cookieStore = await cookies();
-  cookieStore.delete('admin_token');
+  cookieStore.set('admin_token', '', { maxAge: 0, path: '/' });
 }

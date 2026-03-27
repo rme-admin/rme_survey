@@ -1,3 +1,4 @@
+
 import questionsData from '@/lib/data/questions.json';
 import siteContent from '@/lib/data/site-content.json';
 import SurveyClient from '@/components/SurveyClient';
@@ -34,14 +35,19 @@ export default async function SurveyPage({
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
-          <h2 className="text-3xl font-black mb-4 uppercase text-primary">Survey Complete</h2>
+          <h2 className="text-3xl font-black mb-4 uppercase text-primary text-balance">Survey Complete</h2>
           <div className="w-20 h-1 bg-accent mx-auto mb-8" />
           <p className="text-muted-foreground mb-12 leading-relaxed">
             Thank you for participating in the <span className="font-bold text-primary">{siteContent.surveyTitle}</span>. Your valuable insights help us build a more effective research ecosystem in India.
           </p>
-          <Link href="/" className="bg-accent text-white px-12 py-5 uppercase font-black tracking-widest inline-block rounded-none hover:bg-orange-700 transition-all shadow-lg hover:shadow-orange-200">
-            Finish & Return Home
-          </Link>
+          <a 
+            href={siteContent.linkedinUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-accent text-white px-12 py-5 uppercase font-black tracking-widest inline-block rounded-none hover:bg-orange-700 transition-all shadow-lg hover:shadow-orange-200"
+          >
+            Finish & Continue
+          </a>
         </div>
       </div>
     );

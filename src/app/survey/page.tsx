@@ -1,28 +1,25 @@
 
-import { db } from '@/lib/db';
+
 import siteContent from '@/lib/data/site-content.json';
+import questionsData from '@/lib/data/questions.json';
 import SurveyClient from '@/components/SurveyClient';
 import SurveyProfileForm from '@/components/SurveyProfileForm';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default async function SurveyPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ question?: string }>;
-}) {
-  const params = await searchParams;
-  const step = parseInt(params.question || '0');
-
-  // Fetch active questions from DB
-  const activeQuestions = await db.question.findMany({
-    where: { isActive: true },
-    orderBy: { createdAt: 'asc' }
-  });
-  
-  const totalSteps = activeQuestions.length + 1; // Questions + Profile Step
+console.log('SurveyPage loaded');
+export default function SurveyPage({ searchParams }: { searchParams: { question?: string } }) {
+  // Use static questions data
+  console.log('questionsData:', questionsData);
+  const activeQuestions = questionsData.filter((q: any) => q.isActive !== false);
+  console.log('activeQuestions:', activeQuestions);
+  const step = parseInt(searchParams?.question || '0');
+  console.log('step:', step);
+  const totalSteps = activeQuestions.length + 1;
+  console.log('totalSteps:', totalSteps);
 
   if (activeQuestions.length === 0) {
+    console.log('No active questions');
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
@@ -38,6 +35,7 @@ export default async function SurveyPage({
 
   // Final Completion Screen
   if (step >= totalSteps) {
+    console.log('Survey complete screen');
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
@@ -61,6 +59,7 @@ export default async function SurveyPage({
 
   // Profile Form Step
   if (step === activeQuestions.length) {
+    console.log('Profile form step');
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <header className="p-6 border-b border-border bg-card shadow-sm">
@@ -97,6 +96,7 @@ export default async function SurveyPage({
 
   // Question Step
   const currentQuestion = activeQuestions[step];
+  console.log('Current question:', currentQuestion);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">

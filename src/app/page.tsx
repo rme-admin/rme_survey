@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Mail, MapPin, Globe } from 'lucide-react';
 import siteContent from '@/lib/data/site-content.json';
 
+console.log('Home page loaded');
 export default function Home() {
+  console.log('siteContent:', siteContent);
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <main className="flex-1 flex flex-col items-center justify-center p-6 text-center">

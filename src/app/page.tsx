@@ -62,12 +62,6 @@ export default function Home() {
                 <span className="font-medium">{siteContent.location}</span>
               </div>
             </div>
-            <div className="pt-6 border-t border-border/50">
-              <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-primary mb-1">Status</p>
-              <p className="text-[10px] p-2 bg-secondary/50 text-secondary-foreground rounded-none inline-block font-bold">
-                ENTERPRISE ENCRYPTION ACTIVE
-              </p>
-            </div>
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-muted-foreground uppercase font-bold tracking-widest">

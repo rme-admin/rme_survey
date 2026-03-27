@@ -8,9 +8,9 @@ export async function authenticate(formData: FormData) {
   const username = formData.get('username') as string;
   const password = formData.get('password') as string;
 
-  // Set specific credentials as requested
-  const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'rme.platform@gmail.com';
-  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'RME@123456';
+  // Retrieve credentials from environment variables
+  const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     const token = await signJWT({ user: username });

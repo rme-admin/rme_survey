@@ -1,7 +1,7 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BarChart3, ShieldCheck, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, BarChart3, Mail, MapPin } from 'lucide-react';
 import siteContent from '@/lib/data/site-content.json';
 
 export default function Home() {
@@ -12,31 +12,26 @@ export default function Home() {
           <div className="bg-accent p-2 rounded-md">
             <BarChart3 className="text-white h-6 w-6" />
           </div>
-          <h1 className="text-xl font-bold tracking-tighter uppercase">{siteContent.siteName}</h1>
+          <h1 className="text-xl font-bold tracking-tighter uppercase text-primary">{siteContent.siteName}</h1>
         </div>
-        <Link href="/admin/login">
-          <Button variant="ghost" className="text-muted-foreground hover:text-primary">
-            <ShieldCheck className="mr-2 h-4 w-4" />
-            Admin Login
-          </Button>
-        </Link>
+        {/* Admin Login button removed as per request. Use direct URL /admin/login */}
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-        <div className="max-w-3xl space-y-8">
+        <div className="max-w-4xl space-y-8">
           <div className="space-y-4">
             <h2 className="text-5xl md:text-7xl font-black uppercase leading-tight text-primary">
               {siteContent.heroTitle.split('&')[0]}<br />
               <span className="text-accent">& {siteContent.heroTitle.split('&')[1]}</span>
             </h2>
-            <p className="text-xl text-muted-foreground font-body max-w-xl mx-auto">
+            <p className="text-xl text-muted-foreground font-body max-w-2xl mx-auto">
               {siteContent.heroDescription}
             </p>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/survey">
-              <Button size="lg" className="bg-accent hover:bg-orange-700 text-white px-12 py-8 text-xl font-bold uppercase tracking-widest h-auto rounded-xl">
+              <Button size="lg" className="bg-accent hover:bg-orange-700 text-white px-12 py-8 text-xl font-bold uppercase tracking-widest h-auto rounded-none">
                 Start Survey
                 <ArrowRight className="ml-2 h-6 w-6" />
               </Button>
@@ -46,31 +41,39 @@ export default function Home() {
       </main>
 
       <footer className="p-12 bg-muted/30 border-t border-border mt-auto">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold uppercase tracking-wider text-primary">{siteContent.siteName}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {siteContent.footerDescription}
-            </p>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="md:col-span-2 space-y-6">
+            <h3 className="text-lg font-bold uppercase tracking-wider text-primary">About {siteContent.siteName}</h3>
+            <div className="space-y-4 text-sm text-muted-foreground leading-relaxed max-w-3xl">
+              <p>{siteContent.footerDescription}</p>
+              <p className="font-medium text-primary italic">{siteContent.visionStatement}</p>
+            </div>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-6">
             <h3 className="text-lg font-bold uppercase tracking-wider text-primary">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 text-accent" />
-                <a href={`mailto:${siteContent.contactEmail}`} className="hover:text-accent transition-colors">{siteContent.contactEmail}</a>
+                <a href={`mailto:${siteContent.contactEmail}`} className="hover:text-accent transition-colors font-medium">
+                  {siteContent.contactEmail}
+                </a>
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 text-accent" />
-                <span>{siteContent.location}</span>
+                <span className="font-medium">{siteContent.location}</span>
               </div>
             </div>
+            <div className="pt-6 border-t border-border/50">
+              <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-primary mb-1">Status</p>
+              <p className="text-[10px] p-2 bg-secondary/50 text-secondary-foreground rounded-none inline-block font-bold">
+                ENTERPRISE ENCRYPTION ACTIVE
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col md:items-end gap-2 text-xs text-muted-foreground">
-            <p className="font-bold text-primary">Powered by {siteContent.siteName}</p>
-            <p>{siteContent.copyright}</p>
-            <p className="mt-4 p-2 bg-secondary/50 rounded inline-block">Enterprise Encryption Enabled</p>
-          </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-muted-foreground uppercase font-bold tracking-widest">
+          <p>{siteContent.copyright}</p>
+          <p>Powered by {siteContent.siteName} Research Division</p>
         </div>
       </footer>
     </div>

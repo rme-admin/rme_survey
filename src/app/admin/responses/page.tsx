@@ -55,7 +55,10 @@ export default async function AdminResponsesPage() {
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold uppercase text-primary">All Survey Responses</h1>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-2xl font-bold uppercase text-primary">All Survey Responses</h1>
+          <Link href="/admin/profiles" className="text-primary underline text-sm">View by Profile</Link>
+        </div>
         <div className="flex gap-2">
           {/* CSV Download Button Placeholder */}
           <a
@@ -66,7 +69,7 @@ export default async function AdminResponsesPage() {
             <Download className="h-4 w-4" /> Download CSV
           </a>
           {/* Delete All Responses Button */}
-          <form action={deleteAllResponsesAndProfilesAction} method="POST">
+          <form action={deleteAllResponsesAndProfilesAction}>
             <Button type="submit" className="flex items-center gap-2 bg-destructive text-white">
               <Trash2 className="h-4 w-4" /> Delete All
             </Button>
@@ -104,15 +107,13 @@ export default async function AdminResponsesPage() {
                 <TableCell>{r.choice}</TableCell>
                 <TableCell>{r.createdAt?.toLocaleString?.() || '-'}</TableCell>
                 <TableCell>
-                  {r.profileId && (
-                    <form action={deleteResponseAndProfileAction} method="POST">
-                      <input type="hidden" name="responseId" value={r.id} />
-                      <input type="hidden" name="profileId" value={r.profileId} />
-                      <Button type="submit" size="icon" variant="ghost" className="text-destructive">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </form>
-                  )}
+                  <form action={deleteResponseAndProfileAction}>
+                    <input type="hidden" name="responseId" value={r.id} />
+                    <input type="hidden" name="profileId" value={r.profileId || ''} />
+                    <Button type="submit" size="icon" variant="ghost" className="text-destructive">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </form>
                 </TableCell>
               </TableRow>
             ))}

@@ -2,6 +2,9 @@
 
 import { db } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import Link from 'next/link';
 
 export async function addQuestion(formData: FormData) {
   const statementA = (formData.get('statementA') as string)?.trim();
@@ -86,12 +89,14 @@ export async function getStats() {
   }
 }
 
-export async function deleteResponseAndProfile(responseId: string, profileId: string) {
+export async function deleteResponseAndProfile(responseId: string, profileId?: string) {
   try {
-    // Delete the response first (to avoid foreign key constraint)
+    // Always delete the response
     await db.response.delete({ where: { id: responseId } });
-    // Then delete the profile
-    await db.profile.delete({ where: { id: profileId } });
+    // If profileId is provided, delete the profile as well
+    if (profileId) {
+      await db.profile.delete({ where: { id: profileId } });
+    }
     // Optionally, revalidate the admin responses page
     // revalidatePath('/admin/responses');
     return { success: true };

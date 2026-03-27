@@ -3,6 +3,9 @@
 import { db } from '@/lib/db';
 import { deleteResponseAndProfile, deleteAllResponsesAndProfiles } from '@/app/actions/admin';
 import { revalidatePath } from 'next/cache';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import Link from 'next/link';
 
 async function getAllResponses() {
   return db.response.findMany({
@@ -45,8 +48,9 @@ export async function downloadCSV() {
 
 export async function deleteResponseAndProfileAction(formData: FormData) {
   const responseId = formData.get('responseId') as string;
-  const profileId = formData.get('profileId') as string;
-  if (responseId && profileId) {
+  let profileId = formData.get('profileId') as string;
+  if (profileId === '') profileId = undefined;
+  if (responseId) {
     await deleteResponseAndProfile(responseId, profileId);
     revalidatePath('/admin/responses');
   }
@@ -57,4 +61,3 @@ export async function deleteAllResponsesAndProfilesAction() {
   revalidatePath('/admin/responses');
 }
 
-export { deleteAllResponsesAndProfiles };

@@ -21,9 +21,9 @@ This is the official survey and data collection platform for Research Made Easy.
    ```bash
    git commit -m "Initial commit of RME Survey Platform"
    ```
-4. **Link to GitHub**: Create a new repository on [GitHub](https://github.com/new), copy the URL, and run:
+4. **Link to GitHub**:
    ```bash
-   git remote add origin <YOUR_GITHUB_REPO_URL>
+   git remote add origin https://github.com/rme-admin/rme_survey.git
    ```
 5. **Push your code**:
    ```bash

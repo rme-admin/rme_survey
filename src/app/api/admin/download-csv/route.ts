@@ -57,7 +57,7 @@ export async function GET() {
     const questionData = [];
     for (let i = 0; i < questions.length; i++) {
       const q = questions[i];
-      const ans = answers[q.id];
+      const ans = answers[String(q.id)];
       const qOptions = `${q.statementA} | ${q.statementB} | ${q.optionA}/${q.optionB}`;
       let statement = 'NA', option = 'NA';
       if (ans && typeof ans === 'object') {

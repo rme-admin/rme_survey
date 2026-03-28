@@ -1,6 +1,7 @@
 'use server';
 
 import { db } from '@/lib/db';
+import { Designation } from '@/generated/prisma-client';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
 
@@ -17,35 +18,25 @@ const profileSchema = z.object({
   name: z.string().optional().or(z.literal('')),
 });
 
-export async function submitResponse(data: { questionId: string; choice: string }) {
-  try {
-    const validated = responseSchema.parse(data);
-    const cookieStore = await cookies();
-    const profileId = cookieStore.get('survey_profile_id')?.value;
-
-    await db.response.create({
-      data: {
-        questionId: validated.questionId,
-        choice: validated.choice,
-        profileId: profileId || null,
-      },
-    });
-    
-    return { success: true };
-  } catch (error) {
-    console.error('Failed to submit response:', error);
-    return { error: 'Submission failed' };
-  }
-}
+// Deprecated: per-question response logic removed for new SurveyResponse model
+// export async function submitResponse(data: { questionId: string; choice: string }) { ... }
 
 export async function submitProfile(data: any) {
   try {
     const validated = profileSchema.parse(data);
-    
+    // Map user-friendly profession to Designation enum
+      const professionMap: Record<string, Designation> = {
+        'Undergraduate': Designation.UNDERGRADUATE,
+        'Post Graduate': Designation.POSTGRADUATE,
+        'Faculty': Designation.FACULTY,
+        'Research Scholar': Designation.RESEARCH_SCHOLAR,
+        'Scientist': Designation.INDUSTRY_PERSONNEL,
+      };
+      const designation: Designation = professionMap[validated.profession] || Designation.OTHER;
     const newProfile = await db.profile.create({
       data: {
         name: validated.name,
-        profession: validated.profession,
+        designation,
         institute: validated.institute,
         email: validated.email,
         phone: validated.phone,
@@ -53,15 +44,15 @@ export async function submitProfile(data: any) {
     });
 
     const cookieStore = await cookies();
-    cookieStore.set('survey_profile_id', newProfile.id, {
+    cookieStore.set('survey_profile_id', String(newProfile.id), {
       maxAge: 60 * 60 * 24, // 1 day
       httpOnly: true,
       path: '/',
     });
 
-    return { success: true };
+    return { success: true, profileId: newProfile.id };
   } catch (error) {
-    console.error('Failed to submit profile:', error);
+    console.error('Failed to submit profile', error);
     if (error instanceof z.ZodError) {
       return { error: 'Validation failed', details: error.flatten() };
     }

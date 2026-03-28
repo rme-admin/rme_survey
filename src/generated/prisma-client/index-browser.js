@@ -134,24 +134,32 @@ exports.Prisma.QuestionScalarFieldEnum = {
 exports.Prisma.ProfileScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  profession: 'profession',
+  designation: 'designation',
   institute: 'institute',
   email: 'email',
   phone: 'phone',
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ResponseScalarFieldEnum = {
+exports.Prisma.SurveyResponseScalarFieldEnum = {
   id: 'id',
-  questionId: 'questionId',
   profileId: 'profileId',
-  choice: 'choice',
-  createdAt: 'createdAt'
+  answers: 'answers',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  duration: 'duration',
+  status: 'status',
+  ip: 'ip',
+  device: 'device'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -164,11 +172,29 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.Designation = exports.$Enums.Designation = {
+  UNDERGRADUATE: 'UNDERGRADUATE',
+  POSTGRADUATE: 'POSTGRADUATE',
+  FACULTY: 'FACULTY',
+  RESEARCH_SCHOLAR: 'RESEARCH_SCHOLAR',
+  INDUSTRY_PERSONNEL: 'INDUSTRY_PERSONNEL',
+  OTHER: 'OTHER'
+};
+
+exports.SurveyStatus = exports.$Enums.SurveyStatus = {
+  completed: 'completed',
+  inprogress: 'inprogress'
+};
 
 exports.Prisma.ModelName = {
   Question: 'Question',
   Profile: 'Profile',
-  Response: 'Response'
+  SurveyResponse: 'SurveyResponse'
 };
 
 /**

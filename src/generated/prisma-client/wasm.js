@@ -106,24 +106,32 @@ exports.Prisma.QuestionScalarFieldEnum = {
 exports.Prisma.ProfileScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  profession: 'profession',
+  designation: 'designation',
   institute: 'institute',
   email: 'email',
   phone: 'phone',
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ResponseScalarFieldEnum = {
+exports.Prisma.SurveyResponseScalarFieldEnum = {
   id: 'id',
-  questionId: 'questionId',
   profileId: 'profileId',
-  choice: 'choice',
-  createdAt: 'createdAt'
+  answers: 'answers',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  duration: 'duration',
+  status: 'status',
+  ip: 'ip',
+  device: 'device'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -136,11 +144,29 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.SurveyStatus = exports.$Enums.SurveyStatus = {
+  completed: 'completed',
+  inprogress: 'inprogress'
+};
+
+exports.Designation = exports.$Enums.Designation = {
+  UNDERGRADUATE: 'UNDERGRADUATE',
+  POSTGRADUATE: 'POSTGRADUATE',
+  FACULTY: 'FACULTY',
+  RESEARCH_SCHOLAR: 'RESEARCH_SCHOLAR',
+  INDUSTRY_PERSONNEL: 'INDUSTRY_PERSONNEL',
+  OTHER: 'OTHER'
+};
 
 exports.Prisma.ModelName = {
   Question: 'Question',
   Profile: 'Profile',
-  Response: 'Response'
+  SurveyResponse: 'SurveyResponse'
 };
 /**
  * Create the Client
@@ -181,22 +207,21 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "POSTGRES_PRISMA_URL",
+        "fromEnvVar": "DATABASE_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRES_PRISMA_URL\")\n}\n\nmodel Question {\n  id         String     @id @default(uuid())\n  statementA String     @map(\"statement_a\")\n  statementB String     @map(\"statement_b\")\n  optionA    String     @default(\"Completely Agree\") @map(\"option_a\")\n  optionB    String     @default(\"Sometimes\") @map(\"option_b\")\n  isActive   Boolean    @default(true) @map(\"is_active\")\n  createdAt  DateTime   @default(now()) @map(\"created_at\")\n  responses  Response[]\n\n  @@map(\"questions\")\n}\n\nmodel Profile {\n  id         String     @id @default(uuid())\n  name       String?\n  profession String     @db.VarChar(50)\n  institute  String\n  email      String?\n  phone      String?    @db.VarChar(20)\n  createdAt  DateTime   @default(now()) @map(\"created_at\")\n  responses  Response[]\n\n  @@map(\"profiles\")\n}\n\nmodel Response {\n  id         String   @id @default(uuid())\n  questionId String   @map(\"question_id\")\n  profileId  String?  @map(\"profile_id\")\n  choice     String   @db.VarChar(20)\n  createdAt  DateTime @default(now()) @map(\"created_at\")\n\n  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)\n  profile  Profile? @relation(fields: [profileId], references: [id], onDelete: SetNull)\n\n  @@map(\"responses\")\n}\n",
-  "inlineSchemaHash": "efa35a0aa9ab9a59180d0946220dd3af292c3f2b5082fa5414808f78a15a79a5",
+  "inlineSchema": "enum SurveyStatus {\n  completed\n  inprogress\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma-client\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel Question {\n  id         Int      @id @default(autoincrement())\n  statementA String   @map(\"statement_a\")\n  statementB String   @map(\"statement_b\")\n  optionA    String   @default(\"Completely Agree\") @map(\"option_a\")\n  optionB    String   @default(\"Sometimes\") @map(\"option_b\")\n  isActive   Boolean  @default(true) @map(\"is_active\")\n  createdAt  DateTime @default(now()) @map(\"created_at\")\n\n  @@map(\"questions\")\n}\n\nmodel Profile {\n  id          Int              @id @default(autoincrement())\n  name        String?\n  designation Designation\n  institute   String\n  email       String?\n  phone       String?          @db.VarChar(20)\n  createdAt   DateTime         @default(now()) @map(\"created_at\")\n  responses   SurveyResponse[]\n\n  @@map(\"profiles\")\n}\n\nenum Designation {\n  UNDERGRADUATE\n  POSTGRADUATE\n  FACULTY\n  RESEARCH_SCHOLAR\n  INDUSTRY_PERSONNEL\n  OTHER\n}\n\nmodel SurveyResponse {\n  id        Int          @id @default(autoincrement())\n  profileId Int\n  answers   Json\n  startTime DateTime\n  endTime   DateTime?\n  duration  Int?\n  status    SurveyStatus @default(inprogress)\n  ip        String?\n  device    String?\n  profile   Profile      @relation(fields: [profileId], references: [id])\n\n  @@map(\"survey_responses\")\n}\n",
+  "inlineSchemaHash": "d63f6e1a00e4505e795def1ee361c61bcc7514b89aeb28612d5973411844d235",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Question\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"statementA\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"statement_a\"},{\"name\":\"statementB\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"statement_b\"},{\"name\":\"optionA\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"option_a\"},{\"name\":\"optionB\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"option_b\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\",\"dbName\":\"is_active\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"responses\",\"kind\":\"object\",\"type\":\"Response\",\"relationName\":\"QuestionToResponse\"}],\"dbName\":\"questions\"},\"Profile\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profession\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"institute\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"responses\",\"kind\":\"object\",\"type\":\"Response\",\"relationName\":\"ProfileToResponse\"}],\"dbName\":\"profiles\"},\"Response\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"questionId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"question_id\"},{\"name\":\"profileId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"profile_id\"},{\"name\":\"choice\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"question\",\"kind\":\"object\",\"type\":\"Question\",\"relationName\":\"QuestionToResponse\"},{\"name\":\"profile\",\"kind\":\"object\",\"type\":\"Profile\",\"relationName\":\"ProfileToResponse\"}],\"dbName\":\"responses\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Question\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"statementA\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"statement_a\"},{\"name\":\"statementB\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"statement_b\"},{\"name\":\"optionA\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"option_a\"},{\"name\":\"optionB\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"option_b\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\",\"dbName\":\"is_active\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"}],\"dbName\":\"questions\"},\"Profile\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"designation\",\"kind\":\"enum\",\"type\":\"Designation\"},{\"name\":\"institute\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"responses\",\"kind\":\"object\",\"type\":\"SurveyResponse\",\"relationName\":\"ProfileToSurveyResponse\"}],\"dbName\":\"profiles\"},\"SurveyResponse\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"profileId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"answers\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"startTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"endTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"SurveyStatus\"},{\"name\":\"ip\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"device\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profile\",\"kind\":\"object\",\"type\":\"Profile\",\"relationName\":\"ProfileToSurveyResponse\"}],\"dbName\":\"survey_responses\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
@@ -210,7 +235,7 @@ config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    POSTGRES_PRISMA_URL: typeof globalThis !== 'undefined' && globalThis['POSTGRES_PRISMA_URL'] || typeof process !== 'undefined' && process.env && process.env.POSTGRES_PRISMA_URL || undefined
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
   }
 })
 

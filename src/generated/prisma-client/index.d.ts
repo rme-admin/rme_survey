@@ -24,10 +24,43 @@ export type Question = $Result.DefaultSelection<Prisma.$QuestionPayload>
  */
 export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
 /**
- * Model Response
+ * Model SurveyResponse
  * 
  */
-export type Response = $Result.DefaultSelection<Prisma.$ResponsePayload>
+export type SurveyResponse = $Result.DefaultSelection<Prisma.$SurveyResponsePayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const SurveyStatus: {
+  completed: 'completed',
+  inprogress: 'inprogress'
+};
+
+export type SurveyStatus = (typeof SurveyStatus)[keyof typeof SurveyStatus]
+
+
+export const Designation: {
+  UNDERGRADUATE: 'UNDERGRADUATE',
+  POSTGRADUATE: 'POSTGRADUATE',
+  FACULTY: 'FACULTY',
+  RESEARCH_SCHOLAR: 'RESEARCH_SCHOLAR',
+  INDUSTRY_PERSONNEL: 'INDUSTRY_PERSONNEL',
+  OTHER: 'OTHER'
+};
+
+export type Designation = (typeof Designation)[keyof typeof Designation]
+
+}
+
+export type SurveyStatus = $Enums.SurveyStatus
+
+export const SurveyStatus: typeof $Enums.SurveyStatus
+
+export type Designation = $Enums.Designation
+
+export const Designation: typeof $Enums.Designation
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,14 +201,14 @@ export class PrismaClient<
   get profile(): Prisma.ProfileDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.response`: Exposes CRUD operations for the **Response** model.
+   * `prisma.surveyResponse`: Exposes CRUD operations for the **SurveyResponse** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Responses
-    * const responses = await prisma.response.findMany()
+    * // Fetch zero or more SurveyResponses
+    * const surveyResponses = await prisma.surveyResponse.findMany()
     * ```
     */
-  get response(): Prisma.ResponseDelegate<ExtArgs, ClientOptions>;
+  get surveyResponse(): Prisma.SurveyResponseDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -619,7 +652,7 @@ export namespace Prisma {
   export const ModelName: {
     Question: 'Question',
     Profile: 'Profile',
-    Response: 'Response'
+    SurveyResponse: 'SurveyResponse'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -638,7 +671,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "question" | "profile" | "response"
+      modelProps: "question" | "profile" | "surveyResponse"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -790,77 +823,77 @@ export namespace Prisma {
           }
         }
       }
-      Response: {
-        payload: Prisma.$ResponsePayload<ExtArgs>
-        fields: Prisma.ResponseFieldRefs
+      SurveyResponse: {
+        payload: Prisma.$SurveyResponsePayload<ExtArgs>
+        fields: Prisma.SurveyResponseFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ResponseFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload> | null
+            args: Prisma.SurveyResponseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ResponseFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>
+            args: Prisma.SurveyResponseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
           }
           findFirst: {
-            args: Prisma.ResponseFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload> | null
+            args: Prisma.SurveyResponseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ResponseFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>
+            args: Prisma.SurveyResponseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
           }
           findMany: {
-            args: Prisma.ResponseFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>[]
+            args: Prisma.SurveyResponseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>[]
           }
           create: {
-            args: Prisma.ResponseCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>
+            args: Prisma.SurveyResponseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
           }
           createMany: {
-            args: Prisma.ResponseCreateManyArgs<ExtArgs>
+            args: Prisma.SurveyResponseCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.ResponseCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>[]
+            args: Prisma.SurveyResponseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>[]
           }
           delete: {
-            args: Prisma.ResponseDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>
+            args: Prisma.SurveyResponseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
           }
           update: {
-            args: Prisma.ResponseUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>
+            args: Prisma.SurveyResponseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
           }
           deleteMany: {
-            args: Prisma.ResponseDeleteManyArgs<ExtArgs>
+            args: Prisma.SurveyResponseDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ResponseUpdateManyArgs<ExtArgs>
+            args: Prisma.SurveyResponseUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.ResponseUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>[]
+            args: Prisma.SurveyResponseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>[]
           }
           upsert: {
-            args: Prisma.ResponseUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ResponsePayload>
+            args: Prisma.SurveyResponseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SurveyResponsePayload>
           }
           aggregate: {
-            args: Prisma.ResponseAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateResponse>
+            args: Prisma.SurveyResponseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSurveyResponse>
           }
           groupBy: {
-            args: Prisma.ResponseGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ResponseGroupByOutputType>[]
+            args: Prisma.SurveyResponseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SurveyResponseGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ResponseCountArgs<ExtArgs>
-            result: $Utils.Optional<ResponseCountAggregateOutputType> | number
+            args: Prisma.SurveyResponseCountArgs<ExtArgs>
+            result: $Utils.Optional<SurveyResponseCountAggregateOutputType> | number
           }
         }
       }
@@ -962,7 +995,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     question?: QuestionOmit
     profile?: ProfileOmit
-    response?: ResponseOmit
+    surveyResponse?: SurveyResponseOmit
   }
 
   /* Types for Logging */
@@ -1039,37 +1072,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type QuestionCountOutputType
-   */
-
-  export type QuestionCountOutputType = {
-    responses: number
-  }
-
-  export type QuestionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    responses?: boolean | QuestionCountOutputTypeCountResponsesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * QuestionCountOutputType without action
-   */
-  export type QuestionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the QuestionCountOutputType
-     */
-    select?: QuestionCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * QuestionCountOutputType without action
-   */
-  export type QuestionCountOutputTypeCountResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ResponseWhereInput
-  }
-
-
-  /**
    * Count Type ProfileCountOutputType
    */
 
@@ -1096,7 +1098,7 @@ export namespace Prisma {
    * ProfileCountOutputType without action
    */
   export type ProfileCountOutputTypeCountResponsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
   }
 
 
@@ -1110,12 +1112,22 @@ export namespace Prisma {
 
   export type AggregateQuestion = {
     _count: QuestionCountAggregateOutputType | null
+    _avg: QuestionAvgAggregateOutputType | null
+    _sum: QuestionSumAggregateOutputType | null
     _min: QuestionMinAggregateOutputType | null
     _max: QuestionMaxAggregateOutputType | null
   }
 
+  export type QuestionAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type QuestionSumAggregateOutputType = {
+    id: number | null
+  }
+
   export type QuestionMinAggregateOutputType = {
-    id: string | null
+    id: number | null
     statementA: string | null
     statementB: string | null
     optionA: string | null
@@ -1125,7 +1137,7 @@ export namespace Prisma {
   }
 
   export type QuestionMaxAggregateOutputType = {
-    id: string | null
+    id: number | null
     statementA: string | null
     statementB: string | null
     optionA: string | null
@@ -1145,6 +1157,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type QuestionAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type QuestionSumAggregateInputType = {
+    id?: true
+  }
 
   export type QuestionMinAggregateInputType = {
     id?: true
@@ -1215,6 +1235,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: QuestionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuestionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: QuestionMinAggregateInputType
@@ -1245,12 +1277,14 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: QuestionCountAggregateInputType | true
+    _avg?: QuestionAvgAggregateInputType
+    _sum?: QuestionSumAggregateInputType
     _min?: QuestionMinAggregateInputType
     _max?: QuestionMaxAggregateInputType
   }
 
   export type QuestionGroupByOutputType = {
-    id: string
+    id: number
     statementA: string
     statementB: string
     optionA: string
@@ -1258,6 +1292,8 @@ export namespace Prisma {
     isActive: boolean
     createdAt: Date
     _count: QuestionCountAggregateOutputType | null
+    _avg: QuestionAvgAggregateOutputType | null
+    _sum: QuestionSumAggregateOutputType | null
     _min: QuestionMinAggregateOutputType | null
     _max: QuestionMaxAggregateOutputType | null
   }
@@ -1284,8 +1320,6 @@ export namespace Prisma {
     optionB?: boolean
     isActive?: boolean
     createdAt?: boolean
-    responses?: boolean | Question$responsesArgs<ExtArgs>
-    _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
 
   export type QuestionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1319,20 +1353,12 @@ export namespace Prisma {
   }
 
   export type QuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "statementA" | "statementB" | "optionA" | "optionB" | "isActive" | "createdAt", ExtArgs["result"]["question"]>
-  export type QuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    responses?: boolean | Question$responsesArgs<ExtArgs>
-    _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type QuestionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type QuestionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $QuestionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Question"
-    objects: {
-      responses: Prisma.$ResponsePayload<ExtArgs>[]
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      id: string
+      id: number
       statementA: string
       statementB: string
       optionA: string
@@ -1733,7 +1759,6 @@ export namespace Prisma {
    */
   export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    responses<T extends Question$responsesArgs<ExtArgs> = {}>(args?: Subset<T, Question$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1763,7 +1788,7 @@ export namespace Prisma {
    * Fields of the Question model
    */
   interface QuestionFieldRefs {
-    readonly id: FieldRef<"Question", 'String'>
+    readonly id: FieldRef<"Question", 'Int'>
     readonly statementA: FieldRef<"Question", 'String'>
     readonly statementB: FieldRef<"Question", 'String'>
     readonly optionA: FieldRef<"Question", 'String'>
@@ -1787,10 +1812,6 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
-    /**
      * Filter, which Question to fetch.
      */
     where: QuestionWhereUniqueInput
@@ -1809,10 +1830,6 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
-    /**
      * Filter, which Question to fetch.
      */
     where: QuestionWhereUniqueInput
@@ -1830,10 +1847,6 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
     /**
      * Filter, which Question to fetch.
      */
@@ -1883,10 +1896,6 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
-    /**
      * Filter, which Question to fetch.
      */
     where?: QuestionWhereInput
@@ -1935,10 +1944,6 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
-    /**
      * Filter, which Questions to fetch.
      */
     where?: QuestionWhereInput
@@ -1981,10 +1986,6 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
     /**
      * The data needed to create a Question.
      */
@@ -2033,10 +2034,6 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
     /**
      * The data needed to update a Question.
      */
@@ -2104,10 +2101,6 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
-    /**
      * The filter to search for the Question to update in case it exists.
      */
     where: QuestionWhereUniqueInput
@@ -2134,10 +2127,6 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
-    /**
      * Filter which Question to delete.
      */
     where: QuestionWhereUniqueInput
@@ -2158,30 +2147,6 @@ export namespace Prisma {
   }
 
   /**
-   * Question.responses
-   */
-  export type Question$responsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Response
-     */
-    select?: ResponseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Response
-     */
-    omit?: ResponseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ResponseInclude<ExtArgs> | null
-    where?: ResponseWhereInput
-    orderBy?: ResponseOrderByWithRelationInput | ResponseOrderByWithRelationInput[]
-    cursor?: ResponseWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ResponseScalarFieldEnum | ResponseScalarFieldEnum[]
-  }
-
-  /**
    * Question without action
    */
   export type QuestionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2193,10 +2158,6 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuestionInclude<ExtArgs> | null
   }
 
 
@@ -2206,14 +2167,24 @@ export namespace Prisma {
 
   export type AggregateProfile = {
     _count: ProfileCountAggregateOutputType | null
+    _avg: ProfileAvgAggregateOutputType | null
+    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
   }
 
+  export type ProfileAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ProfileSumAggregateOutputType = {
+    id: number | null
+  }
+
   export type ProfileMinAggregateOutputType = {
-    id: string | null
+    id: number | null
     name: string | null
-    profession: string | null
+    designation: $Enums.Designation | null
     institute: string | null
     email: string | null
     phone: string | null
@@ -2221,9 +2192,9 @@ export namespace Prisma {
   }
 
   export type ProfileMaxAggregateOutputType = {
-    id: string | null
+    id: number | null
     name: string | null
-    profession: string | null
+    designation: $Enums.Designation | null
     institute: string | null
     email: string | null
     phone: string | null
@@ -2233,7 +2204,7 @@ export namespace Prisma {
   export type ProfileCountAggregateOutputType = {
     id: number
     name: number
-    profession: number
+    designation: number
     institute: number
     email: number
     phone: number
@@ -2242,10 +2213,18 @@ export namespace Prisma {
   }
 
 
+  export type ProfileAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ProfileSumAggregateInputType = {
+    id?: true
+  }
+
   export type ProfileMinAggregateInputType = {
     id?: true
     name?: true
-    profession?: true
+    designation?: true
     institute?: true
     email?: true
     phone?: true
@@ -2255,7 +2234,7 @@ export namespace Prisma {
   export type ProfileMaxAggregateInputType = {
     id?: true
     name?: true
-    profession?: true
+    designation?: true
     institute?: true
     email?: true
     phone?: true
@@ -2265,7 +2244,7 @@ export namespace Prisma {
   export type ProfileCountAggregateInputType = {
     id?: true
     name?: true
-    profession?: true
+    designation?: true
     institute?: true
     email?: true
     phone?: true
@@ -2311,6 +2290,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ProfileAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProfileSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProfileMinAggregateInputType
@@ -2341,19 +2332,23 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProfileCountAggregateInputType | true
+    _avg?: ProfileAvgAggregateInputType
+    _sum?: ProfileSumAggregateInputType
     _min?: ProfileMinAggregateInputType
     _max?: ProfileMaxAggregateInputType
   }
 
   export type ProfileGroupByOutputType = {
-    id: string
+    id: number
     name: string | null
-    profession: string
+    designation: $Enums.Designation
     institute: string
     email: string | null
     phone: string | null
     createdAt: Date
     _count: ProfileCountAggregateOutputType | null
+    _avg: ProfileAvgAggregateOutputType | null
+    _sum: ProfileSumAggregateOutputType | null
     _min: ProfileMinAggregateOutputType | null
     _max: ProfileMaxAggregateOutputType | null
   }
@@ -2375,7 +2370,7 @@ export namespace Prisma {
   export type ProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    profession?: boolean
+    designation?: boolean
     institute?: boolean
     email?: boolean
     phone?: boolean
@@ -2387,7 +2382,7 @@ export namespace Prisma {
   export type ProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    profession?: boolean
+    designation?: boolean
     institute?: boolean
     email?: boolean
     phone?: boolean
@@ -2397,7 +2392,7 @@ export namespace Prisma {
   export type ProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    profession?: boolean
+    designation?: boolean
     institute?: boolean
     email?: boolean
     phone?: boolean
@@ -2407,14 +2402,14 @@ export namespace Prisma {
   export type ProfileSelectScalar = {
     id?: boolean
     name?: boolean
-    profession?: boolean
+    designation?: boolean
     institute?: boolean
     email?: boolean
     phone?: boolean
     createdAt?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "profession" | "institute" | "email" | "phone" | "createdAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "designation" | "institute" | "email" | "phone" | "createdAt", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     responses?: boolean | Profile$responsesArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
@@ -2425,12 +2420,12 @@ export namespace Prisma {
   export type $ProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Profile"
     objects: {
-      responses: Prisma.$ResponsePayload<ExtArgs>[]
+      responses: Prisma.$SurveyResponsePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: string
+      id: number
       name: string | null
-      profession: string
+      designation: $Enums.Designation
       institute: string
       email: string | null
       phone: string | null
@@ -2829,7 +2824,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    responses<T extends Profile$responsesArgs<ExtArgs> = {}>(args?: Subset<T, Profile$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    responses<T extends Profile$responsesArgs<ExtArgs> = {}>(args?: Subset<T, Profile$responsesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2859,9 +2854,9 @@ export namespace Prisma {
    * Fields of the Profile model
    */
   interface ProfileFieldRefs {
-    readonly id: FieldRef<"Profile", 'String'>
+    readonly id: FieldRef<"Profile", 'Int'>
     readonly name: FieldRef<"Profile", 'String'>
-    readonly profession: FieldRef<"Profile", 'String'>
+    readonly designation: FieldRef<"Profile", 'Designation'>
     readonly institute: FieldRef<"Profile", 'String'>
     readonly email: FieldRef<"Profile", 'String'>
     readonly phone: FieldRef<"Profile", 'String'>
@@ -3258,23 +3253,23 @@ export namespace Prisma {
    */
   export type Profile$responsesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
-    where?: ResponseWhereInput
-    orderBy?: ResponseOrderByWithRelationInput | ResponseOrderByWithRelationInput[]
-    cursor?: ResponseWhereUniqueInput
+    include?: SurveyResponseInclude<ExtArgs> | null
+    where?: SurveyResponseWhereInput
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
+    cursor?: SurveyResponseWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ResponseScalarFieldEnum | ResponseScalarFieldEnum[]
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
   }
 
   /**
@@ -3297,357 +3292,436 @@ export namespace Prisma {
 
 
   /**
-   * Model Response
+   * Model SurveyResponse
    */
 
-  export type AggregateResponse = {
-    _count: ResponseCountAggregateOutputType | null
-    _min: ResponseMinAggregateOutputType | null
-    _max: ResponseMaxAggregateOutputType | null
+  export type AggregateSurveyResponse = {
+    _count: SurveyResponseCountAggregateOutputType | null
+    _avg: SurveyResponseAvgAggregateOutputType | null
+    _sum: SurveyResponseSumAggregateOutputType | null
+    _min: SurveyResponseMinAggregateOutputType | null
+    _max: SurveyResponseMaxAggregateOutputType | null
   }
 
-  export type ResponseMinAggregateOutputType = {
-    id: string | null
-    questionId: string | null
-    profileId: string | null
-    choice: string | null
-    createdAt: Date | null
+  export type SurveyResponseAvgAggregateOutputType = {
+    id: number | null
+    profileId: number | null
+    duration: number | null
   }
 
-  export type ResponseMaxAggregateOutputType = {
-    id: string | null
-    questionId: string | null
-    profileId: string | null
-    choice: string | null
-    createdAt: Date | null
+  export type SurveyResponseSumAggregateOutputType = {
+    id: number | null
+    profileId: number | null
+    duration: number | null
   }
 
-  export type ResponseCountAggregateOutputType = {
+  export type SurveyResponseMinAggregateOutputType = {
+    id: number | null
+    profileId: number | null
+    startTime: Date | null
+    endTime: Date | null
+    duration: number | null
+    status: $Enums.SurveyStatus | null
+    ip: string | null
+    device: string | null
+  }
+
+  export type SurveyResponseMaxAggregateOutputType = {
+    id: number | null
+    profileId: number | null
+    startTime: Date | null
+    endTime: Date | null
+    duration: number | null
+    status: $Enums.SurveyStatus | null
+    ip: string | null
+    device: string | null
+  }
+
+  export type SurveyResponseCountAggregateOutputType = {
     id: number
-    questionId: number
     profileId: number
-    choice: number
-    createdAt: number
+    answers: number
+    startTime: number
+    endTime: number
+    duration: number
+    status: number
+    ip: number
+    device: number
     _all: number
   }
 
 
-  export type ResponseMinAggregateInputType = {
+  export type SurveyResponseAvgAggregateInputType = {
     id?: true
-    questionId?: true
     profileId?: true
-    choice?: true
-    createdAt?: true
+    duration?: true
   }
 
-  export type ResponseMaxAggregateInputType = {
+  export type SurveyResponseSumAggregateInputType = {
     id?: true
-    questionId?: true
     profileId?: true
-    choice?: true
-    createdAt?: true
+    duration?: true
   }
 
-  export type ResponseCountAggregateInputType = {
+  export type SurveyResponseMinAggregateInputType = {
     id?: true
-    questionId?: true
     profileId?: true
-    choice?: true
-    createdAt?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+    status?: true
+    ip?: true
+    device?: true
+  }
+
+  export type SurveyResponseMaxAggregateInputType = {
+    id?: true
+    profileId?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+    status?: true
+    ip?: true
+    device?: true
+  }
+
+  export type SurveyResponseCountAggregateInputType = {
+    id?: true
+    profileId?: true
+    answers?: true
+    startTime?: true
+    endTime?: true
+    duration?: true
+    status?: true
+    ip?: true
+    device?: true
     _all?: true
   }
 
-  export type ResponseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Response to aggregate.
+     * Filter which SurveyResponse to aggregate.
      */
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Responses to fetch.
+     * Determine the order of SurveyResponses to fetch.
      */
-    orderBy?: ResponseOrderByWithRelationInput | ResponseOrderByWithRelationInput[]
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ResponseWhereUniqueInput
+    cursor?: SurveyResponseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Responses from the position of the cursor.
+     * Take `±n` SurveyResponses from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Responses.
+     * Skip the first `n` SurveyResponses.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Responses
+     * Count returned SurveyResponses
     **/
-    _count?: true | ResponseCountAggregateInputType
+    _count?: true | SurveyResponseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SurveyResponseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SurveyResponseSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ResponseMinAggregateInputType
+    _min?: SurveyResponseMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ResponseMaxAggregateInputType
+    _max?: SurveyResponseMaxAggregateInputType
   }
 
-  export type GetResponseAggregateType<T extends ResponseAggregateArgs> = {
-        [P in keyof T & keyof AggregateResponse]: P extends '_count' | 'count'
+  export type GetSurveyResponseAggregateType<T extends SurveyResponseAggregateArgs> = {
+        [P in keyof T & keyof AggregateSurveyResponse]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateResponse[P]>
-      : GetScalarType<T[P], AggregateResponse[P]>
+        : GetScalarType<T[P], AggregateSurveyResponse[P]>
+      : GetScalarType<T[P], AggregateSurveyResponse[P]>
   }
 
 
 
 
-  export type ResponseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ResponseWhereInput
-    orderBy?: ResponseOrderByWithAggregationInput | ResponseOrderByWithAggregationInput[]
-    by: ResponseScalarFieldEnum[] | ResponseScalarFieldEnum
-    having?: ResponseScalarWhereWithAggregatesInput
+  export type SurveyResponseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyResponseWhereInput
+    orderBy?: SurveyResponseOrderByWithAggregationInput | SurveyResponseOrderByWithAggregationInput[]
+    by: SurveyResponseScalarFieldEnum[] | SurveyResponseScalarFieldEnum
+    having?: SurveyResponseScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ResponseCountAggregateInputType | true
-    _min?: ResponseMinAggregateInputType
-    _max?: ResponseMaxAggregateInputType
+    _count?: SurveyResponseCountAggregateInputType | true
+    _avg?: SurveyResponseAvgAggregateInputType
+    _sum?: SurveyResponseSumAggregateInputType
+    _min?: SurveyResponseMinAggregateInputType
+    _max?: SurveyResponseMaxAggregateInputType
   }
 
-  export type ResponseGroupByOutputType = {
-    id: string
-    questionId: string
-    profileId: string | null
-    choice: string
-    createdAt: Date
-    _count: ResponseCountAggregateOutputType | null
-    _min: ResponseMinAggregateOutputType | null
-    _max: ResponseMaxAggregateOutputType | null
+  export type SurveyResponseGroupByOutputType = {
+    id: number
+    profileId: number
+    answers: JsonValue
+    startTime: Date
+    endTime: Date | null
+    duration: number | null
+    status: $Enums.SurveyStatus
+    ip: string | null
+    device: string | null
+    _count: SurveyResponseCountAggregateOutputType | null
+    _avg: SurveyResponseAvgAggregateOutputType | null
+    _sum: SurveyResponseSumAggregateOutputType | null
+    _min: SurveyResponseMinAggregateOutputType | null
+    _max: SurveyResponseMaxAggregateOutputType | null
   }
 
-  type GetResponseGroupByPayload<T extends ResponseGroupByArgs> = Prisma.PrismaPromise<
+  type GetSurveyResponseGroupByPayload<T extends SurveyResponseGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ResponseGroupByOutputType, T['by']> &
+      PickEnumerable<SurveyResponseGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ResponseGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof SurveyResponseGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ResponseGroupByOutputType[P]>
-            : GetScalarType<T[P], ResponseGroupByOutputType[P]>
+              : GetScalarType<T[P], SurveyResponseGroupByOutputType[P]>
+            : GetScalarType<T[P], SurveyResponseGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ResponseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SurveyResponseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    questionId?: boolean
     profileId?: boolean
-    choice?: boolean
-    createdAt?: boolean
-    question?: boolean | QuestionDefaultArgs<ExtArgs>
-    profile?: boolean | Response$profileArgs<ExtArgs>
-  }, ExtArgs["result"]["response"]>
+    answers?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+    status?: boolean
+    ip?: boolean
+    device?: boolean
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["surveyResponse"]>
 
-  export type ResponseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SurveyResponseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    questionId?: boolean
     profileId?: boolean
-    choice?: boolean
-    createdAt?: boolean
-    question?: boolean | QuestionDefaultArgs<ExtArgs>
-    profile?: boolean | Response$profileArgs<ExtArgs>
-  }, ExtArgs["result"]["response"]>
+    answers?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+    status?: boolean
+    ip?: boolean
+    device?: boolean
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["surveyResponse"]>
 
-  export type ResponseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type SurveyResponseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    questionId?: boolean
     profileId?: boolean
-    choice?: boolean
-    createdAt?: boolean
-    question?: boolean | QuestionDefaultArgs<ExtArgs>
-    profile?: boolean | Response$profileArgs<ExtArgs>
-  }, ExtArgs["result"]["response"]>
+    answers?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+    status?: boolean
+    ip?: boolean
+    device?: boolean
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["surveyResponse"]>
 
-  export type ResponseSelectScalar = {
+  export type SurveyResponseSelectScalar = {
     id?: boolean
-    questionId?: boolean
     profileId?: boolean
-    choice?: boolean
-    createdAt?: boolean
+    answers?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    duration?: boolean
+    status?: boolean
+    ip?: boolean
+    device?: boolean
   }
 
-  export type ResponseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "questionId" | "profileId" | "choice" | "createdAt", ExtArgs["result"]["response"]>
-  export type ResponseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    question?: boolean | QuestionDefaultArgs<ExtArgs>
-    profile?: boolean | Response$profileArgs<ExtArgs>
+  export type SurveyResponseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "profileId" | "answers" | "startTime" | "endTime" | "duration" | "status" | "ip" | "device", ExtArgs["result"]["surveyResponse"]>
+  export type SurveyResponseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
   }
-  export type ResponseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    question?: boolean | QuestionDefaultArgs<ExtArgs>
-    profile?: boolean | Response$profileArgs<ExtArgs>
+  export type SurveyResponseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
   }
-  export type ResponseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    question?: boolean | QuestionDefaultArgs<ExtArgs>
-    profile?: boolean | Response$profileArgs<ExtArgs>
+  export type SurveyResponseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
   }
 
-  export type $ResponsePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Response"
+  export type $SurveyResponsePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SurveyResponse"
     objects: {
-      question: Prisma.$QuestionPayload<ExtArgs>
-      profile: Prisma.$ProfilePayload<ExtArgs> | null
+      profile: Prisma.$ProfilePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: string
-      questionId: string
-      profileId: string | null
-      choice: string
-      createdAt: Date
-    }, ExtArgs["result"]["response"]>
+      id: number
+      profileId: number
+      answers: Prisma.JsonValue
+      startTime: Date
+      endTime: Date | null
+      duration: number | null
+      status: $Enums.SurveyStatus
+      ip: string | null
+      device: string | null
+    }, ExtArgs["result"]["surveyResponse"]>
     composites: {}
   }
 
-  type ResponseGetPayload<S extends boolean | null | undefined | ResponseDefaultArgs> = $Result.GetResult<Prisma.$ResponsePayload, S>
+  type SurveyResponseGetPayload<S extends boolean | null | undefined | SurveyResponseDefaultArgs> = $Result.GetResult<Prisma.$SurveyResponsePayload, S>
 
-  type ResponseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ResponseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ResponseCountAggregateInputType | true
+  type SurveyResponseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SurveyResponseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SurveyResponseCountAggregateInputType | true
     }
 
-  export interface ResponseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Response'], meta: { name: 'Response' } }
+  export interface SurveyResponseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SurveyResponse'], meta: { name: 'SurveyResponse' } }
     /**
-     * Find zero or one Response that matches the filter.
-     * @param {ResponseFindUniqueArgs} args - Arguments to find a Response
+     * Find zero or one SurveyResponse that matches the filter.
+     * @param {SurveyResponseFindUniqueArgs} args - Arguments to find a SurveyResponse
      * @example
-     * // Get one Response
-     * const response = await prisma.response.findUnique({
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ResponseFindUniqueArgs>(args: SelectSubset<T, ResponseFindUniqueArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends SurveyResponseFindUniqueArgs>(args: SelectSubset<T, SurveyResponseFindUniqueArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Response that matches the filter or throw an error with `error.code='P2025'`
+     * Find one SurveyResponse that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {ResponseFindUniqueOrThrowArgs} args - Arguments to find a Response
+     * @param {SurveyResponseFindUniqueOrThrowArgs} args - Arguments to find a SurveyResponse
      * @example
-     * // Get one Response
-     * const response = await prisma.response.findUniqueOrThrow({
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ResponseFindUniqueOrThrowArgs>(args: SelectSubset<T, ResponseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends SurveyResponseFindUniqueOrThrowArgs>(args: SelectSubset<T, SurveyResponseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Response that matches the filter.
+     * Find the first SurveyResponse that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ResponseFindFirstArgs} args - Arguments to find a Response
+     * @param {SurveyResponseFindFirstArgs} args - Arguments to find a SurveyResponse
      * @example
-     * // Get one Response
-     * const response = await prisma.response.findFirst({
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ResponseFindFirstArgs>(args?: SelectSubset<T, ResponseFindFirstArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends SurveyResponseFindFirstArgs>(args?: SelectSubset<T, SurveyResponseFindFirstArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Response that matches the filter or
+     * Find the first SurveyResponse that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ResponseFindFirstOrThrowArgs} args - Arguments to find a Response
+     * @param {SurveyResponseFindFirstOrThrowArgs} args - Arguments to find a SurveyResponse
      * @example
-     * // Get one Response
-     * const response = await prisma.response.findFirstOrThrow({
+     * // Get one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ResponseFindFirstOrThrowArgs>(args?: SelectSubset<T, ResponseFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends SurveyResponseFindFirstOrThrowArgs>(args?: SelectSubset<T, SurveyResponseFindFirstOrThrowArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Responses that matches the filter.
+     * Find zero or more SurveyResponses that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ResponseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {SurveyResponseFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Responses
-     * const responses = await prisma.response.findMany()
+     * // Get all SurveyResponses
+     * const surveyResponses = await prisma.surveyResponse.findMany()
      * 
-     * // Get first 10 Responses
-     * const responses = await prisma.response.findMany({ take: 10 })
+     * // Get first 10 SurveyResponses
+     * const surveyResponses = await prisma.surveyResponse.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const responseWithIdOnly = await prisma.response.findMany({ select: { id: true } })
+     * const surveyResponseWithIdOnly = await prisma.surveyResponse.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ResponseFindManyArgs>(args?: SelectSubset<T, ResponseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends SurveyResponseFindManyArgs>(args?: SelectSubset<T, SurveyResponseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Response.
-     * @param {ResponseCreateArgs} args - Arguments to create a Response.
+     * Create a SurveyResponse.
+     * @param {SurveyResponseCreateArgs} args - Arguments to create a SurveyResponse.
      * @example
-     * // Create one Response
-     * const Response = await prisma.response.create({
+     * // Create one SurveyResponse
+     * const SurveyResponse = await prisma.surveyResponse.create({
      *   data: {
-     *     // ... data to create a Response
+     *     // ... data to create a SurveyResponse
      *   }
      * })
      * 
      */
-    create<T extends ResponseCreateArgs>(args: SelectSubset<T, ResponseCreateArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends SurveyResponseCreateArgs>(args: SelectSubset<T, SurveyResponseCreateArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Responses.
-     * @param {ResponseCreateManyArgs} args - Arguments to create many Responses.
+     * Create many SurveyResponses.
+     * @param {SurveyResponseCreateManyArgs} args - Arguments to create many SurveyResponses.
      * @example
-     * // Create many Responses
-     * const response = await prisma.response.createMany({
+     * // Create many SurveyResponses
+     * const surveyResponse = await prisma.surveyResponse.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ResponseCreateManyArgs>(args?: SelectSubset<T, ResponseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends SurveyResponseCreateManyArgs>(args?: SelectSubset<T, SurveyResponseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Responses and returns the data saved in the database.
-     * @param {ResponseCreateManyAndReturnArgs} args - Arguments to create many Responses.
+     * Create many SurveyResponses and returns the data saved in the database.
+     * @param {SurveyResponseCreateManyAndReturnArgs} args - Arguments to create many SurveyResponses.
      * @example
-     * // Create many Responses
-     * const response = await prisma.response.createManyAndReturn({
+     * // Create many SurveyResponses
+     * const surveyResponse = await prisma.surveyResponse.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Responses and only return the `id`
-     * const responseWithIdOnly = await prisma.response.createManyAndReturn({
+     * // Create many SurveyResponses and only return the `id`
+     * const surveyResponseWithIdOnly = await prisma.surveyResponse.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -3657,28 +3731,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ResponseCreateManyAndReturnArgs>(args?: SelectSubset<T, ResponseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends SurveyResponseCreateManyAndReturnArgs>(args?: SelectSubset<T, SurveyResponseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Response.
-     * @param {ResponseDeleteArgs} args - Arguments to delete one Response.
+     * Delete a SurveyResponse.
+     * @param {SurveyResponseDeleteArgs} args - Arguments to delete one SurveyResponse.
      * @example
-     * // Delete one Response
-     * const Response = await prisma.response.delete({
+     * // Delete one SurveyResponse
+     * const SurveyResponse = await prisma.surveyResponse.delete({
      *   where: {
-     *     // ... filter to delete one Response
+     *     // ... filter to delete one SurveyResponse
      *   }
      * })
      * 
      */
-    delete<T extends ResponseDeleteArgs>(args: SelectSubset<T, ResponseDeleteArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends SurveyResponseDeleteArgs>(args: SelectSubset<T, SurveyResponseDeleteArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Response.
-     * @param {ResponseUpdateArgs} args - Arguments to update one Response.
+     * Update one SurveyResponse.
+     * @param {SurveyResponseUpdateArgs} args - Arguments to update one SurveyResponse.
      * @example
-     * // Update one Response
-     * const response = await prisma.response.update({
+     * // Update one SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3688,30 +3762,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ResponseUpdateArgs>(args: SelectSubset<T, ResponseUpdateArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends SurveyResponseUpdateArgs>(args: SelectSubset<T, SurveyResponseUpdateArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Responses.
-     * @param {ResponseDeleteManyArgs} args - Arguments to filter Responses to delete.
+     * Delete zero or more SurveyResponses.
+     * @param {SurveyResponseDeleteManyArgs} args - Arguments to filter SurveyResponses to delete.
      * @example
-     * // Delete a few Responses
-     * const { count } = await prisma.response.deleteMany({
+     * // Delete a few SurveyResponses
+     * const { count } = await prisma.surveyResponse.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ResponseDeleteManyArgs>(args?: SelectSubset<T, ResponseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends SurveyResponseDeleteManyArgs>(args?: SelectSubset<T, SurveyResponseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Responses.
+     * Update zero or more SurveyResponses.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ResponseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {SurveyResponseUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Responses
-     * const response = await prisma.response.updateMany({
+     * // Update many SurveyResponses
+     * const surveyResponse = await prisma.surveyResponse.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3721,14 +3795,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ResponseUpdateManyArgs>(args: SelectSubset<T, ResponseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends SurveyResponseUpdateManyArgs>(args: SelectSubset<T, SurveyResponseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Responses and returns the data updated in the database.
-     * @param {ResponseUpdateManyAndReturnArgs} args - Arguments to update many Responses.
+     * Update zero or more SurveyResponses and returns the data updated in the database.
+     * @param {SurveyResponseUpdateManyAndReturnArgs} args - Arguments to update many SurveyResponses.
      * @example
-     * // Update many Responses
-     * const response = await prisma.response.updateManyAndReturn({
+     * // Update many SurveyResponses
+     * const surveyResponse = await prisma.surveyResponse.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3737,8 +3811,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Responses and only return the `id`
-     * const responseWithIdOnly = await prisma.response.updateManyAndReturn({
+     * // Update zero or more SurveyResponses and only return the `id`
+     * const surveyResponseWithIdOnly = await prisma.surveyResponse.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -3751,56 +3825,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends ResponseUpdateManyAndReturnArgs>(args: SelectSubset<T, ResponseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends SurveyResponseUpdateManyAndReturnArgs>(args: SelectSubset<T, SurveyResponseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Response.
-     * @param {ResponseUpsertArgs} args - Arguments to update or create a Response.
+     * Create or update one SurveyResponse.
+     * @param {SurveyResponseUpsertArgs} args - Arguments to update or create a SurveyResponse.
      * @example
-     * // Update or create a Response
-     * const response = await prisma.response.upsert({
+     * // Update or create a SurveyResponse
+     * const surveyResponse = await prisma.surveyResponse.upsert({
      *   create: {
-     *     // ... data to create a Response
+     *     // ... data to create a SurveyResponse
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Response we want to update
+     *     // ... the filter for the SurveyResponse we want to update
      *   }
      * })
      */
-    upsert<T extends ResponseUpsertArgs>(args: SelectSubset<T, ResponseUpsertArgs<ExtArgs>>): Prisma__ResponseClient<$Result.GetResult<Prisma.$ResponsePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends SurveyResponseUpsertArgs>(args: SelectSubset<T, SurveyResponseUpsertArgs<ExtArgs>>): Prisma__SurveyResponseClient<$Result.GetResult<Prisma.$SurveyResponsePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Responses.
+     * Count the number of SurveyResponses.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ResponseCountArgs} args - Arguments to filter Responses to count.
+     * @param {SurveyResponseCountArgs} args - Arguments to filter SurveyResponses to count.
      * @example
-     * // Count the number of Responses
-     * const count = await prisma.response.count({
+     * // Count the number of SurveyResponses
+     * const count = await prisma.surveyResponse.count({
      *   where: {
-     *     // ... the filter for the Responses we want to count
+     *     // ... the filter for the SurveyResponses we want to count
      *   }
      * })
     **/
-    count<T extends ResponseCountArgs>(
-      args?: Subset<T, ResponseCountArgs>,
+    count<T extends SurveyResponseCountArgs>(
+      args?: Subset<T, SurveyResponseCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ResponseCountAggregateOutputType>
+          : GetScalarType<T['select'], SurveyResponseCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Response.
+     * Allows you to perform aggregations operations on a SurveyResponse.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ResponseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {SurveyResponseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3820,13 +3894,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ResponseAggregateArgs>(args: Subset<T, ResponseAggregateArgs>): Prisma.PrismaPromise<GetResponseAggregateType<T>>
+    aggregate<T extends SurveyResponseAggregateArgs>(args: Subset<T, SurveyResponseAggregateArgs>): Prisma.PrismaPromise<GetSurveyResponseAggregateType<T>>
 
     /**
-     * Group by Response.
+     * Group by SurveyResponse.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ResponseGroupByArgs} args - Group by arguments.
+     * @param {SurveyResponseGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3841,14 +3915,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ResponseGroupByArgs,
+      T extends SurveyResponseGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ResponseGroupByArgs['orderBy'] }
-        : { orderBy?: ResponseGroupByArgs['orderBy'] },
+        ? { orderBy: SurveyResponseGroupByArgs['orderBy'] }
+        : { orderBy?: SurveyResponseGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3897,23 +3971,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ResponseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResponseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, SurveyResponseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSurveyResponseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Response model
+   * Fields of the SurveyResponse model
    */
-  readonly fields: ResponseFieldRefs;
+  readonly fields: SurveyResponseFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Response.
+   * The delegate class that acts as a "Promise-like" for SurveyResponse.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ResponseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__SurveyResponseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    question<T extends QuestionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuestionDefaultArgs<ExtArgs>>): Prisma__QuestionClient<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    profile<T extends Response$profileArgs<ExtArgs> = {}>(args?: Subset<T, Response$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    profile<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3940,444 +4013,429 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Response model
+   * Fields of the SurveyResponse model
    */
-  interface ResponseFieldRefs {
-    readonly id: FieldRef<"Response", 'String'>
-    readonly questionId: FieldRef<"Response", 'String'>
-    readonly profileId: FieldRef<"Response", 'String'>
-    readonly choice: FieldRef<"Response", 'String'>
-    readonly createdAt: FieldRef<"Response", 'DateTime'>
+  interface SurveyResponseFieldRefs {
+    readonly id: FieldRef<"SurveyResponse", 'Int'>
+    readonly profileId: FieldRef<"SurveyResponse", 'Int'>
+    readonly answers: FieldRef<"SurveyResponse", 'Json'>
+    readonly startTime: FieldRef<"SurveyResponse", 'DateTime'>
+    readonly endTime: FieldRef<"SurveyResponse", 'DateTime'>
+    readonly duration: FieldRef<"SurveyResponse", 'Int'>
+    readonly status: FieldRef<"SurveyResponse", 'SurveyStatus'>
+    readonly ip: FieldRef<"SurveyResponse", 'String'>
+    readonly device: FieldRef<"SurveyResponse", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * Response findUnique
+   * SurveyResponse findUnique
    */
-  export type ResponseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * Filter, which Response to fetch.
+     * Filter, which SurveyResponse to fetch.
      */
-    where: ResponseWhereUniqueInput
+    where: SurveyResponseWhereUniqueInput
   }
 
   /**
-   * Response findUniqueOrThrow
+   * SurveyResponse findUniqueOrThrow
    */
-  export type ResponseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * Filter, which Response to fetch.
+     * Filter, which SurveyResponse to fetch.
      */
-    where: ResponseWhereUniqueInput
+    where: SurveyResponseWhereUniqueInput
   }
 
   /**
-   * Response findFirst
+   * SurveyResponse findFirst
    */
-  export type ResponseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * Filter, which Response to fetch.
+     * Filter, which SurveyResponse to fetch.
      */
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Responses to fetch.
+     * Determine the order of SurveyResponses to fetch.
      */
-    orderBy?: ResponseOrderByWithRelationInput | ResponseOrderByWithRelationInput[]
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Responses.
+     * Sets the position for searching for SurveyResponses.
      */
-    cursor?: ResponseWhereUniqueInput
+    cursor?: SurveyResponseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Responses from the position of the cursor.
+     * Take `±n` SurveyResponses from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Responses.
+     * Skip the first `n` SurveyResponses.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Responses.
+     * Filter by unique combinations of SurveyResponses.
      */
-    distinct?: ResponseScalarFieldEnum | ResponseScalarFieldEnum[]
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
   }
 
   /**
-   * Response findFirstOrThrow
+   * SurveyResponse findFirstOrThrow
    */
-  export type ResponseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * Filter, which Response to fetch.
+     * Filter, which SurveyResponse to fetch.
      */
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Responses to fetch.
+     * Determine the order of SurveyResponses to fetch.
      */
-    orderBy?: ResponseOrderByWithRelationInput | ResponseOrderByWithRelationInput[]
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Responses.
+     * Sets the position for searching for SurveyResponses.
      */
-    cursor?: ResponseWhereUniqueInput
+    cursor?: SurveyResponseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Responses from the position of the cursor.
+     * Take `±n` SurveyResponses from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Responses.
+     * Skip the first `n` SurveyResponses.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Responses.
+     * Filter by unique combinations of SurveyResponses.
      */
-    distinct?: ResponseScalarFieldEnum | ResponseScalarFieldEnum[]
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
   }
 
   /**
-   * Response findMany
+   * SurveyResponse findMany
    */
-  export type ResponseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * Filter, which Responses to fetch.
+     * Filter, which SurveyResponses to fetch.
      */
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Responses to fetch.
+     * Determine the order of SurveyResponses to fetch.
      */
-    orderBy?: ResponseOrderByWithRelationInput | ResponseOrderByWithRelationInput[]
+    orderBy?: SurveyResponseOrderByWithRelationInput | SurveyResponseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Responses.
+     * Sets the position for listing SurveyResponses.
      */
-    cursor?: ResponseWhereUniqueInput
+    cursor?: SurveyResponseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Responses from the position of the cursor.
+     * Take `±n` SurveyResponses from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Responses.
+     * Skip the first `n` SurveyResponses.
      */
     skip?: number
-    distinct?: ResponseScalarFieldEnum | ResponseScalarFieldEnum[]
+    distinct?: SurveyResponseScalarFieldEnum | SurveyResponseScalarFieldEnum[]
   }
 
   /**
-   * Response create
+   * SurveyResponse create
    */
-  export type ResponseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * The data needed to create a Response.
+     * The data needed to create a SurveyResponse.
      */
-    data: XOR<ResponseCreateInput, ResponseUncheckedCreateInput>
+    data: XOR<SurveyResponseCreateInput, SurveyResponseUncheckedCreateInput>
   }
 
   /**
-   * Response createMany
+   * SurveyResponse createMany
    */
-  export type ResponseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Responses.
+     * The data used to create many SurveyResponses.
      */
-    data: ResponseCreateManyInput | ResponseCreateManyInput[]
+    data: SurveyResponseCreateManyInput | SurveyResponseCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Response createManyAndReturn
+   * SurveyResponse createManyAndReturn
    */
-  export type ResponseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelectCreateManyAndReturn<ExtArgs> | null
+    select?: SurveyResponseSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
-     * The data used to create many Responses.
+     * The data used to create many SurveyResponses.
      */
-    data: ResponseCreateManyInput | ResponseCreateManyInput[]
+    data: SurveyResponseCreateManyInput | SurveyResponseCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: SurveyResponseIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Response update
+   * SurveyResponse update
    */
-  export type ResponseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * The data needed to update a Response.
+     * The data needed to update a SurveyResponse.
      */
-    data: XOR<ResponseUpdateInput, ResponseUncheckedUpdateInput>
+    data: XOR<SurveyResponseUpdateInput, SurveyResponseUncheckedUpdateInput>
     /**
-     * Choose, which Response to update.
+     * Choose, which SurveyResponse to update.
      */
-    where: ResponseWhereUniqueInput
+    where: SurveyResponseWhereUniqueInput
   }
 
   /**
-   * Response updateMany
+   * SurveyResponse updateMany
    */
-  export type ResponseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Responses.
+     * The data used to update SurveyResponses.
      */
-    data: XOR<ResponseUpdateManyMutationInput, ResponseUncheckedUpdateManyInput>
+    data: XOR<SurveyResponseUpdateManyMutationInput, SurveyResponseUncheckedUpdateManyInput>
     /**
-     * Filter which Responses to update
+     * Filter which SurveyResponses to update
      */
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
     /**
-     * Limit how many Responses to update.
+     * Limit how many SurveyResponses to update.
      */
     limit?: number
   }
 
   /**
-   * Response updateManyAndReturn
+   * SurveyResponse updateManyAndReturn
    */
-  export type ResponseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: SurveyResponseSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
-     * The data used to update Responses.
+     * The data used to update SurveyResponses.
      */
-    data: XOR<ResponseUpdateManyMutationInput, ResponseUncheckedUpdateManyInput>
+    data: XOR<SurveyResponseUpdateManyMutationInput, SurveyResponseUncheckedUpdateManyInput>
     /**
-     * Filter which Responses to update
+     * Filter which SurveyResponses to update
      */
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
     /**
-     * Limit how many Responses to update.
+     * Limit how many SurveyResponses to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: SurveyResponseIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Response upsert
+   * SurveyResponse upsert
    */
-  export type ResponseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * The filter to search for the Response to update in case it exists.
+     * The filter to search for the SurveyResponse to update in case it exists.
      */
-    where: ResponseWhereUniqueInput
+    where: SurveyResponseWhereUniqueInput
     /**
-     * In case the Response found by the `where` argument doesn't exist, create a new Response with this data.
+     * In case the SurveyResponse found by the `where` argument doesn't exist, create a new SurveyResponse with this data.
      */
-    create: XOR<ResponseCreateInput, ResponseUncheckedCreateInput>
+    create: XOR<SurveyResponseCreateInput, SurveyResponseUncheckedCreateInput>
     /**
-     * In case the Response was found with the provided `where` argument, update it with this data.
+     * In case the SurveyResponse was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ResponseUpdateInput, ResponseUncheckedUpdateInput>
+    update: XOR<SurveyResponseUpdateInput, SurveyResponseUncheckedUpdateInput>
   }
 
   /**
-   * Response delete
+   * SurveyResponse delete
    */
-  export type ResponseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Response
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ResponseSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Response
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ResponseOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
     /**
-     * Filter which Response to delete.
+     * Filter which SurveyResponse to delete.
      */
-    where: ResponseWhereUniqueInput
+    where: SurveyResponseWhereUniqueInput
   }
 
   /**
-   * Response deleteMany
+   * SurveyResponse deleteMany
    */
-  export type ResponseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Responses to delete
+     * Filter which SurveyResponses to delete
      */
-    where?: ResponseWhereInput
+    where?: SurveyResponseWhereInput
     /**
-     * Limit how many Responses to delete.
+     * Limit how many SurveyResponses to delete.
      */
     limit?: number
   }
 
   /**
-   * Response.profile
+   * SurveyResponse without action
    */
-  export type Response$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type SurveyResponseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Profile
+     * Select specific fields to fetch from the SurveyResponse
      */
-    select?: ProfileSelect<ExtArgs> | null
+    select?: SurveyResponseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Profile
+     * Omit specific fields from the SurveyResponse
      */
-    omit?: ProfileOmit<ExtArgs> | null
+    omit?: SurveyResponseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProfileInclude<ExtArgs> | null
-    where?: ProfileWhereInput
-  }
-
-  /**
-   * Response without action
-   */
-  export type ResponseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Response
-     */
-    select?: ResponseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Response
-     */
-    omit?: ResponseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ResponseInclude<ExtArgs> | null
+    include?: SurveyResponseInclude<ExtArgs> | null
   }
 
 
@@ -4411,7 +4469,7 @@ export namespace Prisma {
   export const ProfileScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    profession: 'profession',
+    designation: 'designation',
     institute: 'institute',
     email: 'email',
     phone: 'phone',
@@ -4421,15 +4479,19 @@ export namespace Prisma {
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
-  export const ResponseScalarFieldEnum: {
+  export const SurveyResponseScalarFieldEnum: {
     id: 'id',
-    questionId: 'questionId',
     profileId: 'profileId',
-    choice: 'choice',
-    createdAt: 'createdAt'
+    answers: 'answers',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    duration: 'duration',
+    status: 'status',
+    ip: 'ip',
+    device: 'device'
   };
 
-  export type ResponseScalarFieldEnum = (typeof ResponseScalarFieldEnum)[keyof typeof ResponseScalarFieldEnum]
+  export type SurveyResponseScalarFieldEnum = (typeof SurveyResponseScalarFieldEnum)[keyof typeof SurveyResponseScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4438,6 +4500,13 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -4456,9 +4525,32 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
   /**
    * Field references
    */
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
 
 
   /**
@@ -4497,16 +4589,58 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Designation'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type EnumDesignationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Designation'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Designation[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListEnumDesignationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Designation[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'SurveyStatus'
+   */
+  export type EnumSurveyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SurveyStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SurveyStatus[]'
+   */
+  export type ListEnumSurveyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SurveyStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -4517,14 +4651,13 @@ export namespace Prisma {
     AND?: QuestionWhereInput | QuestionWhereInput[]
     OR?: QuestionWhereInput[]
     NOT?: QuestionWhereInput | QuestionWhereInput[]
-    id?: StringFilter<"Question"> | string
+    id?: IntFilter<"Question"> | number
     statementA?: StringFilter<"Question"> | string
     statementB?: StringFilter<"Question"> | string
     optionA?: StringFilter<"Question"> | string
     optionB?: StringFilter<"Question"> | string
     isActive?: BoolFilter<"Question"> | boolean
     createdAt?: DateTimeFilter<"Question"> | Date | string
-    responses?: ResponseListRelationFilter
   }
 
   export type QuestionOrderByWithRelationInput = {
@@ -4535,11 +4668,10 @@ export namespace Prisma {
     optionB?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
-    responses?: ResponseOrderByRelationAggregateInput
   }
 
   export type QuestionWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
+    id?: number
     AND?: QuestionWhereInput | QuestionWhereInput[]
     OR?: QuestionWhereInput[]
     NOT?: QuestionWhereInput | QuestionWhereInput[]
@@ -4549,7 +4681,6 @@ export namespace Prisma {
     optionB?: StringFilter<"Question"> | string
     isActive?: BoolFilter<"Question"> | boolean
     createdAt?: DateTimeFilter<"Question"> | Date | string
-    responses?: ResponseListRelationFilter
   }, "id">
 
   export type QuestionOrderByWithAggregationInput = {
@@ -4561,15 +4692,17 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     _count?: QuestionCountOrderByAggregateInput
+    _avg?: QuestionAvgOrderByAggregateInput
     _max?: QuestionMaxOrderByAggregateInput
     _min?: QuestionMinOrderByAggregateInput
+    _sum?: QuestionSumOrderByAggregateInput
   }
 
   export type QuestionScalarWhereWithAggregatesInput = {
     AND?: QuestionScalarWhereWithAggregatesInput | QuestionScalarWhereWithAggregatesInput[]
     OR?: QuestionScalarWhereWithAggregatesInput[]
     NOT?: QuestionScalarWhereWithAggregatesInput | QuestionScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Question"> | string
+    id?: IntWithAggregatesFilter<"Question"> | number
     statementA?: StringWithAggregatesFilter<"Question"> | string
     statementB?: StringWithAggregatesFilter<"Question"> | string
     optionA?: StringWithAggregatesFilter<"Question"> | string
@@ -4582,171 +4715,186 @@ export namespace Prisma {
     AND?: ProfileWhereInput | ProfileWhereInput[]
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
-    id?: StringFilter<"Profile"> | string
+    id?: IntFilter<"Profile"> | number
     name?: StringNullableFilter<"Profile"> | string | null
-    profession?: StringFilter<"Profile"> | string
+    designation?: EnumDesignationFilter<"Profile"> | $Enums.Designation
     institute?: StringFilter<"Profile"> | string
     email?: StringNullableFilter<"Profile"> | string | null
     phone?: StringNullableFilter<"Profile"> | string | null
     createdAt?: DateTimeFilter<"Profile"> | Date | string
-    responses?: ResponseListRelationFilter
+    responses?: SurveyResponseListRelationFilter
   }
 
   export type ProfileOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    profession?: SortOrder
+    designation?: SortOrder
     institute?: SortOrder
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    responses?: ResponseOrderByRelationAggregateInput
+    responses?: SurveyResponseOrderByRelationAggregateInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
+    id?: number
     AND?: ProfileWhereInput | ProfileWhereInput[]
     OR?: ProfileWhereInput[]
     NOT?: ProfileWhereInput | ProfileWhereInput[]
     name?: StringNullableFilter<"Profile"> | string | null
-    profession?: StringFilter<"Profile"> | string
+    designation?: EnumDesignationFilter<"Profile"> | $Enums.Designation
     institute?: StringFilter<"Profile"> | string
     email?: StringNullableFilter<"Profile"> | string | null
     phone?: StringNullableFilter<"Profile"> | string | null
     createdAt?: DateTimeFilter<"Profile"> | Date | string
-    responses?: ResponseListRelationFilter
+    responses?: SurveyResponseListRelationFilter
   }, "id">
 
   export type ProfileOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    profession?: SortOrder
+    designation?: SortOrder
     institute?: SortOrder
     email?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
+    _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
     _min?: ProfileMinOrderByAggregateInput
+    _sum?: ProfileSumOrderByAggregateInput
   }
 
   export type ProfileScalarWhereWithAggregatesInput = {
     AND?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
     OR?: ProfileScalarWhereWithAggregatesInput[]
     NOT?: ProfileScalarWhereWithAggregatesInput | ProfileScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Profile"> | string
+    id?: IntWithAggregatesFilter<"Profile"> | number
     name?: StringNullableWithAggregatesFilter<"Profile"> | string | null
-    profession?: StringWithAggregatesFilter<"Profile"> | string
+    designation?: EnumDesignationWithAggregatesFilter<"Profile"> | $Enums.Designation
     institute?: StringWithAggregatesFilter<"Profile"> | string
     email?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     phone?: StringNullableWithAggregatesFilter<"Profile"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
   }
 
-  export type ResponseWhereInput = {
-    AND?: ResponseWhereInput | ResponseWhereInput[]
-    OR?: ResponseWhereInput[]
-    NOT?: ResponseWhereInput | ResponseWhereInput[]
-    id?: StringFilter<"Response"> | string
-    questionId?: StringFilter<"Response"> | string
-    profileId?: StringNullableFilter<"Response"> | string | null
-    choice?: StringFilter<"Response"> | string
-    createdAt?: DateTimeFilter<"Response"> | Date | string
-    question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
-    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+  export type SurveyResponseWhereInput = {
+    AND?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    OR?: SurveyResponseWhereInput[]
+    NOT?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    id?: IntFilter<"SurveyResponse"> | number
+    profileId?: IntFilter<"SurveyResponse"> | number
+    answers?: JsonFilter<"SurveyResponse">
+    startTime?: DateTimeFilter<"SurveyResponse"> | Date | string
+    endTime?: DateTimeNullableFilter<"SurveyResponse"> | Date | string | null
+    duration?: IntNullableFilter<"SurveyResponse"> | number | null
+    status?: EnumSurveyStatusFilter<"SurveyResponse"> | $Enums.SurveyStatus
+    ip?: StringNullableFilter<"SurveyResponse"> | string | null
+    device?: StringNullableFilter<"SurveyResponse"> | string | null
+    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
   }
 
-  export type ResponseOrderByWithRelationInput = {
+  export type SurveyResponseOrderByWithRelationInput = {
     id?: SortOrder
-    questionId?: SortOrder
-    profileId?: SortOrderInput | SortOrder
-    choice?: SortOrder
-    createdAt?: SortOrder
-    question?: QuestionOrderByWithRelationInput
+    profileId?: SortOrder
+    answers?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    status?: SortOrder
+    ip?: SortOrderInput | SortOrder
+    device?: SortOrderInput | SortOrder
     profile?: ProfileOrderByWithRelationInput
   }
 
-  export type ResponseWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: ResponseWhereInput | ResponseWhereInput[]
-    OR?: ResponseWhereInput[]
-    NOT?: ResponseWhereInput | ResponseWhereInput[]
-    questionId?: StringFilter<"Response"> | string
-    profileId?: StringNullableFilter<"Response"> | string | null
-    choice?: StringFilter<"Response"> | string
-    createdAt?: DateTimeFilter<"Response"> | Date | string
-    question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
-    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+  export type SurveyResponseWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    OR?: SurveyResponseWhereInput[]
+    NOT?: SurveyResponseWhereInput | SurveyResponseWhereInput[]
+    profileId?: IntFilter<"SurveyResponse"> | number
+    answers?: JsonFilter<"SurveyResponse">
+    startTime?: DateTimeFilter<"SurveyResponse"> | Date | string
+    endTime?: DateTimeNullableFilter<"SurveyResponse"> | Date | string | null
+    duration?: IntNullableFilter<"SurveyResponse"> | number | null
+    status?: EnumSurveyStatusFilter<"SurveyResponse"> | $Enums.SurveyStatus
+    ip?: StringNullableFilter<"SurveyResponse"> | string | null
+    device?: StringNullableFilter<"SurveyResponse"> | string | null
+    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
   }, "id">
 
-  export type ResponseOrderByWithAggregationInput = {
+  export type SurveyResponseOrderByWithAggregationInput = {
     id?: SortOrder
-    questionId?: SortOrder
-    profileId?: SortOrderInput | SortOrder
-    choice?: SortOrder
-    createdAt?: SortOrder
-    _count?: ResponseCountOrderByAggregateInput
-    _max?: ResponseMaxOrderByAggregateInput
-    _min?: ResponseMinOrderByAggregateInput
+    profileId?: SortOrder
+    answers?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    status?: SortOrder
+    ip?: SortOrderInput | SortOrder
+    device?: SortOrderInput | SortOrder
+    _count?: SurveyResponseCountOrderByAggregateInput
+    _avg?: SurveyResponseAvgOrderByAggregateInput
+    _max?: SurveyResponseMaxOrderByAggregateInput
+    _min?: SurveyResponseMinOrderByAggregateInput
+    _sum?: SurveyResponseSumOrderByAggregateInput
   }
 
-  export type ResponseScalarWhereWithAggregatesInput = {
-    AND?: ResponseScalarWhereWithAggregatesInput | ResponseScalarWhereWithAggregatesInput[]
-    OR?: ResponseScalarWhereWithAggregatesInput[]
-    NOT?: ResponseScalarWhereWithAggregatesInput | ResponseScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Response"> | string
-    questionId?: StringWithAggregatesFilter<"Response"> | string
-    profileId?: StringNullableWithAggregatesFilter<"Response"> | string | null
-    choice?: StringWithAggregatesFilter<"Response"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Response"> | Date | string
+  export type SurveyResponseScalarWhereWithAggregatesInput = {
+    AND?: SurveyResponseScalarWhereWithAggregatesInput | SurveyResponseScalarWhereWithAggregatesInput[]
+    OR?: SurveyResponseScalarWhereWithAggregatesInput[]
+    NOT?: SurveyResponseScalarWhereWithAggregatesInput | SurveyResponseScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SurveyResponse"> | number
+    profileId?: IntWithAggregatesFilter<"SurveyResponse"> | number
+    answers?: JsonWithAggregatesFilter<"SurveyResponse">
+    startTime?: DateTimeWithAggregatesFilter<"SurveyResponse"> | Date | string
+    endTime?: DateTimeNullableWithAggregatesFilter<"SurveyResponse"> | Date | string | null
+    duration?: IntNullableWithAggregatesFilter<"SurveyResponse"> | number | null
+    status?: EnumSurveyStatusWithAggregatesFilter<"SurveyResponse"> | $Enums.SurveyStatus
+    ip?: StringNullableWithAggregatesFilter<"SurveyResponse"> | string | null
+    device?: StringNullableWithAggregatesFilter<"SurveyResponse"> | string | null
   }
 
   export type QuestionCreateInput = {
-    id?: string
     statementA: string
     statementB: string
     optionA?: string
     optionB?: string
     isActive?: boolean
     createdAt?: Date | string
-    responses?: ResponseCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionUncheckedCreateInput = {
-    id?: string
+    id?: number
     statementA: string
     statementB: string
     optionA?: string
     optionB?: string
     isActive?: boolean
     createdAt?: Date | string
-    responses?: ResponseUncheckedCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     statementA?: StringFieldUpdateOperationsInput | string
     statementB?: StringFieldUpdateOperationsInput | string
     optionA?: StringFieldUpdateOperationsInput | string
     optionB?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    responses?: ResponseUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     statementA?: StringFieldUpdateOperationsInput | string
     statementB?: StringFieldUpdateOperationsInput | string
     optionA?: StringFieldUpdateOperationsInput | string
     optionB?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    responses?: ResponseUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionCreateManyInput = {
-    id?: string
+    id?: number
     statementA: string
     statementB: string
     optionA?: string
@@ -4756,7 +4904,6 @@ export namespace Prisma {
   }
 
   export type QuestionUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
     statementA?: StringFieldUpdateOperationsInput | string
     statementB?: StringFieldUpdateOperationsInput | string
     optionA?: StringFieldUpdateOperationsInput | string
@@ -4766,7 +4913,7 @@ export namespace Prisma {
   }
 
   export type QuestionUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     statementA?: StringFieldUpdateOperationsInput | string
     statementB?: StringFieldUpdateOperationsInput | string
     optionA?: StringFieldUpdateOperationsInput | string
@@ -4776,53 +4923,51 @@ export namespace Prisma {
   }
 
   export type ProfileCreateInput = {
-    id?: string
     name?: string | null
-    profession: string
+    designation: $Enums.Designation
     institute: string
     email?: string | null
     phone?: string | null
     createdAt?: Date | string
-    responses?: ResponseCreateNestedManyWithoutProfileInput
+    responses?: SurveyResponseCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateInput = {
-    id?: string
+    id?: number
     name?: string | null
-    profession: string
+    designation: $Enums.Designation
     institute: string
     email?: string | null
     phone?: string | null
     createdAt?: Date | string
-    responses?: ResponseUncheckedCreateNestedManyWithoutProfileInput
+    responses?: SurveyResponseUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    profession?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationFieldUpdateOperationsInput | $Enums.Designation
     institute?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    responses?: ResponseUpdateManyWithoutProfileNestedInput
+    responses?: SurveyResponseUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    profession?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationFieldUpdateOperationsInput | $Enums.Designation
     institute?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    responses?: ResponseUncheckedUpdateManyWithoutProfileNestedInput
+    responses?: SurveyResponseUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileCreateManyInput = {
-    id?: string
+    id?: number
     name?: string | null
-    profession: string
+    designation: $Enums.Designation
     institute: string
     email?: string | null
     phone?: string | null
@@ -4830,9 +4975,8 @@ export namespace Prisma {
   }
 
   export type ProfileUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    profession?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationFieldUpdateOperationsInput | $Enums.Designation
     institute?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4840,67 +4984,104 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    profession?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationFieldUpdateOperationsInput | $Enums.Designation
     institute?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ResponseCreateInput = {
-    id?: string
-    choice: string
-    createdAt?: Date | string
-    question: QuestionCreateNestedOneWithoutResponsesInput
-    profile?: ProfileCreateNestedOneWithoutResponsesInput
+  export type SurveyResponseCreateInput = {
+    answers: JsonNullValueInput | InputJsonValue
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    status?: $Enums.SurveyStatus
+    ip?: string | null
+    device?: string | null
+    profile: ProfileCreateNestedOneWithoutResponsesInput
   }
 
-  export type ResponseUncheckedCreateInput = {
-    id?: string
-    questionId: string
-    profileId?: string | null
-    choice: string
-    createdAt?: Date | string
+  export type SurveyResponseUncheckedCreateInput = {
+    id?: number
+    profileId: number
+    answers: JsonNullValueInput | InputJsonValue
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    status?: $Enums.SurveyStatus
+    ip?: string | null
+    device?: string | null
   }
 
-  export type ResponseUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    question?: QuestionUpdateOneRequiredWithoutResponsesNestedInput
-    profile?: ProfileUpdateOneWithoutResponsesNestedInput
+  export type SurveyResponseUpdateInput = {
+    answers?: JsonNullValueInput | InputJsonValue
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    device?: NullableStringFieldUpdateOperationsInput | string | null
+    profile?: ProfileUpdateOneRequiredWithoutResponsesNestedInput
   }
 
-  export type ResponseUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    questionId?: StringFieldUpdateOperationsInput | string
-    profileId?: NullableStringFieldUpdateOperationsInput | string | null
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type SurveyResponseUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    device?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ResponseCreateManyInput = {
-    id?: string
-    questionId: string
-    profileId?: string | null
-    choice: string
-    createdAt?: Date | string
+  export type SurveyResponseCreateManyInput = {
+    id?: number
+    profileId: number
+    answers: JsonNullValueInput | InputJsonValue
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    status?: $Enums.SurveyStatus
+    ip?: string | null
+    device?: string | null
   }
 
-  export type ResponseUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type SurveyResponseUpdateManyMutationInput = {
+    answers?: JsonNullValueInput | InputJsonValue
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    device?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ResponseUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    questionId?: StringFieldUpdateOperationsInput | string
-    profileId?: NullableStringFieldUpdateOperationsInput | string | null
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type SurveyResponseUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    device?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4934,16 +5115,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type ResponseListRelationFilter = {
-    every?: ResponseWhereInput
-    some?: ResponseWhereInput
-    none?: ResponseWhereInput
-  }
-
-  export type ResponseOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type QuestionCountOrderByAggregateInput = {
     id?: SortOrder
     statementA?: SortOrder
@@ -4952,6 +5123,10 @@ export namespace Prisma {
     optionB?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type QuestionAvgOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type QuestionMaxOrderByAggregateInput = {
@@ -4972,6 +5147,26 @@ export namespace Prisma {
     optionB?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type QuestionSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -5029,25 +5224,46 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type EnumDesignationFilter<$PrismaModel = never> = {
+    equals?: $Enums.Designation | EnumDesignationFieldRefInput<$PrismaModel>
+    in?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    not?: NestedEnumDesignationFilter<$PrismaModel> | $Enums.Designation
+  }
+
+  export type SurveyResponseListRelationFilter = {
+    every?: SurveyResponseWhereInput
+    some?: SurveyResponseWhereInput
+    none?: SurveyResponseWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
+  export type SurveyResponseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProfileCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    profession?: SortOrder
+    designation?: SortOrder
     institute?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     createdAt?: SortOrder
   }
 
+  export type ProfileAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type ProfileMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    profession?: SortOrder
+    designation?: SortOrder
     institute?: SortOrder
     email?: SortOrder
     phone?: SortOrder
@@ -5057,11 +5273,15 @@ export namespace Prisma {
   export type ProfileMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    profession?: SortOrder
+    designation?: SortOrder
     institute?: SortOrder
     email?: SortOrder
     phone?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type ProfileSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5082,52 +5302,183 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type QuestionScalarRelationFilter = {
-    is?: QuestionWhereInput
-    isNot?: QuestionWhereInput
+  export type EnumDesignationWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Designation | EnumDesignationFieldRefInput<$PrismaModel>
+    in?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    not?: NestedEnumDesignationWithAggregatesFilter<$PrismaModel> | $Enums.Designation
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDesignationFilter<$PrismaModel>
+    _max?: NestedEnumDesignationFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type ProfileNullableScalarRelationFilter = {
-    is?: ProfileWhereInput | null
-    isNot?: ProfileWhereInput | null
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type ResponseCountOrderByAggregateInput = {
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumSurveyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SurveyStatus | EnumSurveyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSurveyStatusFilter<$PrismaModel> | $Enums.SurveyStatus
+  }
+
+  export type ProfileScalarRelationFilter = {
+    is?: ProfileWhereInput
+    isNot?: ProfileWhereInput
+  }
+
+  export type SurveyResponseCountOrderByAggregateInput = {
     id?: SortOrder
-    questionId?: SortOrder
     profileId?: SortOrder
-    choice?: SortOrder
-    createdAt?: SortOrder
+    answers?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+    status?: SortOrder
+    ip?: SortOrder
+    device?: SortOrder
   }
 
-  export type ResponseMaxOrderByAggregateInput = {
+  export type SurveyResponseAvgOrderByAggregateInput = {
     id?: SortOrder
-    questionId?: SortOrder
     profileId?: SortOrder
-    choice?: SortOrder
-    createdAt?: SortOrder
+    duration?: SortOrder
   }
 
-  export type ResponseMinOrderByAggregateInput = {
+  export type SurveyResponseMaxOrderByAggregateInput = {
     id?: SortOrder
-    questionId?: SortOrder
     profileId?: SortOrder
-    choice?: SortOrder
-    createdAt?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+    status?: SortOrder
+    ip?: SortOrder
+    device?: SortOrder
   }
 
-  export type ResponseCreateNestedManyWithoutQuestionInput = {
-    create?: XOR<ResponseCreateWithoutQuestionInput, ResponseUncheckedCreateWithoutQuestionInput> | ResponseCreateWithoutQuestionInput[] | ResponseUncheckedCreateWithoutQuestionInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutQuestionInput | ResponseCreateOrConnectWithoutQuestionInput[]
-    createMany?: ResponseCreateManyQuestionInputEnvelope
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
+  export type SurveyResponseMinOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    duration?: SortOrder
+    status?: SortOrder
+    ip?: SortOrder
+    device?: SortOrder
   }
 
-  export type ResponseUncheckedCreateNestedManyWithoutQuestionInput = {
-    create?: XOR<ResponseCreateWithoutQuestionInput, ResponseUncheckedCreateWithoutQuestionInput> | ResponseCreateWithoutQuestionInput[] | ResponseUncheckedCreateWithoutQuestionInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutQuestionInput | ResponseCreateOrConnectWithoutQuestionInput[]
-    createMany?: ResponseCreateManyQuestionInputEnvelope
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
+  export type SurveyResponseSumOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    duration?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSurveyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SurveyStatus | EnumSurveyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSurveyStatusWithAggregatesFilter<$PrismaModel> | $Enums.SurveyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSurveyStatusFilter<$PrismaModel>
+    _max?: NestedEnumSurveyStatusFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5142,84 +5493,62 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type ResponseUpdateManyWithoutQuestionNestedInput = {
-    create?: XOR<ResponseCreateWithoutQuestionInput, ResponseUncheckedCreateWithoutQuestionInput> | ResponseCreateWithoutQuestionInput[] | ResponseUncheckedCreateWithoutQuestionInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutQuestionInput | ResponseCreateOrConnectWithoutQuestionInput[]
-    upsert?: ResponseUpsertWithWhereUniqueWithoutQuestionInput | ResponseUpsertWithWhereUniqueWithoutQuestionInput[]
-    createMany?: ResponseCreateManyQuestionInputEnvelope
-    set?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    disconnect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    delete?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    update?: ResponseUpdateWithWhereUniqueWithoutQuestionInput | ResponseUpdateWithWhereUniqueWithoutQuestionInput[]
-    updateMany?: ResponseUpdateManyWithWhereWithoutQuestionInput | ResponseUpdateManyWithWhereWithoutQuestionInput[]
-    deleteMany?: ResponseScalarWhereInput | ResponseScalarWhereInput[]
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
-  export type ResponseUncheckedUpdateManyWithoutQuestionNestedInput = {
-    create?: XOR<ResponseCreateWithoutQuestionInput, ResponseUncheckedCreateWithoutQuestionInput> | ResponseCreateWithoutQuestionInput[] | ResponseUncheckedCreateWithoutQuestionInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutQuestionInput | ResponseCreateOrConnectWithoutQuestionInput[]
-    upsert?: ResponseUpsertWithWhereUniqueWithoutQuestionInput | ResponseUpsertWithWhereUniqueWithoutQuestionInput[]
-    createMany?: ResponseCreateManyQuestionInputEnvelope
-    set?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    disconnect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    delete?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    update?: ResponseUpdateWithWhereUniqueWithoutQuestionInput | ResponseUpdateWithWhereUniqueWithoutQuestionInput[]
-    updateMany?: ResponseUpdateManyWithWhereWithoutQuestionInput | ResponseUpdateManyWithWhereWithoutQuestionInput[]
-    deleteMany?: ResponseScalarWhereInput | ResponseScalarWhereInput[]
+  export type SurveyResponseCreateNestedManyWithoutProfileInput = {
+    create?: XOR<SurveyResponseCreateWithoutProfileInput, SurveyResponseUncheckedCreateWithoutProfileInput> | SurveyResponseCreateWithoutProfileInput[] | SurveyResponseUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutProfileInput | SurveyResponseCreateOrConnectWithoutProfileInput[]
+    createMany?: SurveyResponseCreateManyProfileInputEnvelope
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
   }
 
-  export type ResponseCreateNestedManyWithoutProfileInput = {
-    create?: XOR<ResponseCreateWithoutProfileInput, ResponseUncheckedCreateWithoutProfileInput> | ResponseCreateWithoutProfileInput[] | ResponseUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutProfileInput | ResponseCreateOrConnectWithoutProfileInput[]
-    createMany?: ResponseCreateManyProfileInputEnvelope
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-  }
-
-  export type ResponseUncheckedCreateNestedManyWithoutProfileInput = {
-    create?: XOR<ResponseCreateWithoutProfileInput, ResponseUncheckedCreateWithoutProfileInput> | ResponseCreateWithoutProfileInput[] | ResponseUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutProfileInput | ResponseCreateOrConnectWithoutProfileInput[]
-    createMany?: ResponseCreateManyProfileInputEnvelope
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
+  export type SurveyResponseUncheckedCreateNestedManyWithoutProfileInput = {
+    create?: XOR<SurveyResponseCreateWithoutProfileInput, SurveyResponseUncheckedCreateWithoutProfileInput> | SurveyResponseCreateWithoutProfileInput[] | SurveyResponseUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutProfileInput | SurveyResponseCreateOrConnectWithoutProfileInput[]
+    createMany?: SurveyResponseCreateManyProfileInputEnvelope
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type ResponseUpdateManyWithoutProfileNestedInput = {
-    create?: XOR<ResponseCreateWithoutProfileInput, ResponseUncheckedCreateWithoutProfileInput> | ResponseCreateWithoutProfileInput[] | ResponseUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutProfileInput | ResponseCreateOrConnectWithoutProfileInput[]
-    upsert?: ResponseUpsertWithWhereUniqueWithoutProfileInput | ResponseUpsertWithWhereUniqueWithoutProfileInput[]
-    createMany?: ResponseCreateManyProfileInputEnvelope
-    set?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    disconnect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    delete?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    update?: ResponseUpdateWithWhereUniqueWithoutProfileInput | ResponseUpdateWithWhereUniqueWithoutProfileInput[]
-    updateMany?: ResponseUpdateManyWithWhereWithoutProfileInput | ResponseUpdateManyWithWhereWithoutProfileInput[]
-    deleteMany?: ResponseScalarWhereInput | ResponseScalarWhereInput[]
+  export type EnumDesignationFieldUpdateOperationsInput = {
+    set?: $Enums.Designation
   }
 
-  export type ResponseUncheckedUpdateManyWithoutProfileNestedInput = {
-    create?: XOR<ResponseCreateWithoutProfileInput, ResponseUncheckedCreateWithoutProfileInput> | ResponseCreateWithoutProfileInput[] | ResponseUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: ResponseCreateOrConnectWithoutProfileInput | ResponseCreateOrConnectWithoutProfileInput[]
-    upsert?: ResponseUpsertWithWhereUniqueWithoutProfileInput | ResponseUpsertWithWhereUniqueWithoutProfileInput[]
-    createMany?: ResponseCreateManyProfileInputEnvelope
-    set?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    disconnect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    delete?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    connect?: ResponseWhereUniqueInput | ResponseWhereUniqueInput[]
-    update?: ResponseUpdateWithWhereUniqueWithoutProfileInput | ResponseUpdateWithWhereUniqueWithoutProfileInput[]
-    updateMany?: ResponseUpdateManyWithWhereWithoutProfileInput | ResponseUpdateManyWithWhereWithoutProfileInput[]
-    deleteMany?: ResponseScalarWhereInput | ResponseScalarWhereInput[]
+  export type SurveyResponseUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<SurveyResponseCreateWithoutProfileInput, SurveyResponseUncheckedCreateWithoutProfileInput> | SurveyResponseCreateWithoutProfileInput[] | SurveyResponseUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutProfileInput | SurveyResponseCreateOrConnectWithoutProfileInput[]
+    upsert?: SurveyResponseUpsertWithWhereUniqueWithoutProfileInput | SurveyResponseUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: SurveyResponseCreateManyProfileInputEnvelope
+    set?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    disconnect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    delete?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    update?: SurveyResponseUpdateWithWhereUniqueWithoutProfileInput | SurveyResponseUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: SurveyResponseUpdateManyWithWhereWithoutProfileInput | SurveyResponseUpdateManyWithWhereWithoutProfileInput[]
+    deleteMany?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
   }
 
-  export type QuestionCreateNestedOneWithoutResponsesInput = {
-    create?: XOR<QuestionCreateWithoutResponsesInput, QuestionUncheckedCreateWithoutResponsesInput>
-    connectOrCreate?: QuestionCreateOrConnectWithoutResponsesInput
-    connect?: QuestionWhereUniqueInput
+  export type SurveyResponseUncheckedUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<SurveyResponseCreateWithoutProfileInput, SurveyResponseUncheckedCreateWithoutProfileInput> | SurveyResponseCreateWithoutProfileInput[] | SurveyResponseUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: SurveyResponseCreateOrConnectWithoutProfileInput | SurveyResponseCreateOrConnectWithoutProfileInput[]
+    upsert?: SurveyResponseUpsertWithWhereUniqueWithoutProfileInput | SurveyResponseUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: SurveyResponseCreateManyProfileInputEnvelope
+    set?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    disconnect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    delete?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    connect?: SurveyResponseWhereUniqueInput | SurveyResponseWhereUniqueInput[]
+    update?: SurveyResponseUpdateWithWhereUniqueWithoutProfileInput | SurveyResponseUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: SurveyResponseUpdateManyWithWhereWithoutProfileInput | SurveyResponseUpdateManyWithWhereWithoutProfileInput[]
+    deleteMany?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
   }
 
   export type ProfileCreateNestedOneWithoutResponsesInput = {
@@ -5228,22 +5557,39 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput
   }
 
-  export type QuestionUpdateOneRequiredWithoutResponsesNestedInput = {
-    create?: XOR<QuestionCreateWithoutResponsesInput, QuestionUncheckedCreateWithoutResponsesInput>
-    connectOrCreate?: QuestionCreateOrConnectWithoutResponsesInput
-    upsert?: QuestionUpsertWithoutResponsesInput
-    connect?: QuestionWhereUniqueInput
-    update?: XOR<XOR<QuestionUpdateToOneWithWhereWithoutResponsesInput, QuestionUpdateWithoutResponsesInput>, QuestionUncheckedUpdateWithoutResponsesInput>
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
-  export type ProfileUpdateOneWithoutResponsesNestedInput = {
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumSurveyStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SurveyStatus
+  }
+
+  export type ProfileUpdateOneRequiredWithoutResponsesNestedInput = {
     create?: XOR<ProfileCreateWithoutResponsesInput, ProfileUncheckedCreateWithoutResponsesInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutResponsesInput
     upsert?: ProfileUpsertWithoutResponsesInput
-    disconnect?: ProfileWhereInput | boolean
-    delete?: ProfileWhereInput | boolean
     connect?: ProfileWhereUniqueInput
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutResponsesInput, ProfileUpdateWithoutResponsesInput>, ProfileUncheckedUpdateWithoutResponsesInput>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5276,6 +5622,33 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -5291,17 +5664,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -5340,6 +5702,13 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedEnumDesignationFilter<$PrismaModel = never> = {
+    equals?: $Enums.Designation | EnumDesignationFieldRefInput<$PrismaModel>
+    in?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    not?: NestedEnumDesignationFilter<$PrismaModel> | $Enums.Designation
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5368,126 +5737,173 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type ResponseCreateWithoutQuestionInput = {
-    id?: string
-    choice: string
-    createdAt?: Date | string
-    profile?: ProfileCreateNestedOneWithoutResponsesInput
+  export type NestedEnumDesignationWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Designation | EnumDesignationFieldRefInput<$PrismaModel>
+    in?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Designation[] | ListEnumDesignationFieldRefInput<$PrismaModel>
+    not?: NestedEnumDesignationWithAggregatesFilter<$PrismaModel> | $Enums.Designation
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDesignationFilter<$PrismaModel>
+    _max?: NestedEnumDesignationFilter<$PrismaModel>
   }
 
-  export type ResponseUncheckedCreateWithoutQuestionInput = {
-    id?: string
-    profileId?: string | null
-    choice: string
-    createdAt?: Date | string
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type ResponseCreateOrConnectWithoutQuestionInput = {
-    where: ResponseWhereUniqueInput
-    create: XOR<ResponseCreateWithoutQuestionInput, ResponseUncheckedCreateWithoutQuestionInput>
+  export type NestedEnumSurveyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SurveyStatus | EnumSurveyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSurveyStatusFilter<$PrismaModel> | $Enums.SurveyStatus
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type ResponseCreateManyQuestionInputEnvelope = {
-    data: ResponseCreateManyQuestionInput | ResponseCreateManyQuestionInput[]
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumSurveyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SurveyStatus | EnumSurveyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SurveyStatus[] | ListEnumSurveyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSurveyStatusWithAggregatesFilter<$PrismaModel> | $Enums.SurveyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSurveyStatusFilter<$PrismaModel>
+    _max?: NestedEnumSurveyStatusFilter<$PrismaModel>
+  }
+
+  export type SurveyResponseCreateWithoutProfileInput = {
+    answers: JsonNullValueInput | InputJsonValue
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    status?: $Enums.SurveyStatus
+    ip?: string | null
+    device?: string | null
+  }
+
+  export type SurveyResponseUncheckedCreateWithoutProfileInput = {
+    id?: number
+    answers: JsonNullValueInput | InputJsonValue
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    status?: $Enums.SurveyStatus
+    ip?: string | null
+    device?: string | null
+  }
+
+  export type SurveyResponseCreateOrConnectWithoutProfileInput = {
+    where: SurveyResponseWhereUniqueInput
+    create: XOR<SurveyResponseCreateWithoutProfileInput, SurveyResponseUncheckedCreateWithoutProfileInput>
+  }
+
+  export type SurveyResponseCreateManyProfileInputEnvelope = {
+    data: SurveyResponseCreateManyProfileInput | SurveyResponseCreateManyProfileInput[]
     skipDuplicates?: boolean
   }
 
-  export type ResponseUpsertWithWhereUniqueWithoutQuestionInput = {
-    where: ResponseWhereUniqueInput
-    update: XOR<ResponseUpdateWithoutQuestionInput, ResponseUncheckedUpdateWithoutQuestionInput>
-    create: XOR<ResponseCreateWithoutQuestionInput, ResponseUncheckedCreateWithoutQuestionInput>
+  export type SurveyResponseUpsertWithWhereUniqueWithoutProfileInput = {
+    where: SurveyResponseWhereUniqueInput
+    update: XOR<SurveyResponseUpdateWithoutProfileInput, SurveyResponseUncheckedUpdateWithoutProfileInput>
+    create: XOR<SurveyResponseCreateWithoutProfileInput, SurveyResponseUncheckedCreateWithoutProfileInput>
   }
 
-  export type ResponseUpdateWithWhereUniqueWithoutQuestionInput = {
-    where: ResponseWhereUniqueInput
-    data: XOR<ResponseUpdateWithoutQuestionInput, ResponseUncheckedUpdateWithoutQuestionInput>
+  export type SurveyResponseUpdateWithWhereUniqueWithoutProfileInput = {
+    where: SurveyResponseWhereUniqueInput
+    data: XOR<SurveyResponseUpdateWithoutProfileInput, SurveyResponseUncheckedUpdateWithoutProfileInput>
   }
 
-  export type ResponseUpdateManyWithWhereWithoutQuestionInput = {
-    where: ResponseScalarWhereInput
-    data: XOR<ResponseUpdateManyMutationInput, ResponseUncheckedUpdateManyWithoutQuestionInput>
+  export type SurveyResponseUpdateManyWithWhereWithoutProfileInput = {
+    where: SurveyResponseScalarWhereInput
+    data: XOR<SurveyResponseUpdateManyMutationInput, SurveyResponseUncheckedUpdateManyWithoutProfileInput>
   }
 
-  export type ResponseScalarWhereInput = {
-    AND?: ResponseScalarWhereInput | ResponseScalarWhereInput[]
-    OR?: ResponseScalarWhereInput[]
-    NOT?: ResponseScalarWhereInput | ResponseScalarWhereInput[]
-    id?: StringFilter<"Response"> | string
-    questionId?: StringFilter<"Response"> | string
-    profileId?: StringNullableFilter<"Response"> | string | null
-    choice?: StringFilter<"Response"> | string
-    createdAt?: DateTimeFilter<"Response"> | Date | string
-  }
-
-  export type ResponseCreateWithoutProfileInput = {
-    id?: string
-    choice: string
-    createdAt?: Date | string
-    question: QuestionCreateNestedOneWithoutResponsesInput
-  }
-
-  export type ResponseUncheckedCreateWithoutProfileInput = {
-    id?: string
-    questionId: string
-    choice: string
-    createdAt?: Date | string
-  }
-
-  export type ResponseCreateOrConnectWithoutProfileInput = {
-    where: ResponseWhereUniqueInput
-    create: XOR<ResponseCreateWithoutProfileInput, ResponseUncheckedCreateWithoutProfileInput>
-  }
-
-  export type ResponseCreateManyProfileInputEnvelope = {
-    data: ResponseCreateManyProfileInput | ResponseCreateManyProfileInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ResponseUpsertWithWhereUniqueWithoutProfileInput = {
-    where: ResponseWhereUniqueInput
-    update: XOR<ResponseUpdateWithoutProfileInput, ResponseUncheckedUpdateWithoutProfileInput>
-    create: XOR<ResponseCreateWithoutProfileInput, ResponseUncheckedCreateWithoutProfileInput>
-  }
-
-  export type ResponseUpdateWithWhereUniqueWithoutProfileInput = {
-    where: ResponseWhereUniqueInput
-    data: XOR<ResponseUpdateWithoutProfileInput, ResponseUncheckedUpdateWithoutProfileInput>
-  }
-
-  export type ResponseUpdateManyWithWhereWithoutProfileInput = {
-    where: ResponseScalarWhereInput
-    data: XOR<ResponseUpdateManyMutationInput, ResponseUncheckedUpdateManyWithoutProfileInput>
-  }
-
-  export type QuestionCreateWithoutResponsesInput = {
-    id?: string
-    statementA: string
-    statementB: string
-    optionA?: string
-    optionB?: string
-    isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type QuestionUncheckedCreateWithoutResponsesInput = {
-    id?: string
-    statementA: string
-    statementB: string
-    optionA?: string
-    optionB?: string
-    isActive?: boolean
-    createdAt?: Date | string
-  }
-
-  export type QuestionCreateOrConnectWithoutResponsesInput = {
-    where: QuestionWhereUniqueInput
-    create: XOR<QuestionCreateWithoutResponsesInput, QuestionUncheckedCreateWithoutResponsesInput>
+  export type SurveyResponseScalarWhereInput = {
+    AND?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
+    OR?: SurveyResponseScalarWhereInput[]
+    NOT?: SurveyResponseScalarWhereInput | SurveyResponseScalarWhereInput[]
+    id?: IntFilter<"SurveyResponse"> | number
+    profileId?: IntFilter<"SurveyResponse"> | number
+    answers?: JsonFilter<"SurveyResponse">
+    startTime?: DateTimeFilter<"SurveyResponse"> | Date | string
+    endTime?: DateTimeNullableFilter<"SurveyResponse"> | Date | string | null
+    duration?: IntNullableFilter<"SurveyResponse"> | number | null
+    status?: EnumSurveyStatusFilter<"SurveyResponse"> | $Enums.SurveyStatus
+    ip?: StringNullableFilter<"SurveyResponse"> | string | null
+    device?: StringNullableFilter<"SurveyResponse"> | string | null
   }
 
   export type ProfileCreateWithoutResponsesInput = {
-    id?: string
     name?: string | null
-    profession: string
+    designation: $Enums.Designation
     institute: string
     email?: string | null
     phone?: string | null
@@ -5495,9 +5911,9 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedCreateWithoutResponsesInput = {
-    id?: string
+    id?: number
     name?: string | null
-    profession: string
+    designation: $Enums.Designation
     institute: string
     email?: string | null
     phone?: string | null
@@ -5507,37 +5923,6 @@ export namespace Prisma {
   export type ProfileCreateOrConnectWithoutResponsesInput = {
     where: ProfileWhereUniqueInput
     create: XOR<ProfileCreateWithoutResponsesInput, ProfileUncheckedCreateWithoutResponsesInput>
-  }
-
-  export type QuestionUpsertWithoutResponsesInput = {
-    update: XOR<QuestionUpdateWithoutResponsesInput, QuestionUncheckedUpdateWithoutResponsesInput>
-    create: XOR<QuestionCreateWithoutResponsesInput, QuestionUncheckedCreateWithoutResponsesInput>
-    where?: QuestionWhereInput
-  }
-
-  export type QuestionUpdateToOneWithWhereWithoutResponsesInput = {
-    where?: QuestionWhereInput
-    data: XOR<QuestionUpdateWithoutResponsesInput, QuestionUncheckedUpdateWithoutResponsesInput>
-  }
-
-  export type QuestionUpdateWithoutResponsesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    statementA?: StringFieldUpdateOperationsInput | string
-    statementB?: StringFieldUpdateOperationsInput | string
-    optionA?: StringFieldUpdateOperationsInput | string
-    optionB?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type QuestionUncheckedUpdateWithoutResponsesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    statementA?: StringFieldUpdateOperationsInput | string
-    statementB?: StringFieldUpdateOperationsInput | string
-    optionA?: StringFieldUpdateOperationsInput | string
-    optionB?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProfileUpsertWithoutResponsesInput = {
@@ -5552,9 +5937,8 @@ export namespace Prisma {
   }
 
   export type ProfileUpdateWithoutResponsesInput = {
-    id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    profession?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationFieldUpdateOperationsInput | $Enums.Designation
     institute?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5562,69 +5946,56 @@ export namespace Prisma {
   }
 
   export type ProfileUncheckedUpdateWithoutResponsesInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    profession?: StringFieldUpdateOperationsInput | string
+    designation?: EnumDesignationFieldUpdateOperationsInput | $Enums.Designation
     institute?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ResponseCreateManyQuestionInput = {
-    id?: string
-    profileId?: string | null
-    choice: string
-    createdAt?: Date | string
+  export type SurveyResponseCreateManyProfileInput = {
+    id?: number
+    answers: JsonNullValueInput | InputJsonValue
+    startTime: Date | string
+    endTime?: Date | string | null
+    duration?: number | null
+    status?: $Enums.SurveyStatus
+    ip?: string | null
+    device?: string | null
   }
 
-  export type ResponseUpdateWithoutQuestionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneWithoutResponsesNestedInput
+  export type SurveyResponseUpdateWithoutProfileInput = {
+    answers?: JsonNullValueInput | InputJsonValue
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    device?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ResponseUncheckedUpdateWithoutQuestionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    profileId?: NullableStringFieldUpdateOperationsInput | string | null
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type SurveyResponseUncheckedUpdateWithoutProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    device?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ResponseUncheckedUpdateManyWithoutQuestionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    profileId?: NullableStringFieldUpdateOperationsInput | string | null
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ResponseCreateManyProfileInput = {
-    id?: string
-    questionId: string
-    choice: string
-    createdAt?: Date | string
-  }
-
-  export type ResponseUpdateWithoutProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    question?: QuestionUpdateOneRequiredWithoutResponsesNestedInput
-  }
-
-  export type ResponseUncheckedUpdateWithoutProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    questionId?: StringFieldUpdateOperationsInput | string
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ResponseUncheckedUpdateManyWithoutProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    questionId?: StringFieldUpdateOperationsInput | string
-    choice?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type SurveyResponseUncheckedUpdateManyWithoutProfileInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    answers?: JsonNullValueInput | InputJsonValue
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumSurveyStatusFieldUpdateOperationsInput | $Enums.SurveyStatus
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    device?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

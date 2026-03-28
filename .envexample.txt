@@ -1,0 +1,21 @@
+ADMIN_USERNAME="rme.platform@gmail.com"
+ADMIN_PASSWORD="RME@123456"
+JWT_SECRET="rme-secure-survey-key-2024"
+
+
+#database
+DATABASE_URL="postgres://982e118deac0d5b7b07463da290274b6de4e477f942a134e68322d33e3f953ac:sk_0PttAdAm080pqVjCa2CHA@db.prisma.io:5432/postgres?sslmode=require"
+POSTGRES_URL="postgres://982e118deac0d5b7b07463da290274b6de4e477f942a134e68322d33e3f953ac:sk_0PttAdAm080pqVjCa2CHA@db.prisma.io:5432/postgres?sslmode=require"
+PRISMA_DATABASE_URL="postgres://982e118deac0d5b7b07463da290274b6de4e477f942a134e68322d33e3f953ac:sk_0PttAdAm080pqVjCa2CHA@db.prisma.io:5432/postgres?sslmode=require"
+POSTGRES_PRISMA_URL="postgres://982e118deac0d5b7b07463da290274b6de4e477f942a134e68322d33e3f953ac:sk_0PttAdAm080pqVjCa2CHA@db.prisma.io:5432/postgres?sslmode=require"
+POSTGRES_USER=default
+POSTGRES_HOST=ep-cool-darkness-123456.us-east-1.aws.neon.tech
+POSTGRES_PASSWORD=your_password
+POSTGRES_DATABASE=verceldb
+
+#database-2
+PASSWORD="UR0l0MwaiG0lvB3u"
+POSTGRES_DATABASE_URL=postgresql://postgres:UR0l0MwaiG0lvB3u@db.ftxkwcavfzsximxxsdsn.supabase.co:5432/postgres
+
+#database provider
+DATABASE_PROVIDER=postgresql

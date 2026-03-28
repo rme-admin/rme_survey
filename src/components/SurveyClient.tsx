@@ -1,114 +1,201 @@
 
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { submitResponse } from '@/app/actions/survey';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import SurveyProfileForm from "./SurveyProfileForm";
+import { createSurveyResponse, updateSurveyResponse } from "@/app/actions/surveyResponseStatus";
+import { Button } from "@/components/ui/button";
+import { linkedinUrl } from "@/lib/data/site-content.json";
+
+export type Question = {
+  id: number;
+  statementA: string;
+  statementB: string;
+  optionA: string;
+  optionB: string;
+};
+
 
 interface SurveyClientProps {
-  question: {
-    id: string;
-    statementA: string;
-    statementB: string;
-    optionA: string;
-    optionB: string;
-  };
-  nextStep: number;
+  questions: Question[];
 }
 
-export default function SurveyClient({ question, nextStep }: SurveyClientProps) {
-  const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+export default function SurveyClient({ questions }: SurveyClientProps) {
 
-  const handleChoice = async (choice: string) => {
-    setSelected(choice);
-    setIsSubmitting(true);
-    
+  const [step, setStep] = useState(0); // 0 = profile, 1...N = questions, N+1 = complete
+  const [answers, setAnswers] = useState<{ [questionId: number]: string }>({});
+  const [surveyStarted, setSurveyStarted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [surveyResponseId, setSurveyResponseId] = useState<number | null>(null);
+  const [profileId, setProfileId] = useState<number | null>(null);
+  const [profileData, setProfileData] = useState<any>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  // Handle profile form submit: create SurveyResponse and store ids
+  const handleProfileSubmit = async (profile: any, createdProfileId: number) => {
+    setProfileData(profile);
+    setProfileId(createdProfileId);
+    setSurveyStarted(true);
+    setStep(1);
+    const now = new Date().toISOString();
     try {
-      await submitResponse({ questionId: question.id, choice });
-      router.push(`/survey?question=${nextStep}`);
-      setSelected(null);
-    } catch (error) {
-      console.error('Failed to submit response', error);
-    } finally {
-      setIsSubmitting(false);
+      const response = await createSurveyResponse({
+        profileId: createdProfileId,
+        answers: {},
+        startTime: now,
+      });
+      setSurveyResponseId(response.id);
+    } catch (err) {
+      alert("Failed to start survey. Please try again.");
+      setSurveyStarted(false);
+      setStep(0);
     }
   };
 
+  // Handle answer selection for a question
+  const handleAnswer = async (questionId: number, choice: string) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: choice }));
+    if (step === questions.length) {
+      setIsSubmitting(true);
+      try {
+        const endTime = new Date();
+        await updateSurveyResponse({
+          id: surveyResponseId,
+          answers: { ...answers, [questionId]: choice },
+          endTime: endTime.toISOString(),
+          status: "completed",
+        });
+        setCompleted(true);
+      } catch (err) {
+        alert("Failed to submit survey. Please try again.");
+      }
+      setIsSubmitting(false);
+    } else {
+      setStep((prev) => prev + 1);
+    }
+  };
+
+  // Handle start over (reset state and create new SurveyResponse)
+  const handleStartOver = async () => {
+    setAnswers({});
+    setStep(0);
+    setSurveyStarted(false);
+    setCompleted(false);
+    setSurveyResponseId(null);
+    setProfileData(null);
+    setProfileId(null);
+    // Optionally, you could re-create a new survey response here if needed
+  };
+
+  // Prevent SSR from accessing client state
+  if (!hasMounted) {
+    return null;
+  }
+
+  // Completion screen
+  if (completed) {
+    return (
+      <div className="w-full max-w-2xl mx-auto text-center p-12 bg-card rounded-2xl shadow-lg">
+        <h2 className="text-3xl font-black mb-4 uppercase text-primary">Survey Complete</h2>
+        <div className="w-20 h-1 bg-accent mx-auto mb-8" />
+        <p className="text-muted-foreground mb-6 leading-relaxed">
+          Thank you for participating. Your valuable insights help us build a more effective research ecosystem in India.
+        </p>
+        <div className="mb-8 text-base text-gray-700 bg-gray-100 rounded-lg p-4 border border-gray-200">
+          <strong>This form is exclusively developed and a product of IR-INFOTECH.</strong><br />
+          To get this solution, reach us at <a href="mailto:support@irinfotech.com" className="text-blue-700 underline">support@irinfotech.com</a>
+          {" "}or view our <a href="https://drive.google.com/file/d/1LF51tDoI6q_cdv2GS9SwjTg5S8uMXflY/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-blue-700 underline">IR INFOTECH brochure</a>.
+        </div>
+        <div className="flex flex-col gap-4 items-center">
+          <Button onClick={() => window.open(linkedinUrl, "_blank")}
+            className="bg-accent text-white px-8 py-4 font-bold uppercase">
+            Continue
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 0: Profile form
+  if (!surveyStarted && step === 0) {
+    return (
+      <div className="w-full max-w-2xl mx-auto">
+        <SurveyProfileForm onProfileSubmit={handleProfileSubmit} />
+      </div>
+    );
+  }
+
+  // Question steps
+  if (step > 0 && step <= questions.length) {
+    const q = questions[step - 1];
+    const questionNum = step;
+    return (
+      <div className="w-full min-h-[60vh] flex flex-col items-center justify-center font-[Poppins] bg-white">
+        <div className="flex w-full max-w-6xl items-center justify-center gap-8">
+          {/* Statement A */}
+          <div className="flex-1 flex flex-col items-center">
+            <div className="text-2xl font-semibold text-center mb-8 text-[#0A1629]">{q.statementA}</div>
+            <div className="flex gap-4">
+              <Button
+                disabled={isSubmitting}
+                onClick={() => handleAnswer(q.id, `${questionNum}A`)}
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
+              >
+                {q.optionA.toUpperCase()}
+              </Button>
+              <Button
+                disabled={isSubmitting}
+                onClick={() => handleAnswer(q.id, `${questionNum}B`)}
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
+              >
+                {q.optionB.toUpperCase()}
+              </Button>
+            </div>
+          </div>
+          {/* OR Divider */}
+          <div className="flex flex-col items-center justify-center relative h-full">
+            <div className="w-px h-48 bg-[#E3E7ED] absolute left-1/2 top-0 -translate-x-1/2" />
+            <div className="z-10 w-16 h-16 rounded-full bg-[#0A1629] flex items-center justify-center text-white text-xl font-bold mb-0 border-4 border-white" style={{ fontFamily: "Poppins, sans-serif" }}>OR</div>
+          </div>
+          {/* Statement B */}
+          <div className="flex-1 flex flex-col items-center">
+            <div className="text-2xl font-semibold text-center mb-8 text-[#0A1629]">{q.statementB}</div>
+            <div className="flex gap-4">
+              <Button
+                disabled={isSubmitting}
+                onClick={() => handleAnswer(q.id, `${questionNum}A`)}
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
+              >
+                {q.optionA.toUpperCase()}
+              </Button>
+              <Button
+                disabled={isSubmitting}
+                onClick={() => handleAnswer(q.id, `${questionNum}B`)}
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
+              >
+                {q.optionB.toUpperCase()}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // fallback
   return (
-    <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-4 md:gap-0">
-      {/* Column A */}
-      <div className="flex-1 flex flex-col items-center gap-8 p-6 text-center">
-        <p className="text-lg md:text-2xl font-medium leading-relaxed min-h-[100px] flex items-center">
-          {question.statementA}
-        </p>
-        <div className="flex gap-4 w-full justify-center">
-          <Button
-            disabled={isSubmitting}
-            onClick={() => handleChoice('A_1')}
-            className={cn(
-              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
-              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'A_1' && "ring-4 ring-white"
-            )}
-          >
-            {question.optionA}
-          </Button>
-          <Button
-            disabled={isSubmitting}
-            onClick={() => handleChoice('A_2')}
-            className={cn(
-              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
-              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'A_2' && "ring-4 ring-white"
-            )}
-          >
-            {question.optionB}
-          </Button>
-        </div>
-      </div>
-
-      {/* Central OR Circle */}
-      <div className="relative flex items-center justify-center p-4">
-        <div className="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-xl z-10">
-          OR
-        </div>
-        <div className="hidden md:block absolute w-[2px] h-[300px] bg-border -z-0" />
-      </div>
-
-      {/* Column B */}
-      <div className="flex-1 flex flex-col items-center gap-8 p-6 text-center">
-        <p className="text-lg md:text-2xl font-medium leading-relaxed min-h-[100px] flex items-center">
-          {question.statementB}
-        </p>
-        <div className="flex gap-4 w-full justify-center">
-          <Button
-            disabled={isSubmitting}
-            onClick={() => handleChoice('B_1')}
-            className={cn(
-              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
-              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'B_1' && "ring-4 ring-white"
-            )}
-          >
-            {question.optionA}
-          </Button>
-          <Button
-            disabled={isSubmitting}
-            onClick={() => handleChoice('B_2')}
-            className={cn(
-              "flex-1 max-w-[200px] py-6 text-lg font-bold uppercase transition-all duration-300",
-              "bg-accent hover:bg-orange-600 text-white border-b-4 border-orange-800",
-              selected === 'B_2' && "ring-4 ring-white"
-            )}
-          >
-            {question.optionB}
-          </Button>
-        </div>
-      </div>
+    <div className="w-full max-w-2xl mx-auto text-center p-12">
+      <p className="text-muted-foreground">Something went wrong. Please refresh the page and try again.</p>
+      <Button variant="outline" onClick={handleStartOver} className="mt-4">Start Over</Button>
     </div>
   );
 }

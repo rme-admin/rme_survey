@@ -58,29 +58,21 @@ export async function deleteQuestion(id: string) {
 export async function getStats() {
   try {
     const allQuestions = await db.question.findMany({
-      include: {
-        responses: true,
-      },
       orderBy: {
         createdAt: 'desc',
       },
     });
     
-    const stats = allQuestions.map((q) => {
-      const countA = q.responses.filter(r => r.choice.startsWith('A_')).length;
-      const countB = q.responses.filter(r => r.choice.startsWith('B_')).length;
-
-      return {
-        id: q.id,
-        statementA: q.statementA,
-        statementB: q.statementB,
-        optionA: q.optionA,
-        optionB: q.optionB,
-        countA,
-        countB,
-        isActive: q.isActive,
-      };
-    });
+    const stats = allQuestions.map((q) => ({
+      id: q.id,
+      statementA: q.statementA,
+      statementB: q.statementB,
+      optionA: q.optionA,
+      optionB: q.optionB,
+      countA: 0, // TODO: compute from SurveyResponse.answers
+      countB: 0, // TODO: compute from SurveyResponse.answers
+      isActive: q.isActive,
+    }));
 
     return stats;
   } catch (error) {

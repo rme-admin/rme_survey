@@ -3,33 +3,20 @@ import siteContent from '@/lib/data/site-content.json';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Globe, Mail, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import SurveyClient from '@/components/SurveyClient';
+import SurveyClientEntry from '@/components/SurveyClientEntry';
 import SurveyProfileForm from '@/components/SurveyProfileForm';
 import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
-// 1. Update the type to be a Promise
-export default async function SurveyPage({ 
-  searchParams 
-}: { 
-  searchParams: Promise<{ question?: string }> 
-}) {
-  
-  // 2. Await the searchParams
-  const resolvedSearchParams = await searchParams;
 
-  // Fetch questions from the database
+export default async function SurveyPage() {
+  // Fetch all active questions
   const questions = await db.question.findMany({
     where: { isActive: true },
     orderBy: { createdAt: 'asc' }
   });
-  
-  const activeQuestions = questions;
-  
-  // 3. Use the awaited search params variable here
-  const step = parseInt(resolvedSearchParams?.question || '0');
-  const totalSteps = activeQuestions.length + 1;
 
-  if (activeQuestions.length === 0) {
+  if (questions.length === 0) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
@@ -43,112 +30,37 @@ export default async function SurveyPage({
     );
   }
 
-  // Final Completion Screen
-  if (step >= totalSteps) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
-        <div className="bg-card border border-border p-12 text-center max-w-lg shadow-lg rounded-2xl">
-          <h2 className="text-3xl font-black mb-4 uppercase text-primary text-balance text-center">Survey Complete</h2>
-          <div className="w-20 h-1 bg-accent mx-auto mb-8" />
-          <p className="text-muted-foreground mb-12 leading-relaxed">
-            Thank you for participating in the <span className="font-bold text-primary">{siteContent.surveyTitle}</span>. Your valuable insights help us build a more effective research ecosystem in India.
-          </p>
-          <a 
-            href={siteContent.linkedinUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-accent text-white px-12 py-5 uppercase font-black tracking-widest inline-block rounded-none hover:bg-orange-700 transition-all shadow-lg hover:shadow-orange-200"
-          >
-            Finish & Continue
-          </a>
-        </div>
-      </div>
-    );
-  }
-
-  // Profile Form Step
-  if (step === activeQuestions.length) {
-    return (
-      <div className="min-h-screen bg-background flex flex-col">
-        <header className="p-6 border-b border-border bg-card shadow-sm">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <Link href="/">
-                <Image 
-                  src={siteContent.logoUrl} 
-                  alt={siteContent.siteName} 
-                  width={32}
-                  height={32} 
-                  className="rounded-md"
-                />
-              </Link>
-              <div className="space-y-1">
-                <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
-                  {siteContent.surveyTitle}
-                </h1>
-                <p className="text-xs text-primary font-bold uppercase italic">Final Step: Research Identity</p>
-              </div>
-            </div>
-            <div className="w-48 h-2 bg-secondary rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-accent transition-all duration-500" 
-                style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
-              />
-            </div>
-          </div>
-        </header>
-        <main className="flex-1 flex items-center justify-center p-6">
-          <SurveyProfileForm nextStep={step + 1} />
-        </main>
-      </div>
-    );
-  }
-
-  // Question Step
-  const currentQuestion = activeQuestions[step];
-
+  // Render the new survey client with all questions
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="p-6 border-b border-border bg-card shadow-sm">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+      <header className="w-full border-b border-border bg-white shadow-sm px-8 pt-6 pb-2 flex flex-col">
+        <div className="max-w-7xl w-full mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-              <Link href="/">
-                <Image 
-                  src={siteContent.logoUrl} 
-                  alt={siteContent.siteName} 
-                  width={32}
-                  height={32} 
-                  className="rounded-md"
-                />
-              </Link>
-            <div className="space-y-1">
-              <h1 className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
-                {siteContent.surveyTitle}
-              </h1>
-              <p className="text-xs text-primary font-bold uppercase">Question {step + 1} of {activeQuestions.length}</p>
+            <Link href="/">
+              <Image 
+                src={siteContent.logoUrl} 
+                alt={siteContent.siteName} 
+                width={40}
+                height={40} 
+                className="rounded-md"
+              />
+            </Link>
+            <div className="flex flex-col">
+              <span className="font-bold tracking-widest text-[#4B5C6B] text-lg uppercase leading-tight">{siteContent.surveyTitle}</span>
+                <span className="font-black text-xs text-[#4B5C6B] tracking-widest mb-1">QUESTION 1 OF {questions.length}</span>
             </div>
           </div>
-          <div className="w-48 h-2 bg-secondary rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-accent transition-all duration-500" 
-              style={{ width: `${((step + 1) / totalSteps) * 100}%` }}
-            />
-          </div>
+            <div className="flex flex-col items-end">
+              <div className="w-40 h-2 bg-[#F2F5F7] rounded-full">
+                <div className="h-2 bg-[#C6560A] rounded-full" style={{ width: `${(1/questions.length)*100}%` }} />
+              </div>
+            </div>
         </div>
       </header>
-
-      <main className="flex-1 flex items-center justify-center p-6">
-        <SurveyClient 
-          question={{
-            id: currentQuestion.id,
-            statementA: currentQuestion.statementA,
-            statementB: currentQuestion.statementB,
-            optionA: currentQuestion.optionA,
-            optionB: currentQuestion.optionB
-          }} 
-          nextStep={step + 1} 
-        />
-      </main>
+        <main className="flex-1 flex items-center justify-center p-6 bg-white">
+          {/* Pass all questions to SurveyClient for new flow */}
+          <SurveyClientEntry questions={questions} />
+        </main>
 
       <footer className="p-4 border-t border-border bg-card text-center">
         <p className="text-[10px] text-muted-foreground uppercase tracking-[0.2em]">

@@ -15,11 +15,11 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
-interface SurveyProfileFormProps {
-  nextStep: number;
+export interface SurveyProfileFormProps {
+  onProfileSubmit: (profile: any, createdProfileId: number) => void;
 }
 
-export default function SurveyProfileForm({ nextStep }: SurveyProfileFormProps) {
+export default function SurveyProfileForm({ onProfileSubmit }: SurveyProfileFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -39,11 +39,14 @@ export default function SurveyProfileForm({ nextStep }: SurveyProfileFormProps) 
     };
 
     try {
-      await submitProfile(data);
-      window.location.href = `/survey?question=${nextStep}`;
+      const result = await submitProfile(data);
+      if (result && result.success && result.profileId) {
+        onProfileSubmit(data, result.profileId);
+      } else {
+        // handle error
+      }
     } catch (error: any) {
       console.error('Failed to submit profile', error);
-      // Basic error handling for the mock
       if (error.errors) {
         const newErrors: Record<string, string> = {};
         error.errors.forEach((err: any) => {
@@ -80,8 +83,8 @@ export default function SurveyProfileForm({ nextStep }: SurveyProfileFormProps) 
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Research Scholar">Research Scholar</SelectItem>
-                  <SelectItem value="Bachelors">Bachelors</SelectItem>
-                  <SelectItem value="MSc">MSc</SelectItem>
+                  <SelectItem value="Undergraduate">Undergraduate</SelectItem>
+                  <SelectItem value="Post Graduate">Post Graduate</SelectItem>
                   <SelectItem value="Faculty">Faculty</SelectItem>
                   <SelectItem value="Scientist">Scientist</SelectItem>
                 </SelectContent>
@@ -112,7 +115,7 @@ export default function SurveyProfileForm({ nextStep }: SurveyProfileFormProps) 
               disabled={isSubmitting}
               className="w-full h-14 bg-accent hover:bg-orange-700 text-white text-lg font-bold uppercase tracking-widest rounded-xl transition-all"
             >
-              {isSubmitting ? 'Submitting...' : 'Complete Survey'}
+              {isSubmitting ? 'Submitting...' : 'Continue to Survey'}
             </Button>
           </div>
         </form>

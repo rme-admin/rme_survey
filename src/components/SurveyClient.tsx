@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -58,27 +57,16 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
   };
 
   // Handle answer selection for a question
-  const handleAnswer = async (questionId: number, choice: string) => {
-    // Parse choice (e.g., '1A' or '2B')
-    const qIndex = step - 1;
-    const q = questions[qIndex];
-    let statement = '';
-    let option = '';
-    if (choice.endsWith('A')) {
-      statement = q.statementA;
-      option = q.optionA;
-    } else if (choice.endsWith('B')) {
-      statement = q.statementB;
-      option = q.optionB;
-    }
+  // codeType: '1A' | '1B' | '2A' | '2B'
+  const handleAnswer = async (questionId: number, codeType: '1A' | '1B' | '2A' | '2B', statement: string, option: string) => {
+    const key = String(questionId);
     const updatedAnswers = {
       ...answers,
-      [questionId]: { statement, option, code: choice },
+      [key]: { code: codeType, option, statement },
     };
     setAnswers(updatedAnswers);
     setIsSubmitting(true);
     try {
-      // Update the survey response in the DB on every answer
       await updateSurveyResponse({
         id: surveyResponseId,
         answers: updatedAnswers,
@@ -160,7 +148,7 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
             <div className="flex flex-col xs:flex-row gap-3 md:gap-4 w-full justify-center">
               <Button
                 disabled={isSubmitting}
-                onClick={() => handleAnswer(q.id, `${questionNum}A`)}
+                onClick={() => handleAnswer(q.id, '1A', q.statementA, q.optionA)}
                 className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >
@@ -168,7 +156,7 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
               </Button>
               <Button
                 disabled={isSubmitting}
-                onClick={() => handleAnswer(q.id, `${questionNum}B`)}
+                onClick={() => handleAnswer(q.id, '1B', q.statementA, q.optionB)}
                 className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >
@@ -190,7 +178,7 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
             <div className="flex flex-col xs:flex-row gap-3 md:gap-4 w-full justify-center">
               <Button
                 disabled={isSubmitting}
-                onClick={() => handleAnswer(q.id, `${questionNum}A`)}
+                onClick={() => handleAnswer(q.id, '2A', q.statementB, q.optionA)}
                 className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >
@@ -198,7 +186,7 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
               </Button>
               <Button
                 disabled={isSubmitting}
-                onClick={() => handleAnswer(q.id, `${questionNum}B`)}
+                onClick={() => handleAnswer(q.id, '2B', q.statementB, q.optionB)}
                 className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >

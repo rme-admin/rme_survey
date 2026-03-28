@@ -87,16 +87,17 @@ export default async function AdminDashboard() {
                 <TableRow className="hover:bg-transparent font-bold">
                   <TableHead className="w-[100px]">Status</TableHead>
                   <TableHead>Comparison Statements & Labels</TableHead>
-                  <TableHead className="text-right">Choice A</TableHead>
-                  <TableHead className="text-right">Choice B</TableHead>
-                  <TableHead className="text-right">Ratio</TableHead>
+                  <TableHead className="text-center">1A</TableHead>
+                  <TableHead className="text-center">1B</TableHead>
+                  <TableHead className="text-center">2A</TableHead>
+                  <TableHead className="text-center">2B</TableHead>
+                  <TableHead className="text-center">Total</TableHead>
+                  <TableHead className="text-center">Ratios (%)</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {stats.map((q: any) => {
-                  const total = q.countA + q.countB;
-                  const percentA = total > 0 ? Math.round((q.countA / total) * 100) : 50;
                   return (
                     <TableRow key={q.id}>
                       <TableCell>
@@ -122,15 +123,17 @@ export default async function AdminDashboard() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="text-right font-mono font-bold text-accent">{q.countA}</TableCell>
-                      <TableCell className="text-right font-mono font-bold text-accent">{q.countB}</TableCell>
-                      <TableCell className="text-right w-[120px]">
-                        <div className="w-full bg-secondary h-2 mt-1 rounded-full overflow-hidden">
-                          <div className="bg-accent h-full" style={{ width: `${percentA}%` }} />
-                        </div>
-                        <div className="flex justify-between text-[10px] mt-1 font-bold">
-                          <span>{percentA}%</span>
-                          <span>{100 - percentA}%</span>
+                      <TableCell className="text-center font-mono font-bold text-accent">{q.count1A}</TableCell>
+                      <TableCell className="text-center font-mono font-bold text-accent">{q.count1B}</TableCell>
+                      <TableCell className="text-center font-mono font-bold text-accent">{q.count2A}</TableCell>
+                      <TableCell className="text-center font-mono font-bold text-accent">{q.count2B}</TableCell>
+                      <TableCell className="text-center font-mono font-bold">{q.total}</TableCell>
+                      <TableCell className="text-center">
+                        <div className="flex flex-col gap-1 text-xs">
+                          <span>1A: {q.ratio1A.toFixed(1)}%</span>
+                          <span>1B: {q.ratio1B.toFixed(1)}%</span>
+                          <span>2A: {q.ratio2A.toFixed(1)}%</span>
+                          <span>2B: {q.ratio2B.toFixed(1)}%</span>
                         </div>
                       </TableCell>
                       <TableCell className="text-right">

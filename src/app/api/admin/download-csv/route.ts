@@ -57,12 +57,26 @@ export async function GET() {
     const questionData = [];
     for (let i = 0; i < questions.length; i++) {
       const q = questions[i];
-      const ans = answers[q.id] || {};
+      const ans = answers[q.id];
       const qOptions = `${q.statementA} | ${q.statementB} | ${q.optionA}/${q.optionB}`;
+      let statement = 'NA', option = 'NA';
+      if (ans && typeof ans === 'object') {
+        statement = ans.statement || 'NA';
+        option = ans.option || 'NA';
+      } else if (typeof ans === 'string') {
+        // fallback for old data: parse code
+        if (ans.endsWith('A')) {
+          statement = q.statementA;
+          option = q.optionA;
+        } else if (ans.endsWith('B')) {
+          statement = q.statementB;
+          option = q.optionB;
+        }
+      }
       questionData.push(
         qOptions || 'NA',
-        ans.statement || 'NA',
-        ans.option || 'NA'
+        statement,
+        option
       );
     }
     // Only show time (HH:MM:SS) for start time and end time

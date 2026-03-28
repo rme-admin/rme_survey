@@ -26,7 +26,7 @@ export default async function AdminDashboard() {
             <Plus className="h-5 w-5 text-accent" />
             <h2 className="text-xl font-bold uppercase text-primary">Add New Research Question</h2>
           </div>
-          <form action="/api/admin/add-question" method="POST" className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <form action={addQuestion} className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-2">
               <label className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Statement A (Left)</label>
               <Textarea 

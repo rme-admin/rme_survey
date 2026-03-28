@@ -57,44 +57,46 @@ export default async function AdminResponsesPage() {
               <TableHead>Email</TableHead>
               <TableHead>Phone</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Start Time</TableHead>
-              <TableHead>End Time</TableHead>
               <TableHead>Duration (s)</TableHead>
-              <TableHead>IP</TableHead>
-              <TableHead>Device</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {responses.map((r: any) => (
-              <TableRow key={r.id}>
-                <TableCell>
-                  <Link href={`/admin/responses/${r.id}`} className="text-primary underline font-bold">
-                    {r.id}
-                  </Link>
-                </TableCell>
-                <TableCell>{r.profile?.name || '-'}</TableCell>
-                <TableCell>{r.profile?.designation || '-'}</TableCell>
-                <TableCell>{r.profile?.institute || '-'}</TableCell>
-                <TableCell>{r.profile?.email || '-'}</TableCell>
-                <TableCell>{r.profile?.phone || '-'}</TableCell>
-                <TableCell>{r.status}</TableCell>
-                <TableCell>{r.startTime ? new Date(r.startTime).toLocaleString() : '-'}</TableCell>
-                <TableCell>{r.endTime ? new Date(r.endTime).toLocaleString() : '-'}</TableCell>
-                <TableCell>{r.duration != null ? r.duration : '-'}</TableCell>
-                <TableCell>{r.ip || '-'}</TableCell>
-                <TableCell>{r.device || '-'}</TableCell>
-                <TableCell>
-                  <form action={deleteResponseAndProfileAction}>
-                    <input type="hidden" name="responseId" value={r.id} />
-                    <input type="hidden" name="profileId" value={r.profileId || ''} />
-                    <Button type="submit" size="icon" variant="ghost" className="text-destructive">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </form>
-                </TableCell>
-              </TableRow>
-            ))}
+            {responses.map((r: any) => {
+              let duration = '-';
+              if (r.startTime && r.endTime) {
+                const start = new Date(r.startTime);
+                const end = new Date(r.endTime);
+                duration = ((end.getTime() - start.getTime()) / 1000).toFixed(0);
+              } else if (r.duration != null) {
+                duration = r.duration;
+              }
+              return (
+                <TableRow key={r.id}>
+                  <TableCell>
+                    <Link href={`/admin/responses/${r.id}`} className="text-primary underline font-bold">
+                      {r.id}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{r.profile?.name || '-'}</TableCell>
+                  <TableCell>{r.profile?.designation || '-'}</TableCell>
+                  <TableCell>{r.profile?.institute || '-'}</TableCell>
+                  <TableCell>{r.profile?.email || '-'}</TableCell>
+                  <TableCell>{r.profile?.phone || '-'}</TableCell>
+                  <TableCell>{r.status}</TableCell>
+                  <TableCell>{duration}</TableCell>
+                  <TableCell>
+                    <form action={deleteResponseAndProfileAction}>
+                      <input type="hidden" name="responseId" value={r.id} />
+                      <input type="hidden" name="profileId" value={r.profileId || ''} />
+                      <Button type="submit" size="icon" variant="ghost" className="text-destructive">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </form>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>

@@ -18,11 +18,11 @@ export type Question = {
 
 interface SurveyClientProps {
   questions: Question[];
+  step: number;
+  setStep: (step: number | ((prev: number) => number)) => void;
 }
 
-export default function SurveyClient({ questions }: SurveyClientProps) {
-
-  const [step, setStep] = useState(0); // 0 = profile, 1...N = questions, N+1 = complete
+export default function SurveyClient({ questions, step, setStep }: SurveyClientProps) {
   const [answers, setAnswers] = useState<{ [questionId: number]: string }>({});
   const [surveyStarted, setSurveyStarted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,25 +59,27 @@ export default function SurveyClient({ questions }: SurveyClientProps) {
 
   // Handle answer selection for a question
   const handleAnswer = async (questionId: number, choice: string) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: choice }));
-    if (step === questions.length) {
-      setIsSubmitting(true);
-      try {
-        const endTime = new Date();
-        await updateSurveyResponse({
-          id: surveyResponseId,
-          answers: { ...answers, [questionId]: choice },
-          endTime: endTime.toISOString(),
-          status: "completed",
-        });
+    // Always use the latest answers object
+    const updatedAnswers = { ...answers, [questionId]: choice };
+    setAnswers(updatedAnswers);
+    setIsSubmitting(true);
+    try {
+      // Update the survey response in the DB on every answer
+      await updateSurveyResponse({
+        id: surveyResponseId,
+        answers: updatedAnswers,
+        status: step === questions.length ? "completed" : "inprogress",
+        ...(step === questions.length && { endTime: new Date().toISOString() }),
+      });
+      if (step === questions.length) {
         setCompleted(true);
-      } catch (err) {
-        alert("Failed to submit survey. Please try again.");
+      } else {
+        setStep((prev) => prev + 1);
       }
-      setIsSubmitting(false);
-    } else {
-      setStep((prev) => prev + 1);
+    } catch (err) {
+      alert("Failed to save answer. Please try again.");
     }
+    setIsSubmitting(false);
   };
 
   // Handle start over (reset state and create new SurveyResponse)
@@ -135,16 +137,17 @@ export default function SurveyClient({ questions }: SurveyClientProps) {
     const q = questions[step - 1];
     const questionNum = step;
     return (
-      <div className="w-full min-h-[60vh] flex flex-col items-center justify-center font-[Poppins] bg-white">
-        <div className="flex w-full max-w-6xl items-center justify-center gap-8">
+      <div className="w-full min-h-[60vh] flex flex-col items-center justify-center font-[Poppins] bg-white px-2 sm:px-4 md:px-8 py-6">
+        {/* ...existing code... */}
+        <div className="flex flex-col md:flex-row w-full max-w-6xl items-stretch md:items-center justify-center gap-6 md:gap-8">
           {/* Statement A */}
-          <div className="flex-1 flex flex-col items-center">
-            <div className="text-2xl font-semibold text-center mb-8 text-[#0A1629]">{q.statementA}</div>
-            <div className="flex gap-4">
+          <div className="flex-1 flex flex-col items-center mb-8 md:mb-0">
+            <div className="text-lg sm:text-xl md:text-2xl font-semibold text-center mb-6 md:mb-8 text-[#0A1629]">{q.statementA}</div>
+            <div className="flex flex-col xs:flex-row gap-3 md:gap-4 w-full justify-center">
               <Button
                 disabled={isSubmitting}
                 onClick={() => handleAnswer(q.id, `${questionNum}A`)}
-                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >
                 {q.optionA.toUpperCase()}
@@ -152,7 +155,7 @@ export default function SurveyClient({ questions }: SurveyClientProps) {
               <Button
                 disabled={isSubmitting}
                 onClick={() => handleAnswer(q.id, `${questionNum}B`)}
-                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >
                 {q.optionB.toUpperCase()}
@@ -160,18 +163,21 @@ export default function SurveyClient({ questions }: SurveyClientProps) {
             </div>
           </div>
           {/* OR Divider */}
-          <div className="flex flex-col items-center justify-center relative h-full">
+          <div className="hidden md:flex flex-col items-center justify-center relative h-full mx-4">
             <div className="w-px h-48 bg-[#E3E7ED] absolute left-1/2 top-0 -translate-x-1/2" />
             <div className="z-10 w-16 h-16 rounded-full bg-[#0A1629] flex items-center justify-center text-white text-xl font-bold mb-0 border-4 border-white" style={{ fontFamily: "Poppins, sans-serif" }}>OR</div>
           </div>
+          <div className="flex md:hidden flex-row items-center justify-center my-4">
+            <div className="z-10 w-12 h-12 rounded-full bg-[#0A1629] flex items-center justify-center text-white text-lg font-bold border-4 border-white" style={{ fontFamily: "Poppins, sans-serif" }}>OR</div>
+          </div>
           {/* Statement B */}
           <div className="flex-1 flex flex-col items-center">
-            <div className="text-2xl font-semibold text-center mb-8 text-[#0A1629]">{q.statementB}</div>
-            <div className="flex gap-4">
+            <div className="text-lg sm:text-xl md:text-2xl font-semibold text-center mb-6 md:mb-8 text-[#0A1629]">{q.statementB}</div>
+            <div className="flex flex-col xs:flex-row gap-3 md:gap-4 w-full justify-center">
               <Button
                 disabled={isSubmitting}
                 onClick={() => handleAnswer(q.id, `${questionNum}A`)}
-                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >
                 {q.optionA.toUpperCase()}
@@ -179,7 +185,7 @@ export default function SurveyClient({ questions }: SurveyClientProps) {
               <Button
                 disabled={isSubmitting}
                 onClick={() => handleAnswer(q.id, `${questionNum}B`)}
-                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all"
+                className="bg-[#C6560A] text-white text-base md:text-lg font-bold px-6 md:px-8 py-3 rounded-md shadow-lg tracking-wide hover:bg-[#a94a08] transition-all w-full xs:w-auto"
                 style={{ fontFamily: "Poppins, sans-serif", boxShadow: "0px 4px 10px 0px rgba(198,86,10,0.15)" }}
               >
                 {q.optionB.toUpperCase()}

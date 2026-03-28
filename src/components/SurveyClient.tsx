@@ -59,8 +59,22 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
 
   // Handle answer selection for a question
   const handleAnswer = async (questionId: number, choice: string) => {
-    // Always use the latest answers object
-    const updatedAnswers = { ...answers, [questionId]: choice };
+    // Parse choice (e.g., '1A' or '2B')
+    const qIndex = step - 1;
+    const q = questions[qIndex];
+    let statement = '';
+    let option = '';
+    if (choice.endsWith('A')) {
+      statement = q.statementA;
+      option = q.optionA;
+    } else if (choice.endsWith('B')) {
+      statement = q.statementB;
+      option = q.optionB;
+    }
+    const updatedAnswers = {
+      ...answers,
+      [questionId]: { statement, option, code: choice },
+    };
     setAnswers(updatedAnswers);
     setIsSubmitting(true);
     try {
@@ -74,7 +88,7 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
       if (step === questions.length) {
         setCompleted(true);
       } else {
-        setStep((prev) => prev + 1);
+        setStep(step + 1);
       }
     } catch (err) {
       alert("Failed to save answer. Please try again.");

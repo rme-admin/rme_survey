@@ -58,7 +58,9 @@ export default async function SurveyResponseDetailPage({ params }: Props) {
                     <div className="font-semibold">B: {q.statementB}</div>
                   </TableCell>
                   <TableCell>
-                    {answer ? (
+                    {answer && typeof answer === 'object' ? (
+                      <span className="font-bold text-primary">{answer.option}</span>
+                    ) : answer ? (
                       <span className="font-bold text-primary">{answer}</span>
                     ) : (
                       <span className="text-muted-foreground">No response</span>

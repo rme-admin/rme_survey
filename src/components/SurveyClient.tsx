@@ -65,23 +65,25 @@ export default function SurveyClient({ questions, step, setStep }: SurveyClientP
       [key]: { code: codeType, option, statement },
     };
     setAnswers(updatedAnswers);
-    setIsSubmitting(true);
-    try {
-      await updateSurveyResponse({
-        id: surveyResponseId,
-        answers: updatedAnswers,
-        status: step === questions.length ? "completed" : "inprogress",
-        ...(step === questions.length && { endTime: new Date().toISOString() }),
-      });
-      if (step === questions.length) {
-        setCompleted(true);
-      } else {
-        setStep(step + 1);
-      }
-    } catch (err) {
-      alert("Failed to save answer. Please try again.");
+    // Instantly move to next question or complete
+    if (step === questions.length) {
+      setCompleted(true);
+    } else {
+      setStep(step + 1);
     }
-    setIsSubmitting(false);
+    // Fire-and-forget background submission
+    setIsSubmitting(true);
+    updateSurveyResponse({
+      id: surveyResponseId,
+      answers: updatedAnswers,
+      status: step === questions.length ? "completed" : "inprogress",
+      ...(step === questions.length && { endTime: new Date().toISOString() }),
+    })
+      .catch(() => {
+        // Optionally, you can show a toast or log error, but don't block navigation
+        // e.g. toast({ title: "Failed to save answer. Will retry at end." });
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   // Handle start over (reset state and create new SurveyResponse)

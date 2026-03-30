@@ -1,15 +1,11 @@
 
-
 export const dynamic = "force-dynamic";
-'use server';
-
 import { BarChart3, Download, Trash2 } from 'lucide-react';
 import { db } from '@/lib/db';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import Link from 'next/link';
 import { deleteResponseAndProfileAction, deleteAllResponsesAndProfilesAction } from './actions';
-
 
 async function getAllResponses() {
   return db.surveyResponse.findMany({
@@ -19,10 +15,6 @@ async function getAllResponses() {
     orderBy: { startTime: 'desc' },
   });
 }
-
-// CSV export logic will be updated in actions.ts
-
-// CSV export logic will be updated in actions.ts
 
 export default async function AdminResponsesPage() {
   const responses = await getAllResponses();

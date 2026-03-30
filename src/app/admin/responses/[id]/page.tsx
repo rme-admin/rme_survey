@@ -19,7 +19,7 @@ export default async function SurveyResponseDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8 max-w-3xl mx-auto">
+    <div className="min-h-screen bg-background p-8" style={{ width: '100%' }}>
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-2xl font-bold uppercase text-primary">Survey Response #{response.id}</h1>
         <Link href="/admin/responses" className="text-primary underline text-sm">Back to Responses</Link>
@@ -39,23 +39,36 @@ export default async function SurveyResponseDetailPage({ params }: Props) {
           <div><b>Device:</b> {response.device || '-'}</div>
         </div>
       </div>
-      <div className="bg-card p-6 rounded-xl border border-border">
+      <div className="bg-card p-6 rounded-xl border border-border" style={{ minWidth: '800px', width: '100%', maxWidth: '1400px', margin: '0 auto' }}>
         <h2 className="text-lg font-bold mb-4">Question-wise Responses</h2>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Question</TableHead>
+              <TableHead>Statement ID</TableHead>
               <TableHead>Selected Option</TableHead>
+              
             </TableRow>
           </TableHeader>
           <TableBody>
             {questions.map((q, idx) => {
               const answer = response.answers?.[q.id];
+              let statementId = '-';
+              if (answer && typeof answer === 'object') {
+                if (answer.option === q.optionA) statementId = '1';
+                else if (answer.option === q.optionB) statementId = '2';
+              } else if (answer) {
+                if (answer === q.optionA) statementId = '1';
+                else if (answer === q.optionB) statementId = '2';
+              }
               return (
                 <TableRow key={q.id}>
                   <TableCell>
                     <div className="font-semibold">A: {q.statementA}</div>
                     <div className="font-semibold">B: {q.statementB}</div>
+                  </TableCell>
+                  <TableCell>
+                    {statementId}
                   </TableCell>
                   <TableCell>
                     {answer && typeof answer === 'object' ? (
@@ -66,6 +79,7 @@ export default async function SurveyResponseDetailPage({ params }: Props) {
                       <span className="text-muted-foreground">No response</span>
                     )}
                   </TableCell>
+                  
                 </TableRow>
               );
             })}

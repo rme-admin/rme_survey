@@ -1,4 +1,6 @@
 
+
+export const dynamic = "force-dynamic";
 'use server';
 
 import { BarChart3, Download, Trash2 } from 'lucide-react';

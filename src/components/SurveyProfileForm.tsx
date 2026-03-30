@@ -115,7 +115,7 @@ export default function SurveyProfileForm({ onProfileSubmit }: SurveyProfileForm
               disabled={isSubmitting}
               className="w-full h-14 bg-accent hover:bg-orange-700 text-white text-lg font-bold uppercase tracking-widest rounded-xl transition-all"
             >
-              {isSubmitting ? 'Submitting...' : 'Continue to Survey'}
+              {isSubmitting ? 'Loading Survey...' : 'Continue to Survey'}
             </Button>
           </div>
         </form>

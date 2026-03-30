@@ -1,4 +1,5 @@
-"use server";
+
+export const dynamic = "force-dynamic";
 
 import { getStats, addQuestion, toggleQuestionStatus, deleteQuestion } from '@/app/actions/admin';
 import { Badge } from '@/components/ui/badge';
